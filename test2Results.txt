@@ -1,0 +1,7 @@
+For 20k pages collection would takx to index with each model:
+(AI Future 26) leeking@Leekings-MacBook-Air AI Future 26 % python test2.py 
+nomic-embed-text: 18.0 chunks/sec, 50k chunks ≈ 46 min
+mxbai-embed-large: 7.7 chunks/sec, 50k chunks ≈ 109 min
+qwen3-embedding:0.6b: 3.9 chunks/sec, 50k chunks ≈ 212 min
+bge-m3: 9.2 chunks/sec, 50k chunks ≈ 91 min
+
