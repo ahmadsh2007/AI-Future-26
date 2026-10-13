@@ -1,0 +1,144 @@
+(AI Future 26) leeking@Leekings-MacBook-Air quick_env_tests % ls
+اقامة_سنوية_بمهنة_(بلا)_وديعة_بنكية.pdf							-2024.pdf
+اقامة_سنوية_(افراد_عائلة،التحاق_بعائل)-1.pdf						quick_env_tests.py
+(AI Future 26) leeking@Leekings-MacBook-Air quick_env_tests % python quick_env_tests.py -2024.pdf 
+== Text processing
+[PASS] Arabic normalization + prefix stripping
+[PASS] BM25 matches different spellings
+[WARN] BM25 top-1: 4/5  ->  normal: BM25 misses synonyms, which is why you combine it with vectors
+
+== Ollama
+[PASS] Ollama is running
+[PASS] model qwen3:8b
+[PASS] model bge-m3
+[PASS] model qwen3-embedding:0.6b
+
+== Embeddings (retrieval accuracy + speed)
+[PASS] bge-m3: top-1 5/5, 7.6 chunks/sec  ->  50k chunks ~ 110 min, 5k chunks ~ 11.0 min
+[PASS] qwen3-embedding:0.6b: top-1 5/5, 3.6 chunks/sec  ->  50k chunks ~ 230 min, 5k chunks ~ 23.0 min
+
+== Reranker
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 393/393 [00:00<00:00, 7535.50it/s]
+[PASS] reranker top-1: 5/5
+
+== LLM
+[PASS] Qwen3 uses ~2.21 tokens per Arabic word  ->  a 500-token chunk ~ 225 words; 5 chunks of that ~ 2500 tokens of context
+      answer: ٨٠٠ دينار أردني.
+[PASS] LLM grounded answer (expects 800)
+[PASS] answer is 100% Arabic letters
+[PASS] total 6.7s (model load 3.9s)  ->  reads 166 tok/s, writes 19.7 tok/s
+      answer: لا تتوفر هذه المعلومة في المستندات.
+[PASS] LLM refuses unanswerable question (0.9s)
+
+== PDF extraction
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+[PASS] presentation forms  ->  none
+[PASS] word direction (normal 131, reversed 0)
+      first 300 chars (check by eye):
+1
+اولا :خدمات تسجيل الواقعات والقيود
+تسجيل واقعه /قيد ولده6
+تسجيل واقعه /قيد وفاه8
+تسجيل واقعه زواج10
+تسجيل واقعه طالق12
+ثاني ا :خدمات اصدار الشهادات المسجله سابقا
+اصدار شهاده لواقعه /قيد مسجله مسبق ا (ولده /وفاه /زواج /طالق)
+16
+اصدار شهاده لمن يهمه االمر /تطابق االسماء18
+اصدار شهاده صوره القيد الفر
+
+Done in 39s
+(AI Future 26) leeking@Leekings-MacBook-Air quick_env_tests % python quick_env_tests.py اقامة_سنوية_\(افراد_عائلة،التحاق_بعائل\)-1.pdf
+== Text processing
+[PASS] Arabic normalization + prefix stripping
+[PASS] BM25 matches different spellings
+[WARN] BM25 top-1: 4/5  ->  normal: BM25 misses synonyms, which is why you combine it with vectors
+
+== Ollama
+[PASS] Ollama is running
+[PASS] model qwen3:8b
+[PASS] model bge-m3
+[PASS] model qwen3-embedding:0.6b
+
+== Embeddings (retrieval accuracy + speed)
+[PASS] bge-m3: top-1 5/5, 7.6 chunks/sec  ->  50k chunks ~ 110 min, 5k chunks ~ 11.0 min
+[PASS] qwen3-embedding:0.6b: top-1 5/5, 3.6 chunks/sec  ->  50k chunks ~ 231 min, 5k chunks ~ 23.1 min
+
+== Reranker
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 393/393 [00:00<00:00, 8264.45it/s]
+[PASS] reranker top-1: 5/5
+
+== LLM
+[PASS] Qwen3 uses ~2.21 tokens per Arabic word  ->  a 500-token chunk ~ 225 words; 5 chunks of that ~ 2500 tokens of context
+      answer: ٨٠٠ دينار أردني.
+[PASS] LLM grounded answer (expects 800)
+[PASS] answer is 100% Arabic letters
+[PASS] total 5.6s (model load 2.8s)  ->  reads 165 tok/s, writes 20.7 tok/s
+      answer: لا تتوفر هذه المعلومة في المستندات.
+[PASS] LLM refuses unanswerable question (0.8s)
+
+== PDF extraction
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+[PASS] presentation forms  ->  none
+[PASS] word direction (normal 25, reversed 0)
+      first 300 chars (check by eye):
+ 
+بطاقه خدمه 
+اقامه سنويه–
+ افراد عائله ، التحاق بعائل 
+:وصف الخدمه 
+هي خدمه تمكن المواطنين االردنيين والرعايا االجانب المقيمين داخل المملكه االردنيه الهاشميه بالتقدم بطلب الحصول علي اقامه سنويه الفراد اسرهم 
+االجانب والمعالين من قبلهم وعلي كفالتهم الشخصيه ، 
+ والحصول علي اشعارالموافقه 
+  الكترونيا 
+
+Done in 79s
+(AI Future 26) leeking@Leekings-MacBook-Air quick_env_tests % python quick_env_tests.py اقامة_سنوية_بمهنة_\(بلا\)_وديعة_بنكية.pdf     
+== Text processing
+[PASS] Arabic normalization + prefix stripping
+[PASS] BM25 matches different spellings
+[WARN] BM25 top-1: 4/5  ->  normal: BM25 misses synonyms, which is why you combine it with vectors
+
+== Ollama
+[PASS] Ollama is running
+[PASS] model qwen3:8b
+[PASS] model bge-m3
+[PASS] model qwen3-embedding:0.6b
+
+== Embeddings (retrieval accuracy + speed)
+[PASS] bge-m3: top-1 5/5, 7.6 chunks/sec  ->  50k chunks ~ 110 min, 5k chunks ~ 11.0 min
+[PASS] qwen3-embedding:0.6b: top-1 5/5, 3.6 chunks/sec  ->  50k chunks ~ 231 min, 5k chunks ~ 23.1 min
+
+== Reranker
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 393/393 [00:00<00:00, 6889.50it/s]
+[PASS] reranker top-1: 5/5
+
+== LLM
+[PASS] Qwen3 uses ~2.21 tokens per Arabic word  ->  a 500-token chunk ~ 225 words; 5 chunks of that ~ 2500 tokens of context
+      answer: ٨٠٠ دينار أردني.
+[PASS] LLM grounded answer (expects 800)
+[PASS] answer is 100% Arabic letters
+[PASS] total 5.3s (model load 2.6s)  ->  reads 166 tok/s, writes 21.0 tok/s
+      answer: لا تتوفر هذه المعلومة في المستندات.
+[PASS] LLM refuses unanswerable question (0.8s)
+
+== PDF extraction
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+[PASS] presentation forms  ->  none
+[PASS] word direction (normal 18, reversed 0)
+      first 300 chars (check by eye):
+ 
+بطاقه خدمه 
+ اقامه سنويه بمهنه )(بال وديعه بنكيه 
+:وصف الخدمه 
+هي خدمه تمكن االجانب الراغبين باالقامه داخل المملكه االردنيه الهاشميه بالتقدم بطلب الحصول علي اقامه لهم والفراد اسرهم علي كفالتهم الشخصيه ، 
+والحصول علي اشعارالموافقه 
+ الكترونيا وضمن الشروط. 
+ 
+الفئات المستفيده :
+ 
+•
+ االجانب الراغبين
+
+Done in 93s
+
