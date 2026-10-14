@@ -48,11 +48,12 @@ def get_collection(reset: bool = False):
 
 
 def read_pdf(path: Path) -> list[tuple[int, str]]:
-    import fitz  # PyMuPDF
+    import pymupdf  # PyMuPDF
+    from pdf_extract import extract_page_text
     pages = []
-    with fitz.open(path) as doc:
+    with pymupdf.open(path) as doc:
         for i, page in enumerate(doc, start=1):
-            text = page.get_text("text", sort=True)
+            text = extract_page_text(page)
             if text.strip():
                 pages.append((i, text))
     if not pages:

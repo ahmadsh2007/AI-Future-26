@@ -84,7 +84,11 @@ def generate(messages: list[dict]) -> str:
             _hf["tok"] = AutoTokenizer.from_pretrained(config.LLM_MODEL)
             _hf["model"] = AutoModelForCausalLM.from_pretrained(config.LLM_MODEL, torch_dtype="auto", device_map="auto")
         tok, model = _hf["tok"], _hf["model"]
-        ids = tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").to(model.device)
+        if getattr(tok, "chat_template", None):
+            ids = tok.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt", return_dict=True)["input_ids"]
+        else:  # base model without a chat template: plain-text prompt
+            ids = tok("\n\n".join(m["content"] for m in messages) + "\n", return_tensors="pt")["input_ids"]
+        ids = ids.to(model.device)
         kw = {"do_sample": True, "temperature": config.LLM_TEMPERATURE} if config.LLM_TEMPERATURE > 0 else {"do_sample": False}
         out = model.generate(ids, max_new_tokens=config.LLM_MAX_NEW_TOKENS, **kw)
         return tok.decode(out[0][ids.shape[1]:], skip_special_tokens=True)
@@ -120,20 +124,33 @@ def answer_question(question: str, debug: bool = False) -> dict:
     return out
 
 
-def calibrate():
-    """Prints similarity of a few in-corpus vs. off-topic queries to pick SIM_THRESHOLD."""
+def calibrate(verbose: bool = True) -> dict:
+    """Scores in-corpus vs. off-topic queries and suggests a SIM_THRESHOLD.
+    In-corpus queries are the first sentences of real chunks (optimistic: real questions score a bit lower),
+    so the suggestion sits just above the off-topic ceiling rather than mid-gap."""
+    import random
     from ingest import get_collection
     col = get_collection()
-    sample = col.get(limit=5)["documents"]
-    print("In-corpus queries (first sentence of real chunks) -> best score:")
-    for d in sample:
+    docs = col.get()["documents"]
+    random.Random(0).shuffle(docs)
+    in_scores = []
+    for d in docs[:10]:
         q = re.split(r"(?<=[.؟!])\s", d)[0][:150]
-        print(f"  {retrieve(q, 1)[0]['score']:.3f}  {q[:60]}")
-    off = ["ما هي عاصمة اليابان؟", "كيف أطبخ المنسف؟", "من فاز بكأس العالم 2022؟", "اكتب لي قصيدة عن الحب"]
-    print("Off-topic queries -> best score:")
-    for q in off:
-        print(f"  {retrieve(q, 1)[0]['score']:.3f}  {q}")
-    print("\nSet SIM_THRESHOLD between the highest off-topic and the typical LOWER paraphrase score.")
+        in_scores.append(retrieve(q, 1)[0]["score"])
+    off = ["ما هي عاصمة اليابان؟", "كيف أطبخ المنسف؟", "من فاز بكأس العالم 2022؟", "اكتب لي قصيدة عن الحب",
+           "ما هو أفضل علاج للصداع؟", "كم تبعد الأرض عن الشمس؟"]
+    off_scores = [retrieve(q, 1)[0]["score"] for q in off]
+    res = {"in_min": min(in_scores), "off_max": max(off_scores)}
+    res["suggested"] = round(res["off_max"] + 0.03, 2)
+    res["separable"] = res["suggested"] < res["in_min"]
+    if verbose:
+        print(f"embed model     : {config.EMBED_MODEL}")
+        print(f"in-corpus  scores: min={res['in_min']:.3f}  (n={len(in_scores)})")
+        print(f"off-topic  scores: max={res['off_max']:.3f}  (n={len(off_scores)})")
+        print(f"current SIM_THRESHOLD={config.SIM_THRESHOLD}  ->  suggested SIM_THRESHOLD={res['suggested']}")
+        if not res["separable"]:
+            print("WARNING: off-topic and in-corpus scores overlap - rely on the prompt/LLM gate or try another embedding model.")
+    return res
 
 
 def main():

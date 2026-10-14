@@ -35,13 +35,16 @@ MIN_CHUNK_CHARS = int(os.getenv("MIN_CHUNK_CHARS", "40"))
 
 # ---------------------------------------------------------------- retrieval
 TOP_K = int(os.getenv("TOP_K", "5"))
-# Cosine similarity (0..1). bge-m3 default 0.55: off-topic queries scored <=0.51, real questions 0.62-0.93 in testing.
-# If the BEST chunk is below this, the LLM is never called.
-# NOTE: scores are model-dependent (e5 scores are compressed into ~0.7-0.9, bge-m3 spreads wider).
-# Calibrate on the day with:  python rag_pipeline.py --calibrate
-SIM_THRESHOLD = float(os.getenv("SIM_THRESHOLD", "0.55"))
+# Cosine similarity (0..1). If the BEST chunk is below SIM_THRESHOLD the LLM is never called.
+# Scores are embedding-model specific, so defaults are chosen per model (measured on the test corpus):
+#   bge-m3   : off-topic <= 0.51, real questions 0.62-0.93  -> 0.55
+#   e5-large : off-topic <= 0.77, real questions 0.84-0.93  -> 0.80 (e5 scores are compressed into ~0.7-0.95)
+# Env vars always win. For a NEW model / corpus calibrate with:  python rag_pipeline.py --calibrate
+_THRESHOLD_DEFAULTS = {"e5": (0.80, 0.75), "bge-m3": (0.55, 0.45)}  # (SIM_THRESHOLD, CONTEXT_MIN_SIM)
+_default_thr = next((v for k, v in _THRESHOLD_DEFAULTS.items() if k in EMBED_MODEL.lower()), (0.55, 0.45))
+SIM_THRESHOLD = float(os.getenv("SIM_THRESHOLD", _default_thr[0]))
 # Chunks below this are not passed to the LLM as context (keeps the prompt clean).
-CONTEXT_MIN_SIM = float(os.getenv("CONTEXT_MIN_SIM", "0.45"))
+CONTEXT_MIN_SIM = float(os.getenv("CONTEXT_MIN_SIM", _default_thr[1]))
 
 # ---------------------------------------------------------------- LLM
 # LLM_BACKEND: "ollama" | "openai" (vLLM / LM Studio / llama.cpp server) | "hf" (transformers)
