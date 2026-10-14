@@ -1,0 +1,11 @@
+# Core RAG stack (kept deliberately small - easy to debug)
+sentence-transformers>=3.0.0   # embeddings (bge-m3 / multilingual-e5-large) + optional reranker
+chromadb>=0.5.0                # local persistent vector DB (cosine)
+pymupdf>=1.24.0                # PDF text extraction
+huggingface-hub>=0.24.0        # model downloads
+transformers>=4.44.0           # only needed for LLM_BACKEND=hf
+accelerate>=0.33.0             # only needed for LLM_BACKEND=hf
+ollama>=0.3.0                  # only needed for LLM_BACKEND=ollama
+pandas>=2.0.0
+datasets>=2.20.0,<4.0.0        # download_test_data.py (<4 keeps script-based datasets working)
+openai>=1.0.0                  # only needed for LLM_BACKEND=openai (vLLM / LM Studio)

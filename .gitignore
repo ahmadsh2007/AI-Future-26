@@ -1,1 +1,7 @@
 .DS_Store
+data/vector_db/
+data/raw_docs/
+__pycache__/
+.venv/
+*.pyc
+data/test_pdfs/
