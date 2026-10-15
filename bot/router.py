@@ -29,6 +29,8 @@ _FIELD_PATTERNS = {
     "fees": (
         "رسوم", "الرسم", "بدفع", "ادفع", "بكلف", "بتكلف", "تكلفه",
         "سعر", "دينار", "غرامه", "كفاله", "تعهد مالي", "قيمه", "اغلي", "ارخص",
+        "مبلغ", "المبلغ", "مبالغ", "المبالغ", "مصاري", "فلوس", "بيترتب علي", "يترتب علي",
+        "بتترتب علي", "المجموع", "كلفه", "بتكلفني", "بيكلف", "يكلف", "تكلف",
     ),
     "documents": (
         "اوراق", "وثايق", "وثائق", "مستندات", "شو بدي اجيب",
@@ -196,7 +198,10 @@ def _detect_docs(text):
     mentions = []
     consumed = set()
     identity_descriptors = {"ذكيه", "شخصيه", "احوال", "مدنيه"}
-    has_military_book = _contains(text, "دفتر خدمه العلم")
+    has_military_book = any(
+        _contains(text, phrase)
+        for phrase in ("دفتر خدمه العلم", "دفاتر خدمه العلم", "دفترين خدمه العلم")
+    )
     for index, (word, start, end) in enumerate(items):
         if index in consumed:
             continue
@@ -206,16 +211,19 @@ def _detect_docs(text):
             nearby.update(_token_forms(item[0]))
         next_words = [item[0] for item in items[index + 1:index + 4]]
 
-        if _is_stem(word, ("جواز", "باسبور", "passport")):
+        if _is_stem(
+            word,
+            ("جواز", "جوازات", "جوازين", "باسبور", "باسبورات", "باسبورين", "passport"),
+        ):
             mentions.append(("passport", start, end))
             continue
 
         identity_word = (
-            _is_stem(word, ("هويه", "هويت", "هويات"))
+            _is_stem(word, ("هويه", "هويت", "هويات", "هويتين"))
             or any(form == "id" for form in forms)
             or _is_stem(word, ("ذكيه",), allow_suffix=False)
         )
-        card_word = _is_stem(word, ("بطاقه", "بطاقت"))
+        card_word = _is_stem(word, ("بطاقه", "بطاقت", "بطاقات", "بطاقتين"))
         card_is_trap = bool(nearby & _CARD_TRAPS)
         if (identity_word or card_word) and not card_is_trap:
             compound_end = end
@@ -231,7 +239,7 @@ def _detect_docs(text):
             mentions.append(("id_card", start, compound_end))
             continue
 
-        if _is_stem(word, ("دفتر",)):
+        if _is_stem(word, ("دفتر", "دفاتر", "دفترين")):
             is_service_booklet = len(next_words) >= 2 and (
                 _is_stem(next_words[0], ("خدمه",), allow_suffix=False)
                 and _is_stem(next_words[1], ("علم",), allow_suffix=False)
@@ -302,7 +310,10 @@ def _detect_situations(text, docs):
                     first_mentions.append(mention)
 
     phrase_terms = {
-        "first_issue": ("اول مره", "لاول مره", "للمره الاولي"),
+        "first_issue": (
+            "اول مره", "لاول مره", "للمره الاولي",
+            "اول جواز", "اول باسبور", "اول هويه", "اول بطاقه", "اول دفتر",
+        ),
         "renewal": (
             "انتهت صلاحيته", "انتهت صلاحيتها", "منتهي الصلاحيه",
             "خلصت صفحاته", "خلصت صفحات", "خلصت مدته", "خلصت صلاحيتها",
@@ -334,7 +345,8 @@ def _detect_situations(text, docs):
 
     renewal_stems = (
         "تجديد", "تجدد", "جدد", "اجدد", "يتجدد", "منتهي", "انتهي",
-        "انته", "خلص", "ممتلي", "تعبي", "مدد", "امدد", "تمديد",
+        "انته", "خلص", "خلصان", "خلصانه", "خالص", "مخلص", "ممتلي",
+        "تعبي", "مدد", "امدد", "تمديد",
     )
     lost_stems = (
         "ضاع", "ضايع", "ضيع", "فقد", "فاقد", "مفقود", "انسرق", "سرق",
@@ -421,13 +433,18 @@ def _detect_situations(text, docs):
 
     # Only infer a first issue from a positive issuance verb when no explicit
     # situation was stated. A request for a replacement is never first issue.
-    if not mentions and not _is_replacement_reference(text):
+    if not mentions and docs and not _is_replacement_reference(text):
         first_words = {
             "اصدار", "استصدار", "استخراج", "استخرج", "استخرجت", "اطلع",
-            "تطلع", "يطلع", "طلع", "اعمل", "جديد", "جديده",
+            "تطلع", "يطلع", "طلع", "اعمل",
         }
+        receiving_document = any(
+            _is_word_family(word, ("استلم", "تسلم")) for word, _, _ in items
+        )
         for word, start, end in items:
-            if _token_forms(word) & first_words or _is_word_family(word, issue_stems):
+            forms = _token_forms(word)
+            is_new_document = bool(forms & {"جديد", "جديده"}) and not receiving_document
+            if forms & first_words or is_new_document or _is_word_family(word, issue_stems):
                 mentions.append(("first_issue", start, end))
                 break
         if not mentions and docs and any(
@@ -513,7 +530,9 @@ def _is_out_of_scope(text, docs, situations):
     if not docs and any(
         _contains(text, phrase)
         for phrase in (
-            "دفتر خدمه العلم", "بطاقه الجسور", "بطاقه احصاءات الجسور",
+            "دفتر خدمه العلم", "دفاتر خدمه العلم", "دفترين خدمه العلم",
+            "بطاقه الجسور", "بطاقات الجسور", "بطاقه احصاءات الجسور",
+            "بطاقات احصاءات", "بطاقات احصاءات الجسور",
             "البطاقه الفلسطينيه", "بطاقه فلسطينيه", "البطاقه الاسرائيليه",
         )
     ):
@@ -594,6 +613,205 @@ def _resolve(docs, situations):
     return pairs, unresolved_docs, unresolved_situations
 
 
+_PERSON_CLAUSE_WORDS = {
+    "انا", "اني", "هو", "هي", "هم", "زوجي", "زوجتي", "جوزي", "مرتي",
+    "ابني", "بنتي", "امي", "ابوي", "اخي", "اختي", "اخوي", "ابونا", "امنا",
+}
+
+
+def _clause_start_kind(word):
+    """Classify conjunction-attached words that start an independent clause."""
+    forms = _token_forms(word)
+    if forms & _PERSON_CLAUSE_WORDS:
+        return "person"
+    if (
+        _is_stem(
+            word,
+            ("جواز", "جوازات", "جوازين", "باسبور", "باسبورات", "باسبورين", "passport"),
+        )
+        or _is_stem(word, ("هويه", "هويت", "هويات", "هويتين"))
+        or _is_stem(word, ("بطاقه", "بطاقت", "بطاقات", "بطاقتين"))
+        or _is_stem(word, ("دفتر", "دفاتر", "دفترين"))
+    ):
+        return "document"
+    return None
+
+
+def _split_clauses(question):
+    """Return normalized clauses and whether each continues a document list."""
+    source = question if isinstance(question, str) else str(question)
+    clauses = []
+    anchor = 0
+    for raw_part in re.split(r"[،,.;؛!?؟\n]+", source):
+        words = normalize(raw_part).split()
+        if not words:
+            continue
+        start = 0
+        shares_previous = False
+        index = 1
+        while index < len(words):
+            next_start = index
+            kind = None
+            if words[index] == "و" and index + 1 < len(words):
+                kind = _clause_start_kind(words[index + 1])
+                next_start = index + 1
+            elif words[index].startswith("و"):
+                kind = _clause_start_kind(words[index])
+            if kind:
+                clause = " ".join(words[start:index])
+                if clause:
+                    clauses.append((clause, anchor, shares_previous))
+                    anchor += len(clause) + 100
+                start = next_start
+                shares_previous = kind == "document"
+                index = start + 1
+                continue
+            index += 1
+        clause = " ".join(words[start:])
+        if clause:
+            clauses.append((clause, anchor, shares_previous))
+            anchor += len(clause) + 100
+    if clauses:
+        return clauses
+    return [(normalize(question), 0, False)]
+
+
+def _resolve_by_clause(question):
+    """Detect and resolve evidence locally before narrowly sharing situations."""
+    full_text = normalize(question)
+    has_military_book = any(
+        _contains(full_text, phrase)
+        for phrase in ("دفتر خدمه العلم", "دفاتر خدمه العلم", "دفترين خدمه العلم")
+    )
+    records = []
+    for clause, offset, shares_previous in _split_clauses(question):
+        docs = _detect_docs(clause)
+        situations = _detect_situations(clause, docs)
+        words = [item[0] for item in _token_items(clause)]
+        has_book_word = any(
+            _is_stem(word, ("دفتر", "دفاتر", "دفترين")) for word in words
+        )
+        has_family_label = has_book_word and any(
+            _is_stem(word, ("عايله", "عيله", "اسره", "عائلي"), allow_suffix=False)
+            for word in words
+        )
+        # A later bare "الدفتر" keeps referring to a previously introduced
+        # military-service booklet unless family wording explicitly changes it.
+        if has_military_book and has_book_word and not has_family_label:
+            docs = [doc for doc in docs if doc[0] != "family_book"]
+            situations = _detect_situations(clause, docs)
+        records.append({
+            "offset": offset,
+            "shares_previous": shares_previous,
+            "docs": docs,
+            "situations": situations,
+            "has_book_word": has_book_word,
+        })
+
+    # A newlywed/civil-record topic without an explicit booklet is context for
+    # an explicit family-book loss, damage, or renewal in a neighbouring clause.
+    for index, record in enumerate(records):
+        if record["has_book_word"] or not record["docs"]:
+            continue
+        if {item[0] for item in record["docs"]} != {"family_book"}:
+            continue
+        if {item[0] for item in record["situations"]} != {"first_issue"}:
+            continue
+        has_explicit_family_situation = any(
+            other_index != index
+            and any(doc[0] == "family_book" for doc in other["docs"])
+            and any(situation[0] != "first_issue" for situation in other["situations"])
+            for other_index, other in enumerate(records)
+        )
+        if has_explicit_family_situation:
+            record["docs"] = []
+            record["situations"] = []
+
+    # Preserve established pronoun continuations such as "it was stolen, my
+    # ID": with only one document and one situation, this is completion rather
+    # than sharing one situation across several documents.
+    doc_records = [record for record in records if record["docs"]]
+    situation_records = [record for record in records if record["situations"]]
+    if len(doc_records) == 1 and len(situation_records) == 1:
+        doc_record = doc_records[0]
+        situation_record = situation_records[0]
+        if doc_record is not situation_record and not doc_record["situations"]:
+            situation_names = {item[0] for item in situation_record["situations"]}
+            if len(situation_names) == 1 and not situation_record["docs"]:
+                situation = next(iter(situation_names))
+                position = doc_record["docs"][0][1]
+                doc_record["situations"] = [(situation, position, position)]
+                situation_record["situations"] = []
+
+    # A conjunction-started document may share one situation with its adjacent
+    # list item. Punctuation and person-started clauses never borrow evidence.
+    for _ in range(len(records)):
+        changed = False
+        for index, record in enumerate(records):
+            if not record["docs"] or record["situations"]:
+                continue
+            neighbours = []
+            if record["shares_previous"] and index > 0:
+                neighbours.append(records[index - 1])
+            if index + 1 < len(records) and records[index + 1]["shares_previous"]:
+                neighbours.append(records[index + 1])
+            for neighbour in neighbours:
+                situation_names = {item[0] for item in neighbour["situations"]}
+                if len(situation_names) != 1:
+                    continue
+                situation = next(iter(situation_names))
+                position = record["docs"][0][1]
+                record["situations"] = [(situation, position, position)]
+                changed = True
+                break
+        if not changed:
+            break
+
+    all_docs = []
+    all_situations = []
+    pairs = []
+    unresolved_docs = []
+    unresolved_situations = []
+    for record in records:
+        offset = record["offset"]
+        docs = record["docs"]
+        situations = record["situations"]
+        local_pairs, local_docs, local_situations = _resolve(docs, situations)
+        all_docs.extend((name, start + offset, end + offset) for name, start, end in docs)
+        all_situations.extend(
+            (name, start + offset, end + offset) for name, start, end in situations
+        )
+        pairs.extend((doc, situation, position + offset) for doc, situation, position in local_pairs)
+        unresolved_docs.extend(
+            (name, start + offset, end + offset) for name, start, end in local_docs
+        )
+        unresolved_situations.extend(
+            (name, start + offset, end + offset)
+            for name, start, end in local_situations
+        )
+
+    # Trailing field clauses may repeat evidence already resolved earlier.
+    resolved_doc_names = {doc for doc, _, _ in pairs}
+    resolved_situation_names = {situation for _, situation, _ in pairs}
+    unresolved_docs = [doc for doc in unresolved_docs if doc[0] not in resolved_doc_names]
+    unresolved_situations = [
+        situation
+        for situation in unresolved_situations
+        if situation[0] not in resolved_situation_names
+        and not (
+            situation[0] == "first_issue"
+            and bool(resolved_situation_names & {"lost", "damaged"})
+        )
+    ]
+    return (
+        _dedupe_mentions(all_docs),
+        _dedupe_mentions(all_situations),
+        pairs,
+        unresolved_docs,
+        unresolved_situations,
+    )
+
+
 def _history_context(history):
     if not history:
         return [], [], []
@@ -672,8 +890,13 @@ def route(question, history=None):
         if not text:
             return _result(schema.STATUS_OUT_OF_SCOPE, reason="empty question")
 
-        doc_mentions = _detect_docs(text)
-        situation_mentions = _detect_situations(text, doc_mentions)
+        (
+            doc_mentions,
+            situation_mentions,
+            pairs,
+            unresolved_docs,
+            unresolved_situations,
+        ) = _resolve_by_clause(question)
         fields = _detect_fields(text)
         mention_docs = [item[0] for item in doc_mentions]
         mention_situations = [item[0] for item in situation_mentions]
@@ -684,7 +907,6 @@ def route(question, history=None):
                 situations=mention_situations, reason="unsupported service is the subject",
             )
 
-        pairs, unresolved_docs, unresolved_situations = _resolve(doc_mentions, situation_mentions)
         inherited = False
         previous_docs, previous_situations, previous_fields = _history_context(history)
 

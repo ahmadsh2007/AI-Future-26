@@ -22,9 +22,10 @@ class AnswerTests(unittest.TestCase):
         ans, ctx, dbg = Bot(llm).answer("عمري 17 وجوازي باقي عليه 3 شهور، كم رسوم التجديد؟")
         self.assertIn("50", ans)
         prompt = llm.calls[0][1]
-        self.assertIn("أقل من 180 يوماً", prompt)   # precomputed comparison given to the model
-        self.assertIn("أكبر من 16 سنة", prompt)
-        self.assertTrue(ctx and all(c.startswith("تجديد جواز السفر") for c in ctx), ctx)
+        # code picked the applicable fee line and shows it to the model
+        self.assertIn("ينطبق: «50 دينار لمن هم فوق سن السادسة عشر", prompt)
+        self.assertIn("لا ينطبق: «25 دينار", prompt)
+        self.assertTrue(ctx and all(c.startswith("تجديد جواز السفر العادي") for c in ctx), ctx)
         self.assertTrue(any("50 دينار" in c for c in ctx), ctx)
         self.assertFalse(any("125" in c for c in ctx))
 
@@ -80,7 +81,8 @@ class AnswerTests(unittest.TestCase):
         a2, c2, d2 = bot.answer("وبقدر أقدّم الطلب من السفارة إذا كنت برا البلد؟", hist)
         self.assertEqual(d2["route"]["services"], ["family_book_renewal"])
         self.assertTrue(any("أماكن تقديم الخدمة" in c and "السفارات" in c for c in c2), c2)
-        self.assertIn("السؤال السابق", bot.llm.calls[1][1])
+        self.assertIn("رسالة متابعة", bot.llm.calls[1][1])
+        self.assertIn("يسأل عن أماكن تقديم الخدمة لخدمة تجديد دفتر العائلة", bot.llm.calls[1][1])
 
     def test_llm_failure_falls_back(self):
         class Broken:
@@ -99,7 +101,7 @@ class AnswerTests(unittest.TestCase):
         self.assertEqual(dbg["route"]["services"], ["id_card_damaged"])
         self.assertIn("damaged =", llm.calls[0][1])  # classification prompt offers the situations
         self.assertNotIn("passport", llm.calls[0][1])
-        self.assertTrue(all(c.startswith("بطاقة ذكية بدل تالف") for c in ctx), ctx)
+        self.assertTrue(all(c.startswith("بطاقة الأحوال المدنية الذكية بدل تالف") for c in ctx), ctx)
 
     def test_unclear_model_says_none_keeps_clarifying(self):
         q = "الهوية تبعتي صارت بحالة سيئة جداً بعد الرحلة الطويلة، شو بلزمني؟"
@@ -125,3 +127,116 @@ class AnswerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FalseDeclineTests(unittest.TestCase):
+    """Routing is ok but the model says the info is missing (the #1 failure with command-r7b)."""
+
+    def test_not_found_then_retry_answers(self):
+        llm = FakeLLM(["NOT_FOUND", "رسوم البطاقة الذكية بدل تالف 3 دنانير."])
+        ans, ctx, dbg = Bot(llm).answer("طيب والبطاقة الذكية بدل تالف قديش؟")
+        self.assertEqual(len(llm.calls), 2)
+        self.assertTrue(dbg.get("retry_not_found"))
+        self.assertIn("NOT_FOUND", llm.calls[0][0])            # marker, not a ready-made refusal sentence
+        self.assertNotIn("لا تتوفر لدي هذه المعلومة", llm.calls[0][0])
+        self.assertIn("3", ans)
+        self.assertTrue(ctx)
+
+    def test_old_refusal_sentence_also_retried(self):
+        llm = FakeLLM(["عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+                       "لا تُصرف البطاقة المفقودة إلا بعد أسبوعين من تاريخ تبليغ الشرطة وبموافقة مدير المديرية."])
+        ans, ctx, dbg = Bot(llm).answer("ضاعت هويتي وبلغت الشرطة امبارح، إيمتى بقدر أستلم البطاقة الجديدة؟")
+        self.assertIn("أسبوعين", ans)
+        self.assertTrue(any("ملاحظات" in c for c in ctx), ctx)
+
+    def test_decline_followed_by_real_answer_is_kept(self):
+        llm = FakeLLM(["عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.\n\nوفقاً للمصادر، يجب فتح السجل المدني قبل مرور 90 يوم من تاريخ عقد الزواج، "
+                       "وهناك غرامة قدرها 10 دنانير في حال التأخر."])
+        ans, ctx, dbg = Bot(llm).answer("دفتر العائلة لأول مرة بنطلعه وقت ما بدنا وما في أي غرامة، صح؟")
+        self.assertEqual(len(llm.calls), 1)
+        self.assertNotIn("عذراً", ans)
+        self.assertIn("90", ans)
+        self.assertTrue(ctx)
+
+    def test_two_not_found_gives_model_decline(self):
+        llm = FakeLLM(["NOT_FOUND", "NOT_FOUND", "عذراً، هذه المعلومة غير متوفرة في وثائق الخدمة."])
+        ans, ctx, dbg = Bot(llm).answer("هل بقدر أدفع رسوم تجديد الجواز بالبطاقة البنكية؟")
+        self.assertTrue(dbg.get("not_in_documents"))
+        self.assertEqual(ctx, [])
+        self.assertIn("عذراً", ans)
+        self.assertNotIn("NOT_FOUND", ans)
+
+    def test_clarify_list_numbers_are_removed(self):
+        llm = FakeLLM(["ما الوثيقة التي فقدتها؟\n1. جواز سفر بدل فاقد\n2. دفتر عائلة بدل فاقد\n3. بطاقة ذكية بدل فاقد"])
+        ans, ctx, dbg = Bot(llm).answer("ضاع مني، شو بعمل؟")
+        self.assertNotIn("template", dbg)
+        self.assertFalse(any(ch.isdigit() for ch in ans), ans)
+
+
+class FeeCaseTests(unittest.TestCase):
+    """Code picks the applicable fee line; the model only copies it."""
+
+    def setUp(self):
+        from bot.kb import load_kb
+        self.kb = load_kb()
+
+    def _cases(self, q):
+        from bot import fees, router
+        return fees.cases(q, router.route(q)["services"], self.kb)
+
+    def _amounts(self, case):
+        from bot.fees import _amount
+        return sorted(_amount(x) for x in case.apply)
+
+    def test_valid_passport_more_than_180_days(self):
+        c = self._cases("جوازي لسا ساري لسنة كاملة وعمري 35 وأنا بإربد، قديش تجديده؟")[0]
+        self.assertEqual(self._amounts(c), [100])
+
+    def test_urgent_office_total(self):
+        c = self._cases("جوازي منتهي وعمري 45 وبدي أجدده بالخدمة المستعجلة، كم المجموع؟")[0]
+        self.assertEqual(self._amounts(c), [25, 50])
+        self.assertEqual(c.total[1], 75)
+
+    def test_child_first_passport(self):
+        c = self._cases("بنتي عمرها 7 سنين بدنا نطلعلها جواز لأول مرة، قديش؟")[0]
+        self.assertEqual(self._amounts(c), [25])
+
+    def test_first_passport_abroad(self):
+        c = self._cases("عمري 30 ومقيم بقطر، بدي أطلع جواز سفر لأول مرة، كم الرسوم؟")[0]
+        self.assertEqual(self._amounts(c), [100])
+
+    def test_passport_lost_second_time(self):
+        c = self._cases("جوازي ضاع تاني مرة، قديش بدفع؟")[0]
+        self.assertEqual(self._amounts(c), [250])
+
+    def test_family_book_late_fine(self):
+        c = self._cases("اتجوزنا من خمس شهور ولسا ما طلعنا دفتر عائلة، قديش الرسوم؟")[0]
+        self.assertEqual(self._amounts(c), [2, 10])
+        self.assertEqual(c.total[1], 12)
+
+    def test_family_book_renewal_not_expired(self):
+        c = self._cases("دفتر العيلة لسا ساري بس بدي أجدده، قديش؟")[0]
+        self.assertEqual(self._amounts(c), [3])
+
+    def test_id_first_issue_adult_fine(self):
+        c = self._cases("عمري 21 وعمري ما طلعت هوية، قديش بدفع؟")[0]
+        self.assertEqual(self._amounts(c), [2, 10])
+
+    def test_unknown_situation_gives_alternatives(self):
+        c = self._cases("قديش رسوم تجديد دفتر العائلة؟")[0]
+        self.assertEqual(c.apply, [])
+        self.assertEqual(len(c.conditional), 2)
+
+    def test_multi_person_story(self):
+        q = ("أخوي ساكن بالسعودية وبدو يجدد جوازه، وأختي عمرها 12 وبدها جواز لأول مرة، "
+             "وأنا جوازي انمزق، قديش كل واحد بيدفع؟")
+        cs = {(c.service, c.who): self._amounts(c) for c in self._cases(q)}
+        self.assertEqual(cs.get(("passport_renewal", "الأخ")), [100])
+        self.assertEqual(cs.get(("passport_first_issue", "الأخت")), [25])
+        self.assertEqual(cs.get(("passport_damaged", "المستخدم نفسه")), [100])
+
+    def test_follow_up_uses_previous_question_facts(self):
+        from bot import fees
+        c = fees.cases("وإذا كنت برا البلد؟", ["passport_first_issue"], self.kb,
+                       previous=["كم رسوم جواز السفر لأول مرة؟"])[0]
+        self.assertEqual(self._amounts(c), [100])

@@ -570,5 +570,72 @@ for _index, _case in enumerate(_ROUND3_CASES, 1):
     _add_round3_test(_index, _case[0], _case[1], _case[2] if len(_case) > 2 else "ok")
 
 
+class Round4RouterTests(unittest.TestCase):
+    """Plural-document and clause-local situation regressions."""
+
+
+def _add_round4_test(number, question, expected_services, status="ok", fields=()):
+    def test(self):
+        result = route(question)
+        self.assertEqual(result["status"], status, (question, result))
+        self.assertEqual(result["services"], list(expected_services), (question, result))
+        for field in fields:
+            self.assertIn(field, result["fields"], (question, result))
+
+    setattr(Round4RouterTests, "test_round4_%03d" % number, test)
+
+
+_ROUND4_CASES = (
+    # Plural, dual, collective, and possessive-plural document forms.
+    ("أولادي الثلاثة بدهم جوازات جديدة، شو المبلغ؟", ("passport_first_issue",), "ok", ("fees",)),
+    ("بدي أجدد جوازاتهم قبل الرحلة", ("passport_renewal",)),
+    ("لازم أستخرج جوازين لولادي لأول مرة", ("passport_first_issue",)),
+    ("كم رسوم باسبوراتنا لأول مرة؟", ("passport_first_issue",), "ok", ("fees",)),
+    ("هوياتهم خلصانة وبدهم يجددوها", ("id_card_renewal",)),
+    ("البنتين ما طلعوا هويتين من قبل", ("id_card_first_issue",)),
+    ("بدنا نعمل بطاقاتنا الذكية لأول مرة", ("id_card_first_issue",)),
+    ("بطاقات الجسور ضاعت منا", (), "out_of_scope"),
+    ("كيف نجدد بطاقات إحصاءات الجسور؟", (), "out_of_scope"),
+    ("دفاترنا خالصة وبدها تجديد", ("family_book_renewal",)),
+    ("عرسان بدهم يطلعوا دفاتر عيلة", ("family_book_first_issue",)),
+    ("وين بنجدد دفاتر خدمة العلم؟", (), "out_of_scope"),
+    # First-document phrases and the added expiry synonyms.
+    ("كم كلفة أول جواز لابني؟", ("passport_first_issue",), "ok", ("fees",)),
+    ("وين بنطلع أول هوية للبنت؟", ("id_card_first_issue",)),
+    ("شو أوراق أول دفتر للزوجين؟", ("family_book_first_issue",)),
+    ("باسبوري خلصان ولازم أمدده", ("passport_renewal",)),
+    ("هويتنا خالص وبدنا نبدلها", ("id_card_renewal",)),
+    ("دفتر العيلة مخلّص وبدي أجدده", ("family_book_renewal",)),
+    # Each independent clause keeps its own situation.
+    (
+        "كتبنا الكتاب وبدنا نعمل دفتر عيلة؛ أختي بدها تستخرج أول جواز، "
+        "وأنا بطاقتي انكسرت. كم المجموع؟",
+        ("family_book_first_issue", "passport_first_issue", "id_card_damaged"),
+        "ok",
+        ("fees",),
+    ),
+    ("بدي أطلع جواز جديد، وزوجي دفتره ضايع", ("passport_first_issue", "family_book_lost")),
+    ("هويتي منتهية؛ وابني بدّه أول جواز", ("id_card_renewal", "passport_first_issue")),
+    ("جوازي خالص، وزوجتي بدها تطلع هوية لأول مرة، ودفتر العيلة انحرق",
+     ("passport_renewal", "id_card_first_issue", "family_book_damaged")),
+    ("بطاقتي تبللت. أمي بدها تستخرج جواز جديد. تزوجنا وبنطلع دفتر عيلة",
+     ("id_card_damaged", "passport_first_issue", "family_book_first_issue")),
+    # A clear coordinated list may share its one situation in either order.
+    ("انسرقت جوازاتنا وهوياتنا", ("passport_lost", "id_card_lost")),
+    ("دفاترنا وبطاقاتنا ضاعوا بالنقلة", ("family_book_lost", "id_card_lost")),
+    ("بدنا نجدد جوازاتنا وهوياتنا ودفاترنا",
+     ("passport_renewal", "id_card_renewal", "family_book_renewal")),
+)
+
+for _index, _case in enumerate(_ROUND4_CASES, 1):
+    _add_round4_test(
+        _index,
+        _case[0],
+        _case[1],
+        _case[2] if len(_case) > 2 else "ok",
+        _case[3] if len(_case) > 3 else (),
+    )
+
+
 if __name__ == "__main__":
     unittest.main()

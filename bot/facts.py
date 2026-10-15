@@ -38,7 +38,10 @@ _NUM_WORDS = {
     "سبعين": 70, "ثمانين": 80, "تمانين": 80, "تسعين": 90,
 }
 _NUM_ALT = "|".join(sorted((re.escape(k) for k in _NUM_WORDS), key=len, reverse=True))
-_NUM = r"(\d+(?:\.\d+)?|%s)" % _NUM_ALT
+_TENS_ALT = "عشرين|ثلاثين|تلاتين|اربعين|خمسين|ستين|سبعين|ثمانين|تمانين|تسعين"
+_UNITS_ALT = "واحد|اثنين|اتنين|ثلاث|ثلاثه|تلات|تلاته|اربع|اربعه|خمس|خمسه|ست|سته|سبع|سبعه|ثمان|ثمانيه|تمن|تمانيه|ثماني|تسع|تسعه"
+# "سبعه واربعين" (47) is tried before single words so "سبعه" alone is not taken as the age.
+_NUM = r"(\d+(?:\.\d+)?|(?:%s)\s+و\s*(?:%s)|%s)" % (_UNITS_ALT, _TENS_ALT, _NUM_ALT)
 
 
 def _val(tok):
@@ -46,21 +49,41 @@ def _val(tok):
         return None
     if re.match(r"^\d", tok):
         return float(tok) if "." in tok else int(tok)
+    m = re.match(r"^(\S+)\s+و\s*(\S+)$", tok)
+    if m and m.group(1) in _NUM_WORDS and m.group(2) in _NUM_WORDS:
+        return _NUM_WORDS[m.group(1)] + _NUM_WORDS[m.group(2)]
     return _NUM_WORDS.get(tok)
 
 
-# Who the number belongs to (looked up just before the age expression).
+# Who the number belongs to (looked up just before the age expression). An attached و/ف is allowed.
+_PERSON_PRE = r"(?:^|(?<=\s))[وف]?"
+_PERSON_POST = r"(?=\s|$)"
 _PERSONS = [
-    (r"\b(ابني|ابنى|ولدي|الولد|ابن)\b", "الابن"),
-    (r"\b(بنتي|ابنتي|البنت|بنت)\b", "البنت"),
-    (r"\b(اخوي|اخي|اخو)\b", "الأخ"),
-    (r"\b(اختي|اخت)\b", "الأخت"),
-    (r"\b(ابوي|ابي|والدي|ابوه)\b", "الأب"),
-    (r"\b(امي|والدتي|امه)\b", "الأم"),
-    (r"\b(زوجتي|مرتي|مراتي)\b", "الزوجة"),
-    (r"\b(زوجي|جوزي)\b", "الزوج"),
-    (r"\b(انا|عمري)\b", "المستخدم نفسه"),
+    (_PERSON_PRE + r"(?:ابني|ابنى|ولدي|الولد|ابن)" + _PERSON_POST, "الابن"),
+    (_PERSON_PRE + r"(?:بنتي|ابنتي|البنت|بنت)" + _PERSON_POST, "البنت"),
+    (_PERSON_PRE + r"(?:اخوي|اخي|اخو)" + _PERSON_POST, "الأخ"),
+    (_PERSON_PRE + r"(?:اختي|اخت)" + _PERSON_POST, "الأخت"),
+    (_PERSON_PRE + r"(?:ابوي|ابي|والدي|ابوه)" + _PERSON_POST, "الأب"),
+    (_PERSON_PRE + r"(?:امي|والدتي|امه)" + _PERSON_POST, "الأم"),
+    (_PERSON_PRE + r"(?:زوجتي|مرتي|مراتي)" + _PERSON_POST, "الزوجة"),
+    (_PERSON_PRE + r"(?:زوجي|جوزي)" + _PERSON_POST, "الزوج"),
+    (_PERSON_PRE + r"(?:انا|عمري)" + _PERSON_POST, "المستخدم نفسه"),
+    (_PERSON_PRE + r"(?:اهلي|اهلنا|اهله|اهلها)" + _PERSON_POST, "الأهل"),
+    (_PERSON_PRE + r"(?:الكبير|الكبيره|الاكبر)" + _PERSON_POST, "الكبير"),
+    (_PERSON_PRE + r"(?:الوسطاني|الوسطانيه|الاوسط)" + _PERSON_POST, "الأوسط"),
+    (_PERSON_PRE + r"(?:الصغير|الصغيره|الاصغر|الزغير)" + _PERSON_POST, "الصغير"),
 ]
+
+
+def person_of(text):
+    """First person word in the text (normalized or raw), e.g. 'الأخت'; None if none."""
+    t = _norm(text)
+    best = None
+    for rx, name in _PERSONS:
+        m = re.search(rx, t)
+        if m and (best is None or m.start() < best[0]):
+            best = (m.start(), name)
+    return best[1] if best else None
 
 _AGE_PATTERNS = [
     r"عمر(?:ي|ه|ها|و|هم|نا)?\s+(?:صار\s+|هلا\s+|حاليا\s+)?" + _NUM,
@@ -77,27 +100,53 @@ _ABROAD = [
     "بالكويت", "في الكويت", "بامريكا", "في امريكا", "بالمانيا", "في المانيا", "بتركيا", "في تركيا",
     "بمصر", "في مصر", "بكندا", "في كندا", "ببريطانيا", "في بريطانيا", "بلندن", "بالعراق", "بعمان العاصمه العمانيه",
 ]
-_INSIDE = ["بالاردن", "في الاردن", "داخل الاردن", "داخل البلاد", "جوا البلد", "بعمان", "في عمان", "باربد", "في اربد", "بالزرقا"]
+_INSIDE = ["بالاردن", "في الاردن", "داخل الاردن", "داخل البلاد", "جوا البلد", "بعمان", "في عمان", "باربد", "في اربد", "بالزرقا",
+           "عالاردن", "ع الاردن", "على الاردن", "من هون", "هون بالبلد", "بالبلد هون", "من عمان", "من الاردن"]
 
-_URGENT = ["مستعجل", "مستعجله", "الخدمه المستعجله", "مكتب الخدمه المستعجله", "عاجل", "بسرعه", "بنفس اليوم", "ضروري اليوم"]
+_URGENT = ["مستعجل", "مستعجله", "المستعجل", "المستعجله", "الخدمه المستعجله", "مكتب الخدمه المستعجله", "عاجل", "بسرعه",
+           "بنفس اليوم", "ضروري اليوم"]
 _MILITARY = ["عسكري", "عسكريه", "بالجيش", "في الجيش", "القوات المسلحه", "الامن العام", "الدفاع المدني",
-             "الدرك", "حفظ السلام", "الاجهزه الامنيه", "شرطي", "ضابط"]
+             "الدرك", "حفظ السلام", "حفظ سلام", "الاجهزه الامنيه", "شرطي", "ضابط"]
 _JERUSALEM = ["مقدسي", "مقدسيه", "هويه مقدسيه", "الهويات المقدسيه", "هويه القدس"]
 _FULL_PAGES = ["ممتلي", "ممتلئ", "تعبي", "تعبت صفحاته", "خلصت صفحاته", "خلصو الصفحات", "خلصت الصفحات",
-               "ما ضل فيه صفحات", "ما في صفحات", "الصفحات خلصت", "صفحاته خلصت", "امتلا", "امتلات"]
-_EXPIRED = ["منتهي", "منتهيه", "انتهي", "انتهت", "خلص", "خلصت", "مخلص", "انتهت صلاحيته", "صلاحيته منتهيه", "مش ساري", "مو ساري"]
+               "ما ضل فيه صفحات", "ما في صفحات", "الصفحات خلصت", "صفحاته خلصت", "امتلا", "امتلات", "امتلت", "تعبت",
+               "صفحاته امتلت", "مليان", "مليانه", "ما ضل فيه ولا صفحه"]
+_EXPIRED = ["منتهي", "منتهيه", "انتهي", "انتهت", "خلص", "خلصت", "مخلص", "انتهت صلاحيته", "صلاحيته منتهيه", "مش ساري", "مو ساري",
+            "خلصان", "خلصانه", "خالص", "خالصه", "مخلصه"]
+# Still valid (negations of "expired" must win over the expired words they contain).
+_VALID = ["ساري", "ساريه", "لسا ساري", "لسه ساري", "ساري المفعول", "صالح", "مش منتهي", "مو منتهي", "غير منتهي",
+          "ما خلص", "لسا ما خلص", "ما انتهي", "ما انتهت", "لسا ما انتهي", "مش خالص", "مش مخلص"]
 _MARITAL = ["تغيير الحاله الاجتماعيه", "تزوجت", "اتزوجت", "اتجوزت", "تجوزت", "طلقت", "تطلقت", "انطلقت", "ترملت"]
 _INTENTIONAL = ["قصدا", "متعمد", "عن قصد", "بقصد", "عمدا", "قطعته", "مزعته بايدي"]
 
 _TIMES = [
     (r"(?:للمره|المره|مره)\s+(?:الثالثه|التالته|ثالثه|تالته)|(?:ثالث|تالت)\s+مره|3\s*مرات|ثلاث مرات|تلات مرات", 3),
     (r"(?:للمره|المره|مره)\s+(?:الثانيه|التانيه|ثانيه|تانيه)|(?:ثاني|تاني)\s+مره|مرتين|2\s*مرات", 2),
-    (r"(?:للمره|المره)\s+(?:الاولي|الاوله)|اول\s+مره\s+(?:بضيع|يضيع|ضاع|بفقد|افقد|فقدت|اضيع|ضيعت)|(?:ضاع|ضيعت|فقدت)\S*\s+(?:لاول|اول)\s+مره", 1),
+    (r"(?:للمره|المره)\s+(?:الاولي|الاوله)|اول\s+مره\s+(?:بضيع|يضيع|ضاع|بفقد|افقد|فقدت|اضيع|ضيعت)|(?:ضاع|ضيعت|فقدت)\S*\s+(?:لاول|اول)\s+مره"
+     r"|فاقد\s+(?:لاول|اول)\s+مره|اول\s+مره\s+(?:بيضيع|بتضيع|تضيع|بيصير|يصير|بصير|بنسرق|بينسرق)", 1),
 ]
 
 
+def _phrase_rx(p):
+    first, _, rest = p.partition(" ")
+    if first.startswith("ال"):
+        head = r"(?:[وف]?(?:ب|ل)?%s|[وف]?لل%s)" % (re.escape(first), re.escape(first[2:]))
+    else:
+        head = r"[وفبل]?" + re.escape(first)
+    return r"(?:^|\s)" + head + ((r"\s+" + re.escape(rest).replace(r"\ ", r"\s+")) if rest else "") + r"(?=$|\s)"
+
+
 def _has(t, phrases):
-    return any(re.search(r"(?:^|\s)" + re.escape(p) + r"(?:$|\s)", t) for p in phrases)
+    """Phrase match on word boundaries; the first word may carry an attached و/ف/ب/ل (e.g. 'بالخدمه')."""
+    return any(re.search(_phrase_rx(p), t) for p in phrases)
+
+
+def _last_pos(t, phrases):
+    pos = -1
+    for p in phrases:
+        for m in re.finditer(_phrase_rx(p), t):
+            pos = max(pos, m.start())
+    return pos
 
 
 def _duration_days(n, unit):
@@ -114,36 +163,55 @@ def _duration_days(n, unit):
 
 _UNIT = r"(يوم|ايام|اسبوع|اسابيع|شهر|شهور|اشهر|سنه|سنين|سنوات|عام|اعوام)"
 _DUAL = {"شهرين": (2, "شهر"), "يومين": (2, "يوم"), "اسبوعين": (2, "اسبوع"), "سنتين": (2, "سنه"), "عامين": (2, "عام")}
+_FILLER = r"(?:(?:بس|فقط|حوالي|تقريبا|شي|يجي|زي|اكثر من|اقل من|ل)\s+)*"
+# A duration: "3 شهور", "تلات سنين", "شهرين", "سنه", "سنه ونص", "سنه وتمن شهور", "لسنه ونص" (attached ل allowed)
+_DUR = (r"ل?(?:" + _NUM + r"\s*" + _UNIT + r"|(شهرين|يومين|اسبوعين|سنتين|عامين)|(شهر|يوم|اسبوع|سنه|عام))"
+        r"(\s+و\s*نص|\s+ونص)?"
+        r"(?:\s+و\s*(\d+|" + _UNITS_ALT + r"|عشر|عشره)\s*(شهر|شهور|اشهر|يوم|ايام))?")
+
+
+def _dur_days(m, base=1):
+    """Days from a _DUR match whose groups start at index `base` (num, unit, dual, single, half, +num, +unit)."""
+    num, unit, dual, single, half, num2, unit2 = (m.group(base + i) for i in range(7))
+    if num is not None:
+        n, u = _val(num), unit
+    elif dual is not None:
+        n, u = _DUAL[dual]
+    else:
+        n, u = 1, single
+    if n is None:
+        return None
+    if half:
+        n = n + 0.5
+    days = _duration_days(n, u)
+    extra = _val(num2) if num2 else None
+    if extra:
+        days += _duration_days(extra, unit2)
+    return days
 
 
 def _remaining_days(t):
-    """Days left before the document expires, e.g. 'باقي عليه 3 شهور', 'بيخلص بعد شهرين'."""
-    lead = r"(?:باقي|بقي|ضايل|ضل|متبقي|ظل|ضالل)\s+(?:عليه|عليها|له|لها|الو|الها|فيه|فيها|علي|على انتهايه|على صلاحيته)?\s*(?:بس|فقط|حوالي|تقريبا)?\s*"
-    lead2 = r"(?:بيخلص|بخلص|بينتهي|بنتهي|ينتهي|تنتهي|بتنتهي|بتخلص|صلاحيته)\s+(?:بعد|خلال|كمان)\s+(?:بس|حوالي|تقريبا)?\s*"
-    for ld in (lead, lead2):
-        m = re.search(ld + _NUM + r"\s*" + _UNIT, t)
+    """Days left before the document expires, e.g. 'باقي عليه 3 شهور', 'بيخلص بعد شهرين', 'ساري لسنة ونص'."""
+    leads = [
+        r"(?:باقي|بقي|ضايل|ضل|متبقي|ظل|ضالل)\s+(?:عليه|عليها|له|لها|الو|الها|فيه|فيها|علي|على انتهايه|على صلاحيته)?\s*",
+        r"(?:لسا|لسه|لساته|بعده|بعدو)\s+(?:فيه|فيها|عليه|عليها|الو|الها|ساري\s+ل?)\s*",
+        r"(?:بيخلص|بخلص|بينتهي|بنتهي|ينتهي|تنتهي|بتنتهي|بتخلص|صلاحيته)\s+(?:بعد|خلال|كمان)\s+",
+        r"(?:ساري|ساريه|صالح|صالحه)\s+(?:المفعول\s+)?(?:لمده\s+|لحد\s+|لغايه\s+|كمان\s+)?",
+    ]
+    for ld in leads:
+        m = re.search(ld + _FILLER + _DUR, t)
         if m:
-            return _duration_days(_val(m.group(1)), m.group(2)), m.group(0)
-        m = re.search(ld + r"(شهرين|يومين|اسبوعين|سنتين|عامين)", t)
-        if m:
-            n, u = _DUAL[m.group(1)]
-            return _duration_days(n, u), m.group(0)
-        m = re.search(ld + r"(شهر|يوم|اسبوع|سنه)\b", t)
-        if m:
-            return _duration_days(1, m.group(1)), m.group(0)
+            return _dur_days(m), m.group(0)
     return None, None
 
 
 def _since_days(t, anchors):
-    """Days since an event, e.g. 'تزوجت من 4 شهور', 'ضاع قبل سنتين'."""
+    """Days since an event, e.g. 'تزوجت من 4 شهور', 'ضاع قبل سنتين', 'من شي اربع شهور', 'صار اله سنتين'."""
+    conn = r"(?:من|قبل|صرلي|صارلي|صار لي|صار(?:\s+(?:اله|الو|الها|الي|لي|النا|الهم))?|صرلنا|صارلنا|بقاله|الو|اله)"
     for a in anchors:
-        m = re.search(a + r"\s+(?:\S+\s+){0,3}?(?:من|قبل|صرلي|صارلي|صار لي|صار)\s+(?:حوالي|تقريبا)?\s*" + _NUM + r"\s*" + _UNIT, t)
+        m = re.search(a + r"\s+(?:\S+\s+){0,3}?" + conn + r"\s+" + _FILLER + _DUR, t)
         if m:
-            return _duration_days(_val(m.group(1)), m.group(2)), m.group(0)
-        m = re.search(a + r"\s+(?:\S+\s+){0,3}?(?:من|قبل|صرلي|صارلي|صار لي|صار)\s+(شهرين|يومين|اسبوعين|سنتين|عامين)", t)
-        if m:
-            n, u = _DUAL[m.group(1)]
-            return _duration_days(n, u), m.group(0)
+            return _dur_days(m), m.group(0)
     return None, None
 
 
@@ -172,7 +240,10 @@ def extract(question):
     if days is not None:
         out["days_left"] = days
 
-    if _has(t, _ABROAD):
+    if _has(t, _ABROAD) and _has(t, _INSIDE):
+        # "كنت عايش برا، رجعت عالأردن" -> the later mention wins
+        out["abroad"] = _last_pos(t, _ABROAD) > _last_pos(t, _INSIDE)
+    elif _has(t, _ABROAD):
         out["abroad"] = True
     elif _has(t, _INSIDE):
         out["abroad"] = False
@@ -184,8 +255,12 @@ def extract(question):
         out["jerusalem_id"] = True
     if _has(t, _FULL_PAGES):
         out["full_pages"] = True
-    if _has(t, _EXPIRED) and "full_pages" not in out and days is None:
+    if _has(t, _VALID):
+        out["valid"] = True
+    elif _has(t, _EXPIRED) and "full_pages" not in out and days is None:
         out["expired"] = True
+    if days is not None:
+        out["valid"] = True  # a document with days left is not expired
     if _has(t, _MARITAL):
         out["marital_change"] = True
     if _has(t, _INTENTIONAL):
@@ -196,10 +271,12 @@ def extract(question):
             out["times_lost"] = n
             break
 
-    d, _ = _since_days(t, [r"(?:تزوجت|اتزوجت|اتجوزت|تجوزت|تزوجنا|اتجوزنا|عقد الزواج|كتبنا الكتاب|كتب كتابي|عرسي|زواجي)"])
+    d, _ = _since_days(t, [r"(?:تزوجت|اتزوجت|اتجوزت|تجوزت|تزوجنا|اتزوجنا|اتجوزنا|تجوزنا|عقد الزواج|كتبنا الكتاب|كتب كتابي|عرسي|عرسنا|زواجي|زواجنا|متزوجين|متجوزين)"])
     if d is not None:
         out["days_since_marriage"] = d
-    d, _ = _since_days(t, [r"(?:ضاع|ضيعت|فقدت|انسرق|سرق|الفقدان|اول مره|المره الاولي|المره الماضيه|اخر مره|اخر جواز|اخر هويه|اخر دفتر)"])
+    d, _ = _since_days(t, [r"(?:ضاع|ضاعت|ضيعت|ضيعته|ضيعتها|فقدت|فقدته|انسرق|انسرقت|سرق|الفقدان|اول مره|المره الاولي|المره الماضيه|اخر مره|اخر جواز|اخر هويه|اخر دفتر"
+                           r"|الاولي|الاول|طلعته|طلعتها|طلعناه|طلعناها|اصدرته|اصدرتها|استلمته|استلمتها|عملته|عملتها|جددته|جددتها"
+                           r"|مطلع|مطلعه|مطلعها|مطلعه|طالع|طلعت)"])
     if d is not None:
         out["days_since_previous"] = d
     return out
@@ -219,10 +296,10 @@ def _fmt(v):
 
 # Which situation facts matter for which document (others are dropped so the model is not distracted).
 _KEYS_BY_DOC = {
-    "passport": {"ages", "days_left", "expired", "full_pages", "abroad", "urgent", "military",
+    "passport": {"ages", "days_left", "expired", "valid", "full_pages", "abroad", "urgent", "military",
                  "jerusalem_id", "marital_change", "intentional", "times_lost", "days_since_previous"},
-    "family_book": {"expired", "abroad", "times_lost", "days_since_previous", "days_since_marriage", "intentional"},
-    "id_card": {"ages", "expired", "abroad", "times_lost", "days_since_previous", "intentional"},
+    "family_book": {"expired", "valid", "abroad", "times_lost", "days_since_previous", "days_since_marriage", "intentional"},
+    "id_card": {"ages", "expired", "valid", "abroad", "times_lost", "days_since_previous", "intentional"},
 }
 
 
@@ -246,6 +323,8 @@ def hints(question, docs=None):
         lines.append("المدة المتبقية على انتهاء صلاحية الوثيقة: حوالي %s يوماً، أي %s (الوثيقة غير منتهية بعد)." % (_fmt(d), _cmp(d, 180, "يوماً")))
     if f.get("expired"):
         lines.append("ذكر المستخدم أن الوثيقة منتهية الصلاحية.")
+    elif f.get("valid") and "days_left" not in f:
+        lines.append("ذكر المستخدم أن الوثيقة ما زالت سارية (غير منتهية).")
     if f.get("full_pages"):
         lines.append("ذكر المستخدم أن صفحات الجواز ممتلئة.")
     if f.get("abroad") is True:

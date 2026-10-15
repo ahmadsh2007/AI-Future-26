@@ -104,3 +104,35 @@ Using the required dry-run command after the changes:
 ### Open issue
 
 The same intentional dev-set mismatch remains at `dev-29-1`: the expected data lists both family-book first issue and renewal, while the written routing rule says a head-of-family topic without another situation defaults to first issue. The router keeps only `family_book_first_issue`; route status is still correct.
+## Round 4
+
+### Accuracy
+
+Using the required dry-run command after the changes:
+
+- Route status: `90/90`.
+- Route status + exact services: `89/90`.
+- These match the Round 3 baseline; neither score went down.
+
+### Changes
+
+- Added passport plural, dual, and possessive-plural forms, including `جوازات`, `جوازين`, and `باسبورات` families.
+- Added ID plural, dual, and possessive-plural forms for `هويات` and `بطاقات`, while keeping bridge/statistics cards excluded.
+- Added family-book plural and dual forms while keeping military-service booklets excluded, including later bare references to an introduced military booklet.
+- Added `أول جواز`, `أول هوية`, `أول بطاقة`, and `أول دفتر` as first-issue signals.
+- Added `خلصان`, `خلصانه`, `خالص`, and `مخلّص` as renewal/expiry signals.
+- Split routing evidence at punctuation and at conjunctions that introduce a person or document, then resolved each clause independently.
+- Limited cross-clause situation sharing to clear coordinated document lists. A clause with its own explicit or implicit situation keeps that situation.
+- Preserved single-document pronoun continuations, comparison routing, repeated trailing field references, newlywed overrides, and shared-situation lists from earlier rounds.
+
+### Tests
+
+- Added 26 independently phrased Round 4 tests, exceeding the requested 15.
+- Router suite: `python3 -m unittest tests.test_router` -> 237 tests, all passed.
+- Full suite: `python3 -m unittest discover -s tests` -> 266 tests, all passed.
+- Syntax check: `python3 -m py_compile bot/router.py tests/test_router.py` -> passed.
+- Direct smoke checks passed for both task examples and the existing comparison/shared-loss examples.
+
+### Open issue
+
+The same intentional dev-set mismatch remains at `dev-29-1`: the expected data lists both family-book first issue and renewal, while the written routing rule says a head-of-family topic without another situation defaults to first issue. The router keeps only `family_book_first_issue`; route status remains correct.

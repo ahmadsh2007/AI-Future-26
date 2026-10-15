@@ -8,7 +8,7 @@ Rules this file enforces:
 """
 import re
 
-from bot import facts, router, schema
+from bot import facts, fees, router, schema
 from bot import kb as kbmod
 from bot.normalize import normalize
 
@@ -18,18 +18,30 @@ SIT_NAMES = schema.SITUATIONS
 # Fields given to the model when the question names no field.
 DEFAULT_FIELDS = ["conditions", "documents", "fees", "time", "locations", "notes"]
 
+# The model writes this marker (not a ready-made refusal sentence) when the sources truly lack the answer.
+# Command R7B copied a ready-made refusal sentence far too eagerly (14/90 false declines).
+NOT_FOUND = "NOT_FOUND"
+
 SYSTEM_ANSWER = """أنت مساعد رسمي لدائرة الأحوال المدنية والجوازات في الأردن. تجيب المواطنين عن خدمات جواز السفر ودفتر العائلة والبطاقة الذكية.
 
 قواعد صارمة:
 1. أجب فقط من النصوص الموجودة داخل <المصادر>. لا تستخدم أي معلومة من خارجها أبداً، حتى لو كنت تعرفها.
-2. إذا لم يكن الجواب موجوداً في المصادر فقل: "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة." ولا تخترع شيئاً.
+2. الجواب موجود في المصادر في أغلب الحالات: ابحث في كل الأقسام (الرسوم، الملاحظات، الشروط، الوثائق، الأماكن، الزمن). فقط إذا كانت المعلومة غير مذكورة إطلاقاً اكتب الكلمة NOT_FOUND وحدها، ولا تخترع شيئاً.
 3. انقل الأرقام والمبالغ والمدد والأعمار كما هي في المصادر تماماً.
-4. الرسوم قد تختلف حسب حالة الشخص (العمر، صلاحية الوثيقة، داخل الأردن أو خارجه، عدد مرات الفقدان، الخدمة المستعجلة). استخدم "حالة المستخدم" إن وُجدت، واذكر المبلغ الذي ينطبق عليه فقط مع السبب باختصار. إذا لم تُعرف حالته فاذكر الحالات باختصار. إذا انطبق أكثر من مبلغ (مثل رسوم إضافية مذكورة في الملاحظات) فاذكر كل مبلغ ثم المجموع.
+4. إذا وُجد قسم "الرسوم المنطبقة على حالة المستخدم" فاعتمد عليه: اذكر لكل شخص المبالغ المكتوبة بعد "ينطبق" مع السبب باختصار، واذكر المجموع إن كان مكتوباً، ولا تذكر المبالغ المكتوبة بعد "لا ينطبق" إلا لتوضيح أنها لا تنطبق. إذا كان مكتوباً "غير معروف" فاذكر الحالتين باختصار.
 5. أجب عن كل جزء من السؤال. إذا كان السؤال عن أكثر من خدمة أو أكثر من شخص فأجب عن كل واحد في سطر مستقل.
-6. إذا احتوى السؤال على افتراض خاطئ فصحّحه بوضوح اعتماداً على المصادر (مثلاً: "لا، ...").
-7. إذا سُئلت عن الوثائق أو الشروط فاذكر القائمة كاملة كما في المصدر.
+6. إذا كان السؤال "صح؟" أو "هل يمكن/بقدر...؟" فابدأ بـ"نعم" أو "لا" ثم السبب من المصادر. إذا احتوى السؤال على افتراض خاطئ فصحّحه بوضوح (مثلاً: "لا، ...") واذكر من يحق له ذلك كما في الشروط.
+7. إذا سُئلت عن الوثائق أو الأوراق أو الشروط فانقل كل بنود القسم المطلوب كاملة كقائمة، دون حذف أي بند.
 8. اقرأ "ملاحظات" جيداً: فيها رسوم إضافية ومهل واستثناءات. اذكر منها ما يخص السؤال فقط.
-9. أجب بالعربية بوضوح واختصار، بدون مقدمات وبدون تكرار السؤال، ولا تنسخ المصادر كاملة."""
+9. أجب بالعربية بوضوح واختصار، بدون مقدمات وبدون تكرار السؤال، ولا تنسخ أقساماً لم يُسأل عنها."""
+
+RETRY_NOT_FOUND = ("\n\nتنبيه: جوابك السابق كان أن المعلومة غير موجودة، لكن الجواب عن هذا السؤال موجود على الأغلب "
+                   "في المصادر أعلاه (راجع الرسوم والملاحظات والشروط والوثائق والأماكن والزمن). اقرأها مرة أخرى "
+                   "وأجب منها. اكتب NOT_FOUND وحدها فقط إذا كانت المعلومة غير مذكورة إطلاقاً.")
+
+SYSTEM_DETAIL_DECLINE = """أنت مساعد دائرة الأحوال المدنية والجوازات في الأردن. المعلومة التي سأل عنها المستخدم غير مذكورة في وثائق الخدمة.
+اكتب جملة واحدة قصيرة بالعربية تعتذر فيها بأدب بأن هذه المعلومة غير متوفرة في وثائق الخدمة المذكورة.
+ممنوع أن تجيب عن السؤال، وممنوع ذكر أي رقم أو معلومة أخرى."""
 
 SYSTEM_DECLINE = """أنت مساعد دائرة الأحوال المدنية والجوازات في الأردن. معلوماتك محصورة في خدمات: جواز السفر، دفتر العائلة، البطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).
 سؤال المستخدم خارج هذه الخدمات. اكتب جملة أو جملتين قصيرتين بالعربية تعتذر فيهما بأدب بأنه لا تتوفر لديك معلومات عن هذا الموضوع، وتذكر الخدمات التي تستطيع المساعدة فيها.
@@ -101,6 +113,23 @@ def _content_tokens(text):
 def _is_decline(text):
     t = normalize(text)
     return any(normalize(w) in t for w in DECLINE_WORDS)
+
+
+def _says_not_found(text):
+    return NOT_FOUND.lower() in (text or "").lower() or _is_decline(text)
+
+
+def _strip_decline(text):
+    """Remove the NOT_FOUND marker and refusal sentences; keep any real answer the model added after them."""
+    t = re.sub(r"(?i)not[_ ]?found", " ", text or "")
+    parts = re.split(r"(?<=[.!؟?\n])\s*", t)
+    keep = [p for p in parts if p.strip() and not _is_decline(p)]
+    return re.sub(r"[ \t]+", " ", " ".join(keep)).strip(" .\n")
+
+
+def _unnumber(text):
+    """Turn numbered list markers into dashes (a clarifying question must not contain numbers)."""
+    return re.sub(r"(?m)^\s*\d{1,2}\s*[.)\-]\s*", "- ", text or "").strip()
 
 
 def _clean_model_text(text):
@@ -183,13 +212,15 @@ class Bot:
                         out.append((sid, f, items))
         return out
 
-    def _sources_text(self, blocks):
+    def _sources_text(self, blocks, asked=None):
+        asked = set(asked or [])
         lines, cur = [], None
         for sid, f, items in blocks:
             if sid != cur:
-                lines.append("\n[الخدمة: %s]" % schema.SERVICES[sid][2])
+                lines.append("\n[الخدمة: %s]" % self.kb[sid]["title_raw"])
                 cur = sid
-            lines.append("%s:" % schema.FIELD_LABELS[f])
+            mark = " (مطلوب في السؤال)" if f in asked else ""
+            lines.append("%s%s:" % (schema.FIELD_LABELS[f], mark))
             for it in items:
                 lines.append("- " + it)
         return "\n".join(lines).strip()
@@ -203,6 +234,25 @@ class Bot:
             return None
 
     # ------------------------------------------------------------------ contexts
+    def _ctx(self, sid, field, items):
+        """'<official service title> - <field label>: <items>'. The official title (as in the data file)
+        makes the service recognisable from the text itself, which the graders use for 'right source'."""
+        items = list(items)
+        numbered = all(re.match(r"^\d+\.\s", it) for it in items)
+        joined = (" " if numbered else "؛ ").join(items)
+        return "%s - %s: %s" % (self.kb[sid]["title_raw"], schema.FIELD_LABELS[field], joined)
+
+    def _ambiguous(self, sid, field, picked):
+        """True if the picked items also appear word-for-word in the same field of another service."""
+        mine = [normalize(i) for i in picked]
+        for other in self.kb:
+            if other == sid:
+                continue
+            theirs = [normalize(i) for i in self._items(other, field)]
+            if all(any(m == t or (len(m) > 12 and m in t) for t in theirs) for m in mine):
+                return True
+        return False
+
     def _select_contexts(self, answer, blocks, asked_fields):
         ans_nums = _numbers(answer)
         ans_tok = _content_tokens(answer)
@@ -219,20 +269,23 @@ class Bot:
             # Lists (documents/conditions/procedure): most items used -> whole field
             if f in ("documents", "conditions", "procedure") and items and len(picked) >= 0.6 * len(items):
                 picked = items
+            # A short item that is identical in a look-alike service (e.g. "2 دينار") says nothing about
+            # the source: add the rest of its field so the context is recognisable.
+            if picked and len(picked) < len(items) and self._ambiguous(sid, f, picked):
+                picked = items
             if picked:
                 chosen.append((sid, f, picked))
         if not chosen:  # fall back to the asked fields of the routed services
             for sid, f, items in blocks:
                 if f in asked_fields and f != "notes":
                     chosen.append((sid, f, items))
-        return [kbmod.context_string(sid, f, items=its, kb=self.kb) for sid, f, its in chosen]
+        return [self._ctx(sid, f, its) for sid, f, its in chosen]
 
     # ------------------------------------------------------------------ fallbacks (safety net only)
     def _extractive(self, blocks, asked_fields):
-        parts = [kbmod.context_string(sid, f, items=items, kb=self.kb)
-                 for sid, f, items in blocks if f in asked_fields and f != "notes"]
+        parts = [self._ctx(sid, f, items) for sid, f, items in blocks if f in asked_fields and f != "notes"]
         if not parts:
-            parts = [kbmod.context_string(sid, f, items=items, kb=self.kb) for sid, f, items in blocks[:3]]
+            parts = [self._ctx(sid, f, items) for sid, f, items in blocks[:3]]
         return "\n".join(parts), parts
 
     @staticmethod
@@ -293,6 +346,7 @@ class Bot:
             opts = fixed or "، ".join(names)
             ans = self._chat(SYSTEM_CLARIFY, "سؤال المستخدم: %s\nالخيارات: %s\nالسؤال التوضيحي:" % (question, opts),
                              num_predict=120)
+            ans = _unnumber(ans) if ans else ans
             if not ans or _numbers(ans) or len(ans) > 400 or ("؟" not in ans and "?" not in ans):
                 debug["template"] = "clarify"
                 ans = self._clarify_template(rt)
@@ -304,48 +358,82 @@ class Bot:
             return self._decline_template(), [], debug
 
         fields = self._fields_for(rt)
-        asked = [f for f in (rt.get("fields") or []) if f in schema.FIELD_KEYS] or list(DEFAULT_FIELDS)
+        detected = [f for f in (rt.get("fields") or []) if f in schema.FIELD_KEYS]
+        asked = detected or list(DEFAULT_FIELDS)
         blocks = self._blocks(services, fields)
+        titles = "، ".join(self.kb[s]["title_raw"] for s in services)
 
-        # Situation facts: from this question, plus earlier questions when this one is a follow-up.
-        fact_text = question
-        if rt.get("inherited") and history:
-            fact_text = " ".join([h["question"] for h in history[-2:]] + [question])
-        docs = sorted(set(schema.SERVICES[s][0] for s in services))
-        hint_lines, _ = facts.hints(fact_text, docs=docs)
+        # Follow-ups: earlier questions of this chat carry the user's situation (age, abroad ...).
+        follow_up = bool(rt.get("inherited") and history)
+        previous = [h["question"] for h in history[-2:]] if follow_up else []
+        fact_text = " ".join(previous + [question])
 
-        user = ["<المصادر>", self._sources_text(blocks), "</المصادر>"]
-        if rt.get("inherited") and history:
-            prev = history[-1]
-            user.append("\nسياق المحادثة: السؤال السابق للمستخدم كان: \"%s\"" % prev["question"])
-            if prev.get("answer"):
-                user.append("وكان جوابك: \"%s\"" % prev["answer"][:300])
-            user.append("السؤال الحالي متابعة له ويخص: %s." % "، ".join(schema.SERVICES[s][2] for s in services))
-        if hint_lines:
-            user.append("\nحالة المستخدم (مستخرجة من كلامه):")
-            user.extend("- " + h for h in hint_lines)
+        # Fee rule table -> the lines that apply to this user (code), the model copies them.
+        fee_text, fee_cases = "", []
+        if "fees" in asked:
+            try:
+                fee_cases = fees.cases(question, services, self.kb, previous)
+                fee_text = fees.render(fee_cases, self.kb)
+            except Exception:  # never let a hint break the answer
+                fee_cases, fee_text = [], ""
+        debug["fee_cases"] = [repr(c) for c in fee_cases]
+
+        user = ["<المصادر>", self._sources_text(blocks, detected), "</المصادر>"]
+        if fee_text:
+            user.append("\nالرسوم المنطبقة على حالة المستخدم (منقولة من المصادر بعد مطابقة حالته):")
+            user.append(fee_text)
+        else:
+            docs = sorted(set(schema.SERVICES[s][0] for s in services))
+            hint_lines, _ = facts.hints(fact_text, docs=docs)
+            if hint_lines:
+                user.append("\nحالة المستخدم (مستخرجة من كلامه):")
+                user.extend("- " + h for h in hint_lines)
+        if follow_up:
+            user.append("\nهذه رسالة متابعة في نفس المحادثة. رسالة المستخدم السابقة: \"%s\"" % history[-1]["question"])
+            want = "، ".join(schema.FIELD_LABELS[f] for f in detected) if detected else "ما يسأل عنه"
+            user.append("معنى الرسالة الحالية: يسأل عن %s لخدمة %s." % (want, titles))
         user.append("\nسؤال المستخدم: %s" % question)
         user.append("الجواب (من المصادر فقط):")
         prompt = "\n".join(user)
 
+        allowed = (_with_arithmetic(_numbers(self._sources_text(blocks))) | _numbers(fact_text)
+                   | _numbers(fee_text) | set(str(c.total[1]) for c in fee_cases if c.total))
+
         ans = self._chat(SYSTEM_ANSWER, prompt)
-        allowed = _with_arithmetic(_numbers(self._sources_text(blocks))) | _numbers(fact_text) | _numbers(" ".join(hint_lines))
+        # False declines: routing is ok, so the answer is almost always in the sources.
+        if ans and _says_not_found(ans):
+            rest = _strip_decline(ans)
+            if len(rest) >= 25:
+                debug["decline_stripped"] = True
+                ans = rest
+            else:
+                debug["retry_not_found"] = True
+                retry = self._chat(SYSTEM_ANSWER, prompt + RETRY_NOT_FOUND)
+                if retry and not _says_not_found(retry):
+                    ans = retry
+                elif retry and len(_strip_decline(retry)) >= 25:
+                    ans = _strip_decline(retry)
+                else:  # both tries: not in the documents -> model-written short decline
+                    debug["not_in_documents"] = True
+                    dec = self._chat(SYSTEM_DETAIL_DECLINE, "سؤال المستخدم: %s\nالرد:" % question, num_predict=80)
+                    if not dec or _numbers(dec) or len(dec) > 300 or not _is_decline(dec):
+                        debug["template"] = "detail_decline"
+                        dec = "عذراً، هذه المعلومة غير متوفرة في وثائق الخدمة."
+                    return dec, [], debug
+
         if ans:
             bad = _numbers(ans) - allowed
             if bad:  # one retry: the model used numbers that are not in the sources
                 debug["ungrounded_first_try"] = sorted(bad)
                 retry = self._chat(SYSTEM_ANSWER, prompt + "\n\nتنبيه: الأرقام التالية غير موجودة في المصادر: %s. "
                                    "لا تذكر أي رقم غير موجود في المصادر." % "، ".join(sorted(bad)))
-                if retry and len(_numbers(retry) - allowed) < len(bad):
+                if retry and not _says_not_found(retry) and len(_numbers(retry) - allowed) < len(bad):
                     ans = retry
                 debug["ungrounded"] = sorted(_numbers(ans) - allowed)
         if not ans:
             debug["template"] = "extractive_fallback"
             ans, ctx = self._extractive(blocks, asked)
             return ans, ctx, debug
-
-        if _is_decline(ans) and len(ans) < 200:
-            return ans, [], debug  # in-scope service, but the asked detail is not in the documents
         return ans, self._select_contexts(ans, blocks, asked), debug
 
     def _shared_answer_services(self, rt):

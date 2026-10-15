@@ -46,11 +46,9 @@ bot/kb.py            parse + clean the 12 files (python -m bot.kb writes kb/ for
 bot/normalize.py     Arabic normalization
 bot/router.py        service / field / unclear / out-of-scope / chat memory
 bot/facts.py         user situation -> hints with precomputed comparisons
-bot/answer.py        prompt, number checks, context selection
+bot/fees.py          applicable fee lines per person/service (code picks, model copies)
+bot/answer.py        prompt, false-decline retry, number checks, context selection
 bot/llm.py           Ollama HTTP client (stdlib)
 tests/               unit tests (no model needed)
 eval/                90-message dev set, scorer, prompt-coverage check
 ```
-
----
-Original repo note: first link: https://claude.ai/share/05296964-50a2-42df-b7d2-d2471e58cb42
