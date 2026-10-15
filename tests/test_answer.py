@@ -240,3 +240,22 @@ class FeeCaseTests(unittest.TestCase):
         c = fees.cases("وإذا كنت برا البلد؟", ["passport_first_issue"], self.kb,
                        previous=["كم رسوم جواز السفر لأول مرة؟"])[0]
         self.assertEqual(self._amounts(c), [100])
+
+
+class ModelDeclineWordingTest(unittest.TestCase):
+    """The model's own decline wording must be accepted, otherwise the fixed template replaces it (rule: answers are model-generated)."""
+
+    def test_real_model_declines_are_accepted(self):
+        from bot import answer as A
+        for text in [
+            "أنا آسف، لا يمكنني الإجابة على هذا السؤال. أنا متخصص في خدمات دائرة الأحوال المدنية والجوازات، ويمكنني مساعدتك في جواز السفر ودفتر العائلة والبطاقة الذكية.",
+            "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع.",
+            "أنا آسف، لا يمكنني الإجابة على هذا السؤال. هل هناك أي شيء آخر يمكنني مساعدتك به؟",
+        ]:
+            self.assertTrue(A._is_decline(text), text)
+
+    def test_real_answers_are_not_declines(self):
+        from bot import answer as A
+        for text in ["يستغرق تجديد دفتر العائلة 45 دقيقة.", "الرسوم 50 دينار لمن تجاوز السادسة عشرة وجوازه منتهي.",
+                     "يمكنك تقديم الطلب في مكاتب دائرة الأحوال المدنية والجوازات."]:
+            self.assertFalse(A._is_decline(text), text)
