@@ -1,0 +1,14 @@
+# TASK (pp-gpt / gpt-5.6-sol): Router round 3 — wider dialect coverage
+
+Context: impl-logs/reports/router_report.md (your rounds 1-2). Do not edit bot/schema.py, bot/kb.py, bot/answer.py, bot/facts.py, eval/ or data/. Keep all existing tests passing (`python3 -m unittest discover -s tests`) and keep the dev-set result (`python3 main.py eval/dev_set.json --dry-run --debug --out /tmp/pp_dev_dry.json 2>/dev/null && python3 impl-logs/tasks/route_eval.py /tmp/pp_dev_dry.json`, currently 90/90 status, 89/90 services) from going down.
+
+A separate held-out set (you will NOT see it) still fails on unseen Jordanian dialect. Add GENERAL word families, with verb conjugations (ت/ي/ب/بت/بي/ن prefixes; ت/ت/وا/نا/ها/ه/هم suffixes) and both spellings (ق/ء/ك in dialect, ذ/د/ز, ث/ت, ظ/ض). Write at least 30 new tests of your own phrasing.
+
+1. lost (فقدان): وقع مني / وقعت مني / وقّعته / طاح مني + ما لقيته / مش لاقيه / ما بلاقيه / راح مني / اختفى / مش عارف وينه / ضيعته بالعزال / نسيته بالتكسي وراح / انسرقت المحفظة (وفيها الوثيقة) / نشلوه / سرقوه / انخطف.
+2. damaged (تلف): شق / انشق / شقّه / مشقوق / قصّ / انقص / مقصوص / انقطع نصين / نصين / غرق / غرّق / وقع بالمي / تبلّل / مبلول / نقع / انغسل مع الغسيل / ملزق / ملزّق / لزق / ذاب / انحرق / احترق / محروق / ولّع / اتمزع / مزع / مزّعه / مخربش / شخبط عليه / انمحى / ممسوح / باهت / مكسور / انكسر / طق / انطوى / مطعوج / خرّبه / تخرّب / الكلب أكله / الولد لعب فيه. "بدل/بداله/بدالها/بدل عنه" after a damage clause = replacement (damaged), never first issue.
+3. renewal (تجديد): خلص / خلصت مدته / خلصت صلاحيته / انتهى / منتهي / قرّب يخلص / بيخلص الشهر الجاي / ضل فيه X شهور / باقي فيه / صار قديم / بدي أجدد / تجديد / أمدّد / تمديد صلاحية.
+4. first issue (لأول مرة): لسا ما طلعت / عمري ما طلعت / ما عندي / ما معي / أول مرة بطلع / أطلع جديد / إصدار جديد / استخراج / بدي أعمل (+doc) without another situation; and for family book: لسا متجوزين / تزوجنا / اتجوزنا / كتبنا الكتاب / عرسنا / بعد العرس / حديثاً متزوجين / فتح سجل مدني / فتح قيد / فتح ملف عائلي / السجل المدني -> family_book_first_issue (when no other situation word for the family book). Caution: "ملف عائلي للجواز" in passport context is a passport first-issue document — keep passport.
+5. Family-book topic words that imply family_book without the word دفتر: رب الأسرة، القيد المدني، السجل المدني، فتح قيد، الزوجة الثانية/الزوجتين/تعدد الزوجات، المطلقة تفتح قيد منفصل، الأبناء غير الشرعيين.
+6. Do NOT make these in scope: شهادة ميلاد/وفاة/زواج/طلاق as a requested service (still out of scope), جواز دبلوماسي/خاص, فيزا, رخصة, عدم محكومية, دوام/ساعات الدوام/أوقات الدوام/عطلة (opening hours are not in the data -> out_of_scope), حجز موعد إلكتروني/تطبيق/موقع (not in data -> out_of_scope unless a doc+situation is also asked).
+
+Append a "Round 3" section to impl-logs/reports/router_report.md (what changed, test counts, dev-set numbers) and print it.
