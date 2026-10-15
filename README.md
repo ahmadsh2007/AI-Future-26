@@ -1,5 +1,12 @@
 # Government Services Chatbot (Jordan CSPD: passport, family book, smart ID)
 
+## Status (2026-10-15)
+
+- Real-model results on the 90-question dev set with `command-r7b-arabic:7b` (see `eval/results/`): v1 overall **70.0**, v2 (current code) overall **83.3** (status 100, facts 87.6, source covers 97.8, grounded 98.9; 70 of 90 messages pass every check). Average 12.7 s per question.
+- Run command: on a plain macOS shell only `python3` exists (3.9+, standard library only, no pip): `python3 main.py questions.json`. Tell the organizers the exact command if it is not `python`.
+- Rule checks: runtime code uses only the standard library and talks only to local Ollama (127.0.0.1:11434); if `command-r7b-arabic:7b` is missing the bot does NOT switch to another model (it falls back to extractive answers and warns).
+- Handoff and failure analysis: `docs/Government_Chatbot_Handoff.md`.
+
 ## Run
 
 Requirements: Python 3.8+ (standard library only, no `pip install`), and Ollama with the model.

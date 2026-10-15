@@ -65,9 +65,9 @@ def main(argv=None):
         llm = LLM(load_config())
         model, status = llm.resolve_model()
         log("model: %s (%s)" % (model, status))
-        if status.startswith("ollama not reachable") or status.startswith("no models"):
-            log("WARNING: Ollama is not usable - falling back to extractive answers. "
-                "Start Ollama (ollama serve) and pull the model first.")
+        if status.startswith(("ollama not reachable", "no models", "configured model")):
+            log("WARNING: Ollama / the configured model is not usable - falling back to extractive answers. "
+                "Start Ollama (ollama serve) and run: ollama pull command-r7b-arabic:7b")
             llm = None
         else:
             try:  # warm-up: load the model into memory once

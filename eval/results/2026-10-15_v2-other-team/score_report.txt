@@ -1,0 +1,123 @@
+messages: 90 (labeled 90, unlabeled 0), format issues in 0
+
+FAILURES:
+- dev-10-1 [fee_situation] failed=facts:المدير العام
+    Q: أنا مقيم بالسعودية وبدي أجدد جوازي من السفارة هناك، كم الرسوم وشو لازم يكون معي زيادة؟
+    A: 100 دينار لمن هم خارج البلاد أو ما يعادلها بعملة السفارة أو القنصلية.  لا توجد رسوم إضافية مذكورة في المصادر.
+    expected: status=ok services=passport_renewal facts=['100', 'المدير العام']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-11-1 [fee_situation] failed=facts:50/25
+    Q: جوازي منتهي وعمري 28، وبدي أخلصه بسرعة بمكتب الخدمة المستعجلة. قديش المجموع؟
+    A: 75 دينار
+    expected: status=ok services=passport_renewal facts=['50', '25', '75']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-14-1 [fee_situation] failed=facts:كفالة
+    Q: جوازي ضاع للمرة الثانية، وأول مرة ضاع كان قبل 3 سنين. قديش بدي أدفع؟
+    A: 250 دينار.
+    expected: status=ok services=passport_lost facts=['250', 'كفالة']
+    sources: passport_lost (debug route: ok passport_lost)
+- dev-16-1 [fee_situation] failed=facts:2/10
+    Q: عمري 20 سنة وعمري ما طلعت هوية، بدي أطلعها هلأ. قديش بدفع؟
+    A: 12 دينار.
+    expected: status=ok services=id_card_first_issue facts=['2', '10']
+    sources: id_card_first_issue (debug route: ok id_card_first_issue)
+- dev-17-1 [fee_situation] failed=source_covers;source_precise;grounded;facts:5/10
+    Q: الهوية ضاعت مني للمرة التانية، وأول مرة ضاعت وطلعت بدالها قبل سنتين بس. شو بدي أدفع؟
+    A: 15 دينار.
+    expected: status=ok services=id_card_lost facts=['5', '10']
+    ungrounded numbers: [15]
+    sources: family_book_lost (debug route: ok id_card_lost)
+- dev-20-1 [fee_situation] failed=facts:تعهد
+    Q: دفتر العائلة اهترى، مع إني طلعته جديد قبل سنة. قديش رح أدفع؟
+    A: 3 دنانير.
+    expected: status=ok services=family_book_damaged facts=['3', 'تعهد']
+    sources: family_book_damaged (debug route: ok family_book_damaged)
+- dev-23-1 [documents_conditions] failed=facts:رب الاسرة/الزوجة
+    Q: دفتر العيلة ضاع، بقدر أبعت أخوي يقدم الطلب عني؟
+    A: نعم، يمكن لأخيك تقديم الطلب عنك بشرط أن يكون حاصلاً على البطاقة الشخصية الذكية.
+    expected: status=ok services=family_book_lost facts=['رب الاسرة', 'الزوجة']
+    sources: family_book_lost (debug route: ok family_book_lost)
+- dev-28-1 [documents_conditions] failed=source_precise
+    Q: معي بطاقة الجسور الصفراء، شو بلزمني عشان أطلع بطاقة ذكية بدل فاقد؟
+    A: - الوثائق المطلوبة:   - نموذج البطاقة الشخصية   - اثبات شخصية لصاحب العلاقة   - التعهد الخطي (إذا كان الفقدان للمرة الأولى أو الثانية)   - محضر إفادة بالفقدان من لجنة التحقيق (إذا كان الفقدان للمرة ال
+    expected: status=ok services=id_card_lost facts=['تعهد', 'المركز الامني', 'الجسور']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-36-1 [hidden_in_notes] failed=source_precise
+    Q: هاي تالت مرة بتضيع فيها هويتي، شو الإجراءات وشو المبالغ؟
+    A: - الإجراءات:  1. تحويلك إلى لجنة التحقيق للتحقيق في كيفية الفقدان. 2. تقديم التعهد الخطي إذا كان هذا هو الفقدان الثاني خلال ثلاث سنوات. 3. تقديم كفالة مالية بقيمة 50 دينار، بالإضافة إلى قيمة التعهد ال
+    expected: status=ok services=id_card_lost facts=['لجنة التحقيق', '50', '5']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-39-1 [comparison] failed=source_covers;source_precise
+    Q: الهوية: بدل فاقد ولا بدل تالف، أي وحدة رسومها أقل؟
+    A: 3 دنانير هي رسوم بدل التالف، بينما 5 دنانير هي رسوم بدل الفاقد.  لذلك، رسوم بدل التالف أقل.
+    expected: status=ok services=id_card_lost,id_card_damaged facts=['3', '5']
+    sources: family_book_lost,id_card_damaged (debug route: ok id_card_lost,id_card_damaged)
+- dev-44-1 [dialect] failed=facts:التالفة/نموذج
+    Q: الهوية تبعتي انكسرت ونص الشريحة طالعة، شو بلزمني عشان أطلع وحدة بدالها؟
+    A: - الزمن: 20 دقيقة - الرسوم: 3 دنانير
+    expected: status=ok services=id_card_damaged facts=['التالفة', 'نموذج']
+    sources: id_card_damaged (debug route: ok id_card_damaged)
+- dev-50-1 [long_story] failed=wrong:50;source_precise
+    Q: السلام عليكم، أنا ساكن بالزرقاء وبشتغل بمصنع بلاستيك. امبارح انسرقت محفظتي بالباص وفيها الهوية، وقبل 4 سنين كمان كانت ضاعت مني هوية وطلعت بد
+    A: - بطاقة الأحوال المدنية الذكية بدل فاقد:   - الرسوم: 5 دنانير.   - إذا كانت هذه هي المرة الثانية التي تفقد فيها بطاقتك خلال أقل من 3 سنوات، فستدفع 10 دنانير كقيمة التعهد الخطي.   - إذا كانت هذه هي الم
+    expected: status=ok services=id_card_lost,family_book_damaged facts=['5', '3']
+    sources: family_book_damaged,family_book_lost,id_card_lost (debug route: ok id_card_lost,family_book_damaged)
+- dev-53-1 [long_story] failed=facts:شخصيا
+    Q: جدي عمره 70 سنة وتعبان وما بقدر يمشي كتير، هويته خلصت وبدو يجددها. ابن عمي عرض يروح يقدم عنه بدل ما ينزل هو. وكمان جدي بسأل إذا لازم يجيب صو
+    A: نعم، يمكن لابن عمك تقديم الطلب نيابة عن جدي.  الوثائق والشروط: - لا يحتاج جدي إلى إحضار صور شخصية، بشرط أن تكون الصورة على بطاقته الحالية واضحة. - الوثائق المطلوبة: نموذج البطاقة الشخصية، البطاقة الشخ
+    expected: status=ok services=id_card_renewal facts=['شخصيا', '2']
+    sources: id_card_renewal (debug route: ok id_card_renewal)
+- dev-55-1 [wrong_assumption] failed=source_precise
+    Q: صاحبي حكالي إنو الهوية بدل فاقد بتستلمها بنفس اليوم بعد 20 دقيقة، صح؟
+    A: لا، ليس صحيحاً.  يستغرق إصدار بطاقة الأحوال المدنية الذكية بدل فاقد 20 دقيقة، ولكن المدة الإجمالية لتقديم الخدمة ليست مذكورة بوضوح في المصادر.  ملاحظة: قد تختلف المدة الإجمالية حسب حالة المستخدم، فمثل
+    expected: status=ok services=id_card_lost facts=['اسبوعين']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-57-1 [wrong_assumption] failed=facts:10
+    Q: دفتر العائلة لأول مرة بنطلعه وقت ما بدنا وما في أي غرامة، صح؟
+    A: لا، دفتر العائلة لأول مرة لا يمكن الحصول عليه في أي وقت دون غرامة إذا مرّ 90 يوماً على عقد الزواج. ينطبق رسوم إصدار الدفتر (2) دينار.
+    expected: status=ok services=family_book_first_issue facts=['90', '10']
+    sources: family_book_first_issue (debug route: ok family_book_first_issue)
+- dev-58-1 [wrong_assumption] failed=facts:ولي الامر|الاب|الام
+    Q: الجواز لأول مرة لازم صاحبه يكون عمره 18 ويقدم بنفسه، يعني ابني اللي عمره 12 ما بقدر يطلعله جواز؟
+    A: لا، لا يمكن إصدار جواز سفر لأول مرة لابنك الذي عمره 12 سنة.  الشروط المطلوبة لإصدار جواز سفر لأول مرة هي: - حضور صاحب العلاقة شخصياً لمن أتم سن الثامنة عشر (18) أو أحد أفراد الأسرة البالغين. - أن يكون
+    expected: status=ok services=passport_first_issue facts=['ولي الامر|الاب|الام']
+    sources: passport_first_issue (debug route: ok passport_first_issue)
+- dev-70-3 [conversation] failed=facts:100
+    Q: وإذا كنت برا البلد؟
+    A: إذا كنت خارج البلاد، فإن مكان تقديم خدمة جواز السفر العادي لأول مرة يكون:  - السفارات الأردنية والقنصليات في الخارج.
+    expected: status=ok services=passport_first_issue facts=['100']
+    sources: passport_first_issue (debug route: ok passport_first_issue)
+- dev-71-2 [conversation] failed=source_precise
+    Q: وللهوية؟
+    A: الرسوم المنطبقة على حالة المستخدم: • [بطاقة الأحوال المدنية الذكية بدل فاقد] — حالته: المرة الأولى للفقدان    ينطبق: «5 دنانير»
+    expected: status=ok services=id_card_lost facts=['5']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-74-1 [documents_conditions] failed=facts:حق
+    Q: ابني عمره 14 بدنا نجدد جوازه، بقدر أنا أمه أقدم عنه؟
+    A: نعم، يمكنكِ تقديم طلب تجديد جواز سفر ابنك القاصر شخصياً دون الحاجة لموافقة الأب.
+    expected: status=ok services=passport_renewal facts=['حق']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-78-2 [conversation] failed=facts:10
+    Q: وإذا تأخرنا عن هالمدة؟
+    A: (ملاحظة: لا توجد معلومات في المصادر عن العقوبات في حال التأخر عن المدة المحددة. )
+    expected: status=ok services=family_book_first_issue facts=['10']
+    sources: family_book_first_issue (debug route: ok family_book_first_issue)
+
+type                      n  SCORE status  dbgst  facts wrong covers precis ground
+OVERALL                  90   83.3  100.0  100.0   87.6     1   97.8   92.2   98.9
+------------------------------------------------------------------------------------
+simple_fact               9  100.0  100.0  100.0  100.0     0  100.0  100.0  100.0
+fee_situation            14   57.1  100.0  100.0   70.2     0   92.9   92.9   92.9
+documents_conditions     13   84.6  100.0  100.0   84.6     0  100.0   92.3  100.0
+hidden_in_notes           9  100.0  100.0  100.0  100.0     0  100.0   88.9  100.0
+comparison                6  100.0  100.0  100.0  100.0     0   83.3   83.3  100.0
+dialect                   5   80.0  100.0  100.0   80.0     0  100.0  100.0  100.0
+conversation             12   83.3  100.0  100.0   83.3     0  100.0   91.7  100.0
+long_story                5   60.0  100.0  100.0   90.0     1  100.0   80.0  100.0
+wrong_assumption          5   60.0  100.0  100.0   70.0     0  100.0   80.0  100.0
+unclear                   5  100.0  100.0  100.0  100.0     0  100.0  100.0  100.0
+not_in_data               7  100.0  100.0  100.0  100.0     0  100.0  100.0  100.0
+
+SCORE = share of messages with status_ok AND all must_include facts AND no wrong value.
+details -> eval/last_score.json
+done

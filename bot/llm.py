@@ -58,7 +58,7 @@ class LLM:
             return None
 
     def resolve_model(self):
-        """Use the configured model; if it is not pulled, fall back to the only/first local model."""
+        """Use the configured model; if it is not pulled, report it (never silently use a different model)."""
         names = self.available_models()
         if names is None:
             return self.model, "ollama not reachable at %s" % self.url
@@ -69,10 +69,9 @@ class LLM:
             if n == want or n == want + ":latest" or n.split(":")[0] == want:
                 self.model = n
                 return n, "ok"
-        # Configured model missing: prefer a chat model (skip embedding models)
-        chat = [n for n in names if "embed" not in n.lower()]
-        self.model = (chat or names)[0]
-        return self.model, "configured model %r not found, using %r" % (want, self.model)
+        # Configured model missing: do NOT substitute another model. The rules allow only the provided model to
+        # generate answers, so the caller must treat this as "model unusable" (see main.py).
+        return want, "configured model %r not found in ollama (no other model is substituted)" % want
 
     def chat(self, system, user, num_predict=None, temperature=None):
         payload = {

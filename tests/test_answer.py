@@ -259,3 +259,22 @@ class ModelDeclineWordingTest(unittest.TestCase):
         for text in ["يستغرق تجديد دفتر العائلة 45 دقيقة.", "الرسوم 50 دينار لمن تجاوز السادسة عشرة وجوازه منتهي.",
                      "يمكنك تقديم الطلب في مكاتب دائرة الأحوال المدنية والجوازات."]:
             self.assertFalse(A._is_decline(text), text)
+
+
+class NoModelSubstitutionTest(unittest.TestCase):
+    """Rule: only the provided model may generate answers; a missing model must never be replaced by another one."""
+
+    def test_missing_model_is_not_replaced(self):
+        from bot.llm import LLM, load_config
+        llm = LLM(load_config())
+        llm.available_models = lambda: ["qwen3:8b", "llama3:8b"]
+        model, status = llm.resolve_model()
+        self.assertEqual(model, llm.model)
+        self.assertNotIn(model, ("qwen3:8b", "llama3:8b"))
+        self.assertTrue(status.startswith("configured model"))
+
+    def test_configured_model_found(self):
+        from bot.llm import LLM, load_config
+        llm = LLM(load_config())
+        llm.available_models = lambda: [llm.model]
+        self.assertEqual(llm.resolve_model(), (llm.model, "ok"))
