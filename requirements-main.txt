@@ -1,0 +1,2 @@
+# Everything main.py needs at run time (no torch / embeddings / vector DB)
+ollama>=0.4.0

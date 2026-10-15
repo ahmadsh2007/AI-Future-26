@@ -75,8 +75,11 @@ def detect(question: str):
     if len(doc_hits) > 1 and not re.search(r"ذكي|شخصي|هويه|احوال", q):
         doc_hits = [h for h in doc_hits if h[1] != "id_card"]
     # weak first-issue words (اطلع/اخرج/جديد...) lose against lost/damaged/renewal when only ONE document is asked about
-    if len(doc_hits) <= 1 and len(sit_hits) > 1 and not re.search(STRONG_FIRST, q):
-        sit_hits = [h for h in sit_hits if h[1] != "first_issue"]
+    # ...and "لأول مرة" next to lost/damaged means "the first time it was lost" (a count), not a first issue
+    if len(doc_hits) <= 1 and len(sit_hits) > 1:
+        loss = any(h[1] in ("lost", "damaged") for h in sit_hits)
+        if loss or not re.search(STRONG_FIRST, q):
+            sit_hits = [h for h in sit_hits if h[1] != "first_issue"]
     return q, doc_hits, sit_hits
 
 

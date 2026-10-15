@@ -1,6 +1,37 @@
 first link: https://claude.ai/share/05296964-50a2-42df-b7d2-d2471e58cb42
 
 
+# Official challenge: Government Services Chatbot (`main.py`)
+
+Answers questions about Jordan's passport, family book and smart ID (12 service files in `data/`) using **only** the provided Ollama model (`command-r7b-arabic:7b`). This is the entry point that gets scored; the generic RAG pipeline below is the earlier prototype.
+
+```bash
+ollama pull command-r7b-arabic:7b         # BEFORE the event, then turn Wi-Fi off and test once
+python main.py questions.json             # writes answers.json next to questions.json
+```
+
+**How it works** (no embeddings or vector DB needed - 12 small files are better handled by structure):
+```
+question (+ chat history) → router (dialect regex) → services [(document, situation)] + needed fields
+   ├ no document / no situation → model classifies: UNCLEAR → model asks which one | OUT → model declines
+   ├ unsupported variant (diplomatic passport...) / unrelated topic → model declines, contexts = []
+   └ else: feed ONLY the relevant fields of the matched files → model answers → answer + contexts
+```
+| File | Role |
+|---|---|
+| `gov_data.py` | cleans the raw website text (menus, tabs, duplicate lines) and splits each file into its 9 fields; facts untouched |
+| `gov_router.py` | Jordanian-dialect vocabulary → document × situation (first issue / renewal / lost / damaged); pairs several services in one question by proximity; picks fields by intent (fees always include notes, where hidden surcharges live) |
+| `gov_prompts.py` | answer / decline / clarify / classify prompts |
+| `gov_bot.py` | per-chat state (follow-ups inherit the previous service), thinking mode for fee questions, fallbacks |
+| `main.py` | reads/writes the exact JSON format, one try/except per message, partial `answers.json` after every chat |
+| `dev/dev_set.json`, `dev/eval_dev.py` | our own 32 test cases (fee rules, notes, dialect, comparison, follow-up, unclear, out-of-scope) |
+
+`contexts` returned per answer = exactly the `"<service title> - <field>: <text>"` sections the model was given.
+
+Tests: `pytest tests/test_gov_router.py` (offline, no LLM, <1 s) and `python dev/eval_dev.py [id-filter] [-v]` (needs Ollama + the model).
+
+---
+
 # Arabic RAG Q&A (hackathon pipeline)
 
 Strict, hallucination-averse Arabic document Q&A. Answers only from retrieved context, otherwise returns exactly `لا أعرف`.
