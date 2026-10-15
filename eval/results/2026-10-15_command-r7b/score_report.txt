@@ -1,0 +1,180 @@
+messages: 90 (labeled 90, unlabeled 0), format issues in 0
+
+FAILURES:
+- dev-08-1 [fee_situation] failed=facts:100
+    Q: جوازي لسا ساري لسنة ونص، بس بدي أجدده هلأ لأني مسافر. عمري 40 وأنا بعمان. كم الرسوم؟
+    A: الرسوم المطلوبة لتجديد جواز السفر في حالتك هي: 50 دينار.  (ملاحظة: يبدو أن المستخدم قد تجاوز سن السادسة عشر بيوم، لذا يتم تطبيق الرسم المذكور.)
+    expected: status=ok services=passport_renewal facts=['100']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-10-1 [fee_situation] failed=status;source_covers;source_precise;grounded;facts:100/المدير العام
+    Q: أنا مقيم بالسعودية وبدي أجدد جوازي من السفارة هناك، كم الرسوم وشو لازم يكون معي زيادة؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=passport_renewal facts=['100', 'المدير العام']
+- dev-11-1 [fee_situation] failed=grounded;facts:50/25/75
+    Q: جوازي منتهي وعمري 28، وبدي أخلصه بسرعة بمكتب الخدمة المستعجلة. قديش المجموع؟
+    A: 100 دينار (رسوم الخدمة المستعجلة).
+    expected: status=ok services=passport_renewal facts=['50', '25', '75']
+    ungrounded numbers: [100]
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-12-1 [fee_situation] failed=facts:25
+    Q: ابني عمره 10 سنين وبدنا نطلعله جواز لأول مرة، قديش رسومه؟
+    A: 50 دينار داخل البلاد.
+    expected: status=ok services=passport_first_issue facts=['25']
+    sources: passport_first_issue (debug route: ok passport_first_issue)
+- dev-14-1 [fee_situation] failed=facts:كفالة
+    Q: جوازي ضاع للمرة الثانية، وأول مرة ضاع كان قبل 3 سنين. قديش بدي أدفع؟
+    A: 250 دينار.
+    expected: status=ok services=passport_lost facts=['250', 'كفالة']
+    sources: passport_lost (debug route: ok passport_lost)
+- dev-19-1 [fee_situation] failed=status;source_covers;source_precise;grounded;facts:2/10
+    Q: تزوجنا من 4 شهور وما فتحنا دفتر عائلة لهلأ، شو الرسوم علينا؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=family_book_first_issue facts=['2', '10']
+- dev-20-1 [fee_situation] failed=status;source_covers;source_precise;grounded;facts:3/تعهد
+    Q: دفتر العائلة اهترى، مع إني طلعته جديد قبل سنة. قديش رح أدفع؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=family_book_damaged facts=['3', 'تعهد']
+- dev-22-1 [documents_conditions] failed=facts:خدمة العلم
+    Q: شب عمري 22 وبدي أجدد الباسبور جوا البلد، شو بلزمني من أوراق؟
+    A: لتجديد جواز سفرك، تحتاج إلى:  - حضورك شخصياً لأنك أكبر من 18 سنة. - بطاقتك الشخصية لمن أتم السادسة عشر (16). - جواز السفر المراد تجديده. - صور شخصية ملونة عدد 2.  إذا كنت داخل الأردن، فلا تحتاج إلى مو
+    expected: status=ok services=passport_renewal facts=['خدمة العلم', 'صور', '2']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-23-1 [documents_conditions] failed=facts:رب الاسرة/الزوجة
+    Q: دفتر العيلة ضاع، بقدر أبعت أخوي يقدم الطلب عني؟
+    A: نعم، يمكن لأخيك تقديم الطلب عنك بشرط أن يكون حاصلاً على البطاقة الشخصية الذكية.
+    expected: status=ok services=family_book_lost facts=['رب الاسرة', 'الزوجة']
+    sources: family_book_lost (debug route: ok family_book_lost)
+- dev-24-1 [documents_conditions] failed=source_precise
+    Q: ابني عمره 15 سنة وبدو يطلع هوية لأول مرة، شو المطلوب؟
+    A: - الوثائق المطلوبة:   - نموذج البطاقة الشخصية   - إثبات شخصية لصاحب العلاقة أو معرف من الدرجة الأولى   - موافقة ولي الأمر (لأقل من 16 سنة)   - صور شخصية حديثة وملونة عدد (1)   - كتاب القيادة العامة لل
+    expected: status=ok services=id_card_first_issue facts=['ولي الامر', 'زمرة الدم', '1']
+    sources: family_book_first_issue,id_card_first_issue (debug route: ok id_card_first_issue)
+- dev-27-1 [documents_conditions] failed=status;source_covers;source_precise;grounded;facts:البطاقة الشخصية/صور
+    Q: معي دفتر خدمة العلم ومأجل، وبدي أطلع جواز سفر لأول مرة. شو كمان بدي أجيب غير الدفتر؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=passport_first_issue facts=['البطاقة الشخصية', 'صور']
+- dev-28-1 [documents_conditions] failed=source_precise
+    Q: معي بطاقة الجسور الصفراء، شو بلزمني عشان أطلع بطاقة ذكية بدل فاقد؟
+    A: - الشروط:   - تقديم الطلب من قبل صاحب الوثيقة المفقودة (أنت).   - إحضار ما يثبت شخصيتك أو شهادة أحد أفراد الأسرة ممن يحملون وثائق رسمية.  - الوثائق:   - نموذج البطاقة الشخصية.   - بطاقة الجسور الصفراء
+    expected: status=ok services=id_card_lost facts=['تعهد', 'المركز الامني', 'الجسور']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-31-1 [hidden_in_notes] failed=status;source_covers;source_precise;grounded;facts:اسبوعين
+    Q: ضاعت هويتي وبلغت الشرطة امبارح، إيمتى بقدر أستلم البطاقة الجديدة؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_lost facts=['اسبوعين']
+- dev-36-1 [hidden_in_notes] failed=source_precise
+    Q: هاي تالت مرة بتضيع فيها هويتي، شو الإجراءات وشو المبالغ؟
+    A: - الإجراءات:  1. سيتم تحويلك إلى لجنة التحقيق للتحقيق في كيفية الفقدان. 2. ستحتاج إلى كفالة مالية بقيمة 50 دينار، بالإضافة إلى قيمة التعهد الخطي السابق (10 دنانير) إذا كان الفقدان خلال ثلاث سنوات من ا
+    expected: status=ok services=id_card_lost facts=['لجنة التحقيق', '50', '5']
+    sources: family_book_lost,id_card_lost (debug route: ok id_card_lost)
+- dev-37-1 [hidden_in_notes] failed=facts:5
+    Q: دفتر العيلة ضاع للمرة الثالثة خلال سنتين، شو اللي بيترتب علي؟
+    A: - يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلة للمرة الثالثة. - يتم تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) إذا كان الفقدان خلال ثلاث سنوات (3)
+    expected: status=ok services=family_book_lost facts=['50', '5']
+    sources: family_book_lost (debug route: ok family_book_lost)
+- dev-39-1 [comparison] failed=status;source_covers;source_precise;grounded;facts:3/5
+    Q: الهوية: بدل فاقد ولا بدل تالف، أي وحدة رسومها أقل؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_lost,id_card_damaged facts=['3', '5']
+- dev-48-1 [dialect] failed=facts:السفار
+    Q: ضيعت دفتر العيلة وأنا بالكويت، بقدر أطلع بدالو من هناك؟ وشو بدي ورق؟
+    A: - نعم، يمكنك تقديم طلب بدل فاقد دفتر العائلة من خارج الأردن. - الشروط:   - أن تكون حاصلاً على البطاقة الشخصية الذكية.   - أن يقدم الطلب رب الأسرة أو الزوجة فقط. - الوثائق المطلوبة:   - نموذج دفتر العا
+    expected: status=ok services=family_book_lost facts=['السفار', 'بلاغ', 'تعهد']
+    sources: family_book_lost (debug route: ok family_book_lost)
+- dev-49-1 [long_story] failed=source_precise;facts:2
+    Q: مرحبا، أنا وزوجتي وولادنا التلاتة ناويين نسافر على تركيا بالصيف إن شاء الله وحاجزين الفندق من زمان. جوازي أنا منتهي من شهر وعمري 38، وبنتي ا
+    A: - أنت (38 سنة): 50 دينارًا (حالة المستخدم: جواز السفر منتهي الصلاحية).  - ابنتك (9 سنوات): 25 دينارًا (حالة المستخدم: أقل من 16 سنة).  - ابنك (17 سنة): 25 دينارًا (حالة المستخدم: أكبر من 16 سنة وأقل م
+    expected: status=ok services=passport_renewal,id_card_first_issue facts=['50', '25', '2']
+    sources: family_book_first_issue,id_card_first_issue,passport_renewal (debug route: ok passport_renewal,id_card_first_issue)
+- dev-50-1 [long_story] failed=source_precise
+    Q: السلام عليكم، أنا ساكن بالزرقاء وبشتغل بمصنع بلاستيك. امبارح انسرقت محفظتي بالباص وفيها الهوية، وقبل 4 سنين كمان كانت ضاعت مني هوية وطلعت بد
+    A: - رسوم الهوية: 5 دنانير.  - رسوم دفتر العائلة: 3 دنانير.  ملاحظة: لم تذكر حالة المستخدم (مثل العمر أو صلاحية الوثائق السابقة) لذا تم افتراض أن الفقدان السابق كان قبل ثلاث سنوات، وبالتالي يتم استيفاء ق
+    expected: status=ok services=id_card_lost,family_book_damaged facts=['5', '3']
+    sources: family_book_damaged,family_book_lost,id_card_lost (debug route: ok id_card_lost,family_book_damaged)
+- dev-51-1 [long_story] failed=facts:25
+    Q: عنا بالبيت كذا قصة: أخوي مقيم بالإمارات وجوازه بدو تجديد، وأختي عمرها 15 وبدها جواز لأول مرة من هون من عمان، وأنا جوازي اهترى لأنو الولد شخب
+    A: - أخوك: 100 دينار، لأن جواز سفره منتهي أو متبقي عليه أقل من 180 يوم.  - أختك: 100 دينار، لأنها خارج البلاد.  - أنت: 50 دينار، لأنك داخل البلاد.  ملاحظة: إذا كان جواز سفرك بهتر، يمكنك تجديده في مكاتب د
+    expected: status=ok services=passport_renewal,passport_first_issue,passport_damaged facts=['100', '25']
+    sources: passport_damaged,passport_first_issue,passport_renewal (debug route: ok passport_damaged,passport_renewal,passport_first_issue)
+- dev-52-1 [long_story] failed=source_precise
+    Q: قصتي طويلة شوي: تزوجت قبل سنة، وما طلعنا دفتر عائلة لليوم لأنا كنا مشغولين بالشقة والعفش والشغل. هلأ زوجتي حامل وبدنا نرتب أمورنا. شو الرسوم
+    A: - رسوم دفتر العائلة:   - 2 دينار لإصدار دفتر العائلة.   - 10 دنانير غرامة إذا مرّ 90 يوماً على زواجك.  - تجديد جواز سفر زوجتك:   - 25 ديناراً إذا قدمت الطلب في مكتب الخدمة المستعجلة.   - 20 ديناراً لأ
+    expected: status=ok services=family_book_first_issue,passport_renewal facts=['2', '10', 'دون موافقة|بدون موافقة|لا تحتاج|لا يشترط', '50']
+    sources: family_book_first_issue,passport_damaged,passport_renewal (debug route: ok family_book_first_issue,passport_renewal)
+- dev-55-1 [wrong_assumption] failed=status;source_covers;source_precise;grounded;facts:اسبوعين
+    Q: صاحبي حكالي إنو الهوية بدل فاقد بتستلمها بنفس اليوم بعد 20 دقيقة، صح؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_lost facts=['اسبوعين']
+- dev-57-1 [wrong_assumption] failed=status;source_covers;source_precise;grounded
+    Q: دفتر العائلة لأول مرة بنطلعه وقت ما بدنا وما في أي غرامة، صح؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.   وفقاً للمصادر، يجب فتح السجل المدني قبل مرور 90 يوم من تاريخ عقد الزواج، وهناك غرامة قدرها 10 دنانير في حال تأخر الفتح عن هذا الموعد.
+    expected: status=ok services=family_book_first_issue facts=['90', '10']
+    ungrounded numbers: [10, 90]
+- dev-58-1 [wrong_assumption] failed=facts:ولي الامر|الاب|الام
+    Q: الجواز لأول مرة لازم صاحبه يكون عمره 18 ويقدم بنفسه، يعني ابني اللي عمره 12 ما بقدر يطلعله جواز؟
+    A: لا، ليس شرطاً أن يكون عمر صاحب الجواز الأول مرة 18 سنة، بل يجب أن يكون قد أكمل سن الثامنة عشر (18) أو أن يكون أحد أفراد أسرته البالغين حاضرين لتقديم الطلب نيابة عنه. كما أن هناك استثناءات أخرى مثل أن 
+    expected: status=ok services=passport_first_issue facts=['ولي الامر|الاب|الام']
+    sources: passport_first_issue (debug route: ok passport_first_issue)
+- dev-60-1 [unclear] failed=grounded
+    Q: ضاع مني، شو بعمل؟
+    A: ما الخدمة التي تحتاجها من الخيارات التالية؟  1. جواز سفر بدل فاقد 2. دفتر عائلة بدل فاقد 3. بطاقة ذكية بدل فاقد
+    expected: status=unclear services=- facts=[]
+    ungrounded numbers: [1, 2, 3]
+- dev-69-2 [conversation] failed=status;source_covers;source_precise;grounded;facts:نموذج/تجديدها|القديمة|الحالية
+    Q: الهوية
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_renewal facts=['نموذج', 'تجديدها|القديمة|الحالية']
+- dev-70-3 [conversation] failed=facts:100
+    Q: وإذا كنت برا البلد؟
+    A: 50 دينار داخل البلاد.
+    expected: status=ok services=passport_first_issue facts=['100']
+    sources: passport_first_issue (debug route: ok passport_first_issue)
+- dev-71-2 [conversation] failed=status;source_covers;source_precise;grounded;facts:5
+    Q: وللهوية؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_lost facts=['5']
+- dev-71-3 [conversation] failed=status;source_covers;source_precise;grounded;facts:مكاتب
+    Q: وبقدر أطلعها من السفارة؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_lost facts=['مكاتب']
+- dev-73-1 [simple_fact] failed=source_covers;source_precise
+    Q: كم رسوم البطاقة الذكية لأول مرة؟
+    A: 2 دينار.
+    expected: status=ok services=id_card_first_issue facts=['2']
+    sources: family_book_first_issue (debug route: ok id_card_first_issue)
+- dev-73-2 [conversation] failed=status;source_covers;source_precise;grounded;facts:10
+    Q: وإذا عمري 19 وما طلعتها لهلأ؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_first_issue facts=['10']
+- dev-74-1 [documents_conditions] failed=facts:حق
+    Q: ابني عمره 14 بدنا نجدد جوازه، بقدر أنا أمه أقدم عنه؟
+    A: نعم، يمكنك تقديم طلب تجديد جواز سفر ابنك القاصر (أقل من 18 سنة) دون الحاجة لحضوره شخصياً.
+    expected: status=ok services=passport_renewal facts=['حق']
+    sources: passport_renewal (debug route: ok passport_renewal)
+- dev-76-2 [conversation] failed=status;source_covers;source_precise;grounded;facts:3
+    Q: طيب والبطاقة الذكية بدل تالف قديش؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=id_card_damaged facts=['3']
+- dev-78-2 [conversation] failed=status;source_covers;source_precise;grounded;facts:10
+    Q: وإذا تأخرنا عن هالمدة؟
+    A: عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.
+    expected: status=ok services=family_book_first_issue facts=['10']
+
+type                      n  SCORE status  dbgst  facts wrong covers precis ground
+OVERALL                  90   70.0   84.4  100.0   75.0     0   83.3   76.7   82.2
+------------------------------------------------------------------------------------
+simple_fact               9  100.0  100.0  100.0  100.0     0   88.9   88.9  100.0
+fee_situation            14   50.0   78.6  100.0   53.6     0   78.6   78.6   71.4
+documents_conditions     13   69.2   92.3  100.0   74.4     0   92.3   76.9   92.3
+hidden_in_notes           9   77.8   88.9  100.0   83.3     0   88.9   77.8   88.9
+comparison                6   83.3   83.3  100.0   83.3     0   83.3   83.3   83.3
+dialect                   5   80.0  100.0  100.0   93.3     0  100.0  100.0  100.0
+conversation             12   41.7   50.0  100.0   41.7     0   50.0   50.0   50.0
+long_story                5   60.0  100.0  100.0   83.3     0  100.0   40.0  100.0
+wrong_assumption          5   40.0   60.0  100.0   60.0     0   60.0   60.0   60.0
+unclear                   5  100.0  100.0  100.0  100.0     0  100.0  100.0   80.0
+not_in_data               7  100.0  100.0  100.0  100.0     0  100.0  100.0  100.0
+
+SCORE = share of messages with status_ok AND all must_include facts AND no wrong value.
+details -> eval/last_score.json
+done

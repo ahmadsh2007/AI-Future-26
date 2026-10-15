@@ -1,67 +1,931 @@
 {
- "dev_set": "questions.json",
- "answers": "/tmp/pp_q.json",
+ "dev_set": "eval/dev_set.json",
+ "answers": "eval/dev_answers.json",
  "errors": [],
- "summary": {},
+ "summary": {
+  "OVERALL": {
+   "n": 90,
+   "score": 0.7,
+   "status_acc": 0.8444444444444444,
+   "debug_status_acc": 1.0,
+   "facts": 0.75,
+   "wrong": 0,
+   "covers": 0.8333333333333334,
+   "precise": 0.7666666666666667,
+   "grounded": 0.8222222222222222,
+   "missing": 0
+  },
+  "simple_fact": {
+   "n": 9,
+   "score": 1.0,
+   "status_acc": 1.0,
+   "debug_status_acc": 1.0,
+   "facts": 1.0,
+   "wrong": 0,
+   "covers": 0.8888888888888888,
+   "precise": 0.8888888888888888,
+   "grounded": 1.0,
+   "missing": 0
+  },
+  "fee_situation": {
+   "n": 14,
+   "score": 0.5,
+   "status_acc": 0.7857142857142857,
+   "debug_status_acc": 1.0,
+   "facts": 0.5357142857142857,
+   "wrong": 0,
+   "covers": 0.7857142857142857,
+   "precise": 0.7857142857142857,
+   "grounded": 0.7142857142857143,
+   "missing": 0
+  },
+  "documents_conditions": {
+   "n": 13,
+   "score": 0.6923076923076923,
+   "status_acc": 0.9230769230769231,
+   "debug_status_acc": 1.0,
+   "facts": 0.7435897435897435,
+   "wrong": 0,
+   "covers": 0.9230769230769231,
+   "precise": 0.7692307692307693,
+   "grounded": 0.9230769230769231,
+   "missing": 0
+  },
+  "hidden_in_notes": {
+   "n": 9,
+   "score": 0.7777777777777778,
+   "status_acc": 0.8888888888888888,
+   "debug_status_acc": 1.0,
+   "facts": 0.8333333333333334,
+   "wrong": 0,
+   "covers": 0.8888888888888888,
+   "precise": 0.7777777777777778,
+   "grounded": 0.8888888888888888,
+   "missing": 0
+  },
+  "comparison": {
+   "n": 6,
+   "score": 0.8333333333333334,
+   "status_acc": 0.8333333333333334,
+   "debug_status_acc": 1.0,
+   "facts": 0.8333333333333334,
+   "wrong": 0,
+   "covers": 0.8333333333333334,
+   "precise": 0.8333333333333334,
+   "grounded": 0.8333333333333334,
+   "missing": 0
+  },
+  "dialect": {
+   "n": 5,
+   "score": 0.8,
+   "status_acc": 1.0,
+   "debug_status_acc": 1.0,
+   "facts": 0.9333333333333333,
+   "wrong": 0,
+   "covers": 1.0,
+   "precise": 1.0,
+   "grounded": 1.0,
+   "missing": 0
+  },
+  "conversation": {
+   "n": 12,
+   "score": 0.4166666666666667,
+   "status_acc": 0.5,
+   "debug_status_acc": 1.0,
+   "facts": 0.4166666666666667,
+   "wrong": 0,
+   "covers": 0.5,
+   "precise": 0.5,
+   "grounded": 0.5,
+   "missing": 0
+  },
+  "long_story": {
+   "n": 5,
+   "score": 0.6,
+   "status_acc": 1.0,
+   "debug_status_acc": 1.0,
+   "facts": 0.8333333333333334,
+   "wrong": 0,
+   "covers": 1.0,
+   "precise": 0.4,
+   "grounded": 1.0,
+   "missing": 0
+  },
+  "wrong_assumption": {
+   "n": 5,
+   "score": 0.4,
+   "status_acc": 0.6,
+   "debug_status_acc": 1.0,
+   "facts": 0.6,
+   "wrong": 0,
+   "covers": 0.6,
+   "precise": 0.6,
+   "grounded": 0.6,
+   "missing": 0
+  },
+  "unclear": {
+   "n": 5,
+   "score": 1.0,
+   "status_acc": 1.0,
+   "debug_status_acc": 1.0,
+   "facts": 1.0,
+   "wrong": 0,
+   "covers": 1.0,
+   "precise": 1.0,
+   "grounded": 0.8,
+   "missing": 0
+  },
+  "not_in_data": {
+   "n": 7,
+   "score": 1.0,
+   "status_acc": 1.0,
+   "debug_status_acc": 1.0,
+   "facts": 1.0,
+   "wrong": 0,
+   "covers": 1.0,
+   "precise": 1.0,
+   "grounded": 1.0,
+   "missing": 0
+  }
+ },
  "results": [
   {
-   "chat_id": "chat-01",
-   "message_id": "chat-01-1",
-   "type": "unlabeled",
-   "question": "كم يستغرق تجديد دفتر العائلة؟",
+   "chat_id": "dev-01",
+   "message_id": "dev-01-1",
+   "type": "simple_fact",
+   "question": "قديش بتاخد وقت معاملة إصدار البطاقة الذكية لأول مرة؟",
    "failed": [],
-   "labeled": false,
+   "labeled": true,
    "format_issues": [],
    "missing": false,
-   "answer": "تجديد دفتر العائلة - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+   "answer": "الزمن المستغرق لتقديم الخدمة: 20 دقيقة.",
    "contexts": [
-    "تجديد دفتر العائلة - الزمن المستغرق لتقديم الخدمة: 45 دقيقة"
+    "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة"
    ],
-   "debug_status": null,
-   "debug_services": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue"
+   ],
    "text_status": "ok",
    "attribution": [
     {
-     "context": "تجديد دفتر العائلة - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "context": "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
      "ties": [
-      "family_book_first_issue",
-      "family_book_renewal"
+      "id_card_first_issue"
      ],
-     "score": 1.0,
+     "score": 0.895,
      "resolved": [
-      "family_book_first_issue",
-      "family_book_renewal"
+      "id_card_first_issue"
      ]
     }
    ],
    "attributed_services": [
-    "family_book_first_issue",
-    "family_book_renewal"
+    "id_card_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "20"
    ]
   },
   {
-   "chat_id": "chat-02",
-   "message_id": "chat-02-1",
-   "type": "unlabeled",
-   "question": "وين بقدر أطلع جواز سفر بدل فاقد؟",
+   "chat_id": "dev-02",
+   "message_id": "dev-02-1",
+   "type": "simple_fact",
+   "question": "كم رسوم إصدار دفتر عائلة بدل فاقد؟",
    "failed": [],
-   "labeled": false,
+   "labeled": true,
    "format_issues": [],
    "missing": false,
-   "answer": "جواز سفر بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+   "answer": "الرسوم: 5 دنانير + تعهد خطي بقيمة (10) دنانير + استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق.",
    "contexts": [
-    "جواز سفر بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج."
+    "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها مستقبلاً من الفقدان. 2. يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على كل من فقد دفتر العائلة للمرة الثانية ويتم تحصيل قيمة التعهد اذا تم الفقدان خلال ثلاث سنوات (3) 3. يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلته للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) اذا كان الفقدان خلال الثلاث سنوات (3).",
+    "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق."
    ],
-   "debug_status": null,
-   "debug_services": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
    "text_status": "ok",
    "attribution": [
     {
-     "context": "جواز سفر بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+     "context": "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.938,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.984,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "5",
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-03",
+   "message_id": "dev-03-1",
+   "type": "simple_fact",
+   "question": "الجواز تبعي تالف، قديش رسوم إصدار جواز بدله؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "100 دينار.",
+   "contexts": [
+    "جواز سفر بدل تالف - الرسوم: 100 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - الرسوم: 100 دينار",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_damaged"
+   ],
+   "must_include": [
+    "100"
+   ]
+  },
+  {
+   "chat_id": "dev-04",
+   "message_id": "dev-04-1",
+   "type": "simple_fact",
+   "question": "كم رسوم البطاقة الذكية بدل تالف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "3 دنانير.",
+   "contexts": [
+    "بطاقة ذكية بدل تالف - الرسوم: 3 دنانير"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل تالف - الرسوم: 3 دنانير",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.87,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_damaged"
+   ],
+   "must_include": [
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-05",
+   "message_id": "dev-05-1",
+   "type": "simple_fact",
+   "question": "وين بقدر أقدم طلب بطاقة ذكية بدل فاقد؟ بتنفع السفارة الأردنية برا؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "يمكنك تقديم طلب بطاقة ذكية بدل فاقد في مكاتب دائرة الأحوال المدنية والجوازات.\n\nأما بالنسبة للسفارة الأردنية، فلا تذكر المصادر ما إذا كانت مقبولة أم لا.",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.88,
+     "resolved": [
+      "id_card_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "مكاتب"
+   ]
+  },
+  {
+   "chat_id": "dev-06",
+   "message_id": "dev-06-1",
+   "type": "simple_fact",
+   "question": "معاملة دفتر العائلة بدل التالف كم بتطول؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "الزمن المستغرق لتقديم الخدمة: 45 دقيقة.",
+   "contexts": [
+    "دفتر عائلة بدل تالف - الزمن المستغرق لتقديم الخدمة: 45 دقيقة"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل تالف - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "45"
+   ]
+  },
+  {
+   "chat_id": "dev-07",
+   "message_id": "dev-07-1",
+   "type": "fee_situation",
+   "question": "عمري 31 سنة والباسبور منتهي من شهرين، قديش بدي أدفع لأجدده؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "50 دينار.",
+   "contexts": [
+    "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 2. إذا كان مقدم الطلب حاصلا على جنسية أخرى فعليه إبراز جواز السفر لتلك الجنسية بهدف تخزين الاسم الوارد باللغة الانجليزية في الجنسية الأخرى. 3. حجة الولاية/الوصاية لغايات تجديد جواز السفر لمن يلزمهم ذلك. 4. أن يكون حاصل على بطاقة شخصية لمن أتم السادسة عشر (16) 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها. 6. لولي الأمر (الأب/الأم) الحق في تقديم طلب تجديد جواز سفر لأبنائه القاصرين",
+    "تجديد جواز السفر - الرسوم: 20 دينار لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني والمشاركين بقوات حفظ السلام وفي حالة تغيير الحالة الإجتماعية وتغيير الصفة العسكرية الى المدنية وبالعكس؛ 25 دينار لمن هم دون السادسة عشر (16)؛ 20 دينار لجواز السفر الممتلئ الصفحات وساري المفعول؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم؛ 100 دينار لجواز السفر غير المنتهي أو متبقي اكثر من 180 يوم على انتهاءه؛ 100 دينار لمن هم خارج البلاد او ما يعادلها بعملة السفارة او القنصلية"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 2. إذا كان مقدم الطلب حاصلا على جنسية أ",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.929,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 20 دينار لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني والمشاركين بقوات حفظ ",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.969,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "50"
+   ]
+  },
+  {
+   "chat_id": "dev-08",
+   "message_id": "dev-08-1",
+   "type": "fee_situation",
+   "question": "جوازي لسا ساري لسنة ونص، بس بدي أجدده هلأ لأني مسافر. عمري 40 وأنا بعمان. كم الرسوم؟",
+   "failed": [
+    "facts:100"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "الرسوم المطلوبة لتجديد جواز السفر في حالتك هي: 50 دينار.\n\n(ملاحظة: يبدو أن المستخدم قد تجاوز سن السادسة عشر بيوم، لذا يتم تطبيق الرسم المذكور.)",
+   "contexts": [
+    "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+    "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.929,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السف",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.886,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "100"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "100"
+   ]
+  },
+  {
+   "chat_id": "dev-09",
+   "message_id": "dev-09-1",
+   "type": "fee_situation",
+   "question": "بنتي عمرها 12 سنة وبدنا نجدد جوازها، قديش بتكلف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "25 دينار.",
+   "contexts": [
+    "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.887,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-10",
+   "message_id": "dev-10-1",
+   "type": "fee_situation",
+   "question": "أنا مقيم بالسعودية وبدي أجدد جوازي من السفارة هناك، كم الرسوم وشو لازم يكون معي زيادة؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:100/المدير العام"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "100",
+    "المدير العام"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "100",
+    "المدير العام"
+   ]
+  },
+  {
+   "chat_id": "dev-11",
+   "message_id": "dev-11-1",
+   "type": "fee_situation",
+   "question": "جوازي منتهي وعمري 28، وبدي أخلصه بسرعة بمكتب الخدمة المستعجلة. قديش المجموع؟",
+   "failed": [
+    "grounded",
+    "facts:50/25/75"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "100 دينار (رسوم الخدمة المستعجلة).",
+   "contexts": [
+    "تجديد جواز السفر - ملاحظات: 2. يضاف 25 دينار في حال قدم في مكتب الخدمة المستعجلة"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - ملاحظات: 2. يضاف 25 دينار في حال قدم في مكتب الخدمة المستعجلة",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.874,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "50",
+    "25",
+    "75"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [
+    100
+   ],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "50",
+    "25",
+    "75"
+   ]
+  },
+  {
+   "chat_id": "dev-12",
+   "message_id": "dev-12-1",
+   "type": "fee_situation",
+   "question": "ابني عمره 10 سنين وبدنا نطلعله جواز لأول مرة، قديش رسومه؟",
+   "failed": [
+    "facts:25"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "50 دينار داخل البلاد.",
+   "contexts": [
+    "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "25"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-13",
+   "message_id": "dev-13-1",
+   "type": "fee_situation",
+   "question": "ساكن بألمانيا وعمري 35 وأول مرة بدي أطلع جواز أردني من السفارة، قديش بدفع؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "100 دينار.",
+   "contexts": [
+    "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 100 دينار لمن هم خارج البلاد."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 100 دينار لمن هم خارج البلاد.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.943,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "100"
+   ]
+  },
+  {
+   "chat_id": "dev-14",
+   "message_id": "dev-14-1",
+   "type": "fee_situation",
+   "question": "جوازي ضاع للمرة الثانية، وأول مرة ضاع كان قبل 3 سنين. قديش بدي أدفع؟",
+   "failed": [
+    "facts:كفالة"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "250 دينار.",
+   "contexts": [
+    "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى؛ 250 دينار لاي مرة تلي المرة الأولى وتحصل قيمة الكفالة السابقة اذا مضى عن الفقدان السابق اقل من 5 سنوات."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى؛ 250 دينار لاي مرة تلي المرة الأولى وتحصل قيمة الكفالة السابقة اذا مض",
      "ties": [
       "passport_lost"
      ],
-     "score": 0.971,
+     "score": 0.979,
      "resolved": [
       "passport_lost"
      ]
@@ -69,91 +933,615 @@
    ],
    "attributed_services": [
     "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.5,
+   "facts_missing": [
+    "كفالة"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "250",
+    "كفالة"
    ]
   },
   {
-   "chat_id": "chat-03",
-   "message_id": "chat-03-1",
-   "type": "unlabeled",
-   "question": "شو الأوراق المطلوبة لتجديد دفتر العائلة؟",
+   "chat_id": "dev-15",
+   "message_id": "dev-15-1",
+   "type": "fee_situation",
+   "question": "انسرق الباسبور تبعي بإسطنبول وهاي أول مرة بيضيع مني. قديش الرسوم وشو الأوراق الزيادة اللي بدي إياها لأنو الفقدان صار برا؟",
    "failed": [],
-   "labeled": false,
+   "labeled": true,
    "format_issues": [],
    "missing": false,
-   "answer": "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده. 2. البطاقة الشخصية لمقدم الطلب 3. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك.",
+   "answer": "- الرسوم: 125 دينار\n- الوثائق الإضافية: \n  - بلاغ الفقدان وترجمته من مركز ترجمه معتمد (إذا كان بغير اللغة العربية)\n  - وثيقة سفر اضطرارية (إذا قدم الطلب من صاحب العلاقة)\n  - جواز سفر الأجنبي يبين دخوله إلى المملكة",
    "contexts": [
-    "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده. 2. البطاقة الشخصية لمقدم الطلب 3. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك."
+    "جواز سفر بدل فاقد - الوثائق المطلوبة: 8. بلاغ الفقدان في المركز الأمني 11. اذا حدث الفقدان خارج البلاد وقدم من صاحب العلاقة يجب احضار: - بلاغ الفقدان وترجمته من مركز ترجمه معتمد اذا كان بغير اللغة العربية - وثيقة سفر اضطرارية اذا قدم الطلب من صاحب العلاقة - جواز سفر الأجنبي يبين دخوله إلى المملكة",
+    "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى"
    ],
-   "debug_status": null,
-   "debug_services": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
    "text_status": "ok",
    "attribution": [
     {
-     "context": "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده. 2. البطاقة الشخصية لمقدم الطلب 3. بطاقة إحصاءات ال",
+     "context": "جواز سفر بدل فاقد - الوثائق المطلوبة: 8. بلاغ الفقدان في المركز الأمني 11. اذا حدث الفقدان خارج البلاد وقدم من صاحب العل",
      "ties": [
-      "family_book_renewal"
+      "passport_lost"
      ],
-     "score": 0.98,
+     "score": 0.975,
      "resolved": [
-      "family_book_renewal"
+      "passport_lost"
      ]
-    }
-   ],
-   "attributed_services": [
-    "family_book_renewal"
-   ]
-  },
-  {
-   "chat_id": "chat-03",
-   "message_id": "chat-03-2",
-   "type": "unlabeled",
-   "question": "وبقدر أقدّم الطلب من السفارة إذا كنت برا البلد؟",
-   "failed": [],
-   "labeled": false,
-   "format_issues": [],
-   "missing": false,
-   "answer": "تجديد دفتر العائلة - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
-   "contexts": [
-    "تجديد دفتر العائلة - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج"
-   ],
-   "debug_status": null,
-   "debug_services": [],
-   "text_status": "ok",
-   "attribution": [
+    },
     {
-     "context": "تجديد دفتر العائلة - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
+     "context": "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى",
      "ties": [
-      "family_book_first_issue",
-      "family_book_renewal"
+      "passport_lost"
      ],
      "score": 1.0,
      "resolved": [
-      "family_book_first_issue",
+      "passport_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "125",
+    "ترجم",
+    "اضطرارية"
+   ]
+  },
+  {
+   "chat_id": "dev-16",
+   "message_id": "dev-16-1",
+   "type": "fee_situation",
+   "question": "عمري 20 سنة وعمري ما طلعت هوية، بدي أطلعها هلأ. قديش بدفع؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "حسب المصادر، فإن رسوم بطاقة ذكية لأول مرة هي 2 دينار.\n\nإذا اتم المستخدم 18 عامًا من عمره ولم يصدر بطاقة شخصية، يُفرض غرامة تأخير بقيمة 10 دنانير.\n\nبالتالي، في حالتك، حيث أنك تبلغ من العمر 20 عامًا، فإن الرسوم المطلوبة هي 2 دينار فقط.",
+   "contexts": [
+    "بطاقة ذكية لأول مرة - الرسوم: 2 دينار؛ 10 دنانير غرامة تاخير اذا اتم 18 عام من عمره ولم يصدر بطاقة شخصية"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية لأول مرة - الرسوم: 2 دينار؛ 10 دنانير غرامة تاخير اذا اتم 18 عام من عمره ولم يصدر بطاقة شخصية",
+     "ties": [
+      "id_card_first_issue"
+     ],
+     "score": 0.928,
+     "resolved": [
+      "id_card_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "2",
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-17",
+   "message_id": "dev-17-1",
+   "type": "fee_situation",
+   "question": "الهوية ضاعت مني للمرة التانية، وأول مرة ضاعت وطلعت بدالها قبل سنتين بس. شو بدي أدفع؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- رسوم الخدمة: 5 دنانير.\n- رسوم التعهد الخطي: 10 دنانير (حسب الملاحظة المتعلقة بحالة الفقدان للمرة الثانية خلال أقل من ثلاث سنوات).\n\nالمجموع: 15 ديناراً.",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 3. التعهد الخطي اذا كان الفقدان للمرة الاولى او الثانية",
+    "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة المفقودة الأولى فلا يقبل الطلب إلا بعد دفع قيمة التعهد الخطي (10) دنانير",
+    "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 3. التعهد الخطي اذا كان الفقدان للمرة الاولى او الثانية",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.926,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة الم",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.934,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.871,
+     "resolved": [
+      "id_card_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [
+    15
+   ],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "5",
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-18",
+   "message_id": "dev-18-1",
+   "type": "fee_situation",
+   "question": "دفتر العيلة تبعنا لسا ما انتهت مدته بس بدنا نجدده، قديش بكلف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "ثلاثة دنانير (3).",
+   "contexts": [
+    "تجديد دفتر العائلة - الرسوم: ثلاثة دنانير (3) لدفتر العائلة غير منتهي المدة."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد دفتر العائلة - الرسوم: ثلاثة دنانير (3) لدفتر العائلة غير منتهي المدة.",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.822,
+     "resolved": [
       "family_book_renewal"
      ]
     }
    ],
    "attributed_services": [
-    "family_book_first_issue",
     "family_book_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_renewal"
+   ],
+   "must_include": [
+    "3"
    ]
   },
   {
-   "chat_id": "chat-04",
-   "message_id": "chat-04-1",
-   "type": "unlabeled",
-   "question": "قديش صورة شخصية بحتاج للبطاقة الذكية لأول مرة، وقديش لتجديد جواز السفر؟",
-   "failed": [],
-   "labeled": false,
+   "chat_id": "dev-19",
+   "message_id": "dev-19-1",
+   "type": "fee_situation",
+   "question": "تزوجنا من 4 شهور وما فتحنا دفتر عائلة لهلأ، شو الرسوم علينا؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:2/10"
+   ],
+   "labeled": true,
    "format_issues": [],
    "missing": false,
-   "answer": "بطاقة ذكية لأول مرة - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. إثبات شخصية لصاحب العلاقة او معرف من الدرجة الاولى. 3. اقل من 16 سنة موافقة ولي الامر. 4. صور شخصية حديثة وملونة عدد (1) 5. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 6. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش. 7. الفحص الطبي لزمرة الدم او اقرار خطي من صاحب العلاقة\nتجديد جواز السفر - الوثائق المطلوبة: 1. موافقة المدير العام لمن هم خارج البلاد 2. البطاقة الشخصية لمتلقي الخدمة 3. الجواز المراد تجديده. 4. دفتر خدمة العلم وقد تم تأجيله أو شهادة إنهاء الخدمة بالنسبة للذكور من المواليد المطلوبة لخدمة العلم. 5. بطاقات الجسور الصفراء والبطاقة الفلسطينية الإسرائيلية لمن يحملها أو مشروحات المتابعة والتفتيش. 6. كتاب الموافقة من القيادة العامة للعسكريين وزوجاتهم (في حال عدم وجود اسم الزوج على الجواز). او كتاب شؤون الأفراد او الضباط لمنتسبي الأمن العام و الدفاع المدني والدرك. 7. جواز السفر الأجنبي لمن يحمله. 8. صور شخصية ملونة عدد 2.",
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "2",
+    "10"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "2",
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-20",
+   "message_id": "dev-20-1",
+   "type": "fee_situation",
+   "question": "دفتر العائلة اهترى، مع إني طلعته جديد قبل سنة. قديش رح أدفع؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:3/تعهد"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "3",
+    "تعهد"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "3",
+    "تعهد"
+   ]
+  },
+  {
+   "chat_id": "dev-21",
+   "message_id": "dev-21-1",
+   "type": "documents_conditions",
+   "question": "شو الأوراق اللي لازم أجيبها معي لتجديد البطاقة الذكية؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- نموذج البطاقة الشخصية\n- البطاقة الشخصية المراد تجديدها\n- كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة\n- بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش.",
+   "contexts": [
+    "تجديد البطاقة الذكية - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. البطاقة الشخصية المراد تجديدها 3. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 4. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد البطاقة الذكية - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. البطاقة الشخصية المراد تجديدها 3. كتاب القيادة العا",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.978,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_renewal"
+   ],
+   "must_include": [
+    "نموذج",
+    "المراد تجديدها|القديمة|الحالية",
+    "القيادة العامة",
+    "الجسور"
+   ]
+  },
+  {
+   "chat_id": "dev-22",
+   "message_id": "dev-22-1",
+   "type": "documents_conditions",
+   "question": "شب عمري 22 وبدي أجدد الباسبور جوا البلد، شو بلزمني من أوراق؟",
+   "failed": [
+    "facts:خدمة العلم"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "لتجديد جواز سفرك، تحتاج إلى:\n\n- حضورك شخصياً لأنك أكبر من 18 سنة.\n- بطاقتك الشخصية لمن أتم السادسة عشر (16).\n- جواز السفر المراد تجديده.\n- صور شخصية ملونة عدد 2.\n\nإذا كنت داخل الأردن، فلا تحتاج إلى موافقة المدير العام.",
+   "contexts": [
+    "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 4. أن يكون حاصل على بطاقة شخصية لمن أتم السادسة عشر (16) 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها.",
+    "تجديد جواز السفر - الوثائق المطلوبة: 1. موافقة المدير العام لمن هم خارج البلاد 3. الجواز المراد تجديده. 7. جواز السفر الأجنبي لمن يحمله. 8. صور شخصية ملونة عدد 2.",
+    "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 4. أن يكون حاصل على بطاقة شخصية لمن أتم",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.856,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 1. موافقة المدير العام لمن هم خارج البلاد 3. الجواز المراد تجديده. 7. جواز السفر ال",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السف",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.886,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.6666666666666666,
+   "facts_missing": [
+    "خدمة العلم"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "خدمة العلم",
+    "صور",
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-23",
+   "message_id": "dev-23-1",
+   "type": "documents_conditions",
+   "question": "دفتر العيلة ضاع، بقدر أبعت أخوي يقدم الطلب عني؟",
+   "failed": [
+    "facts:رب الاسرة/الزوجة"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "نعم، يمكن لأخيك تقديم الطلب عنك بشرط أن يكون حاصلاً على البطاقة الشخصية الذكية.",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية",
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة)"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة)",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.969,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "رب الاسرة",
+    "الزوجة"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "رب الاسرة",
+    "الزوجة"
+   ]
+  },
+  {
+   "chat_id": "dev-24",
+   "message_id": "dev-24-1",
+   "type": "documents_conditions",
+   "question": "ابني عمره 15 سنة وبدو يطلع هوية لأول مرة، شو المطلوب؟",
+   "failed": [
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- الوثائق المطلوبة:\n  - نموذج البطاقة الشخصية\n  - إثبات شخصية لصاحب العلاقة أو معرف من الدرجة الأولى\n  - موافقة ولي الأمر (لأقل من 16 سنة)\n  - صور شخصية حديثة وملونة عدد (1)\n  - كتاب القيادة العامة للعسكريين بالموافقة على إصدار البطاقة (إن كان ابنك عسكرياً)\n  - بطاقة إحصاءات الجسور (إن كان مطلوباً) أو ختم المتابعة والتفتيش\n  - الفحص الطبي لزمرة الدم أو اقرار خطي من صاحب العلاقة\n\n- رسوم الخدمة: 2 دينار.\n\n- الزمن المستغرق: 20 دقيقة.",
    "contexts": [
     "بطاقة ذكية لأول مرة - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. إثبات شخصية لصاحب العلاقة او معرف من الدرجة الاولى. 3. اقل من 16 سنة موافقة ولي الامر. 4. صور شخصية حديثة وملونة عدد (1) 5. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 6. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش. 7. الفحص الطبي لزمرة الدم او اقرار خطي من صاحب العلاقة",
-    "تجديد جواز السفر - الوثائق المطلوبة: 1. موافقة المدير العام لمن هم خارج البلاد 2. البطاقة الشخصية لمتلقي الخدمة 3. الجواز المراد تجديده. 4. دفتر خدمة العلم وقد تم تأجيله أو شهادة إنهاء الخدمة بالنسبة للذكور من المواليد المطلوبة لخدمة العلم. 5. بطاقات الجسور الصفراء والبطاقة الفلسطينية الإسرائيلية لمن يحملها أو مشروحات المتابعة والتفتيش. 6. كتاب الموافقة من القيادة العامة للعسكريين وزوجاتهم (في حال عدم وجود اسم الزوج على الجواز). او كتاب شؤون الأفراد او الضباط لمنتسبي الأمن العام و الدفاع المدني والدرك. 7. جواز السفر الأجنبي لمن يحمله. 8. صور شخصية ملونة عدد 2."
+    "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "بطاقة ذكية لأول مرة - الرسوم: 2 دينار"
    ],
-   "debug_status": null,
-   "debug_services": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue"
+   ],
    "text_status": "ok",
    "attribution": [
     {
@@ -167,37 +1555,4264 @@
      ]
     },
     {
-     "context": "تجديد جواز السفر - الوثائق المطلوبة: 1. موافقة المدير العام لمن هم خارج البلاد 2. البطاقة الشخصية لمتلقي الخدمة 3. الجوا",
+     "context": "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_first_issue"
+     ],
+     "score": 0.895,
+     "resolved": [
+      "id_card_first_issue"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية لأول مرة - الرسوم: 2 دينار",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.902,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue",
+    "id_card_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "ولي الامر",
+    "زمرة الدم",
+    "1"
+   ]
+  },
+  {
+   "chat_id": "dev-25",
+   "message_id": "dev-25-1",
+   "type": "documents_conditions",
+   "question": "جوازي وقع بالمي وصار تالف، شو الأوراق المطلوبة لأطلع بدله؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- البطاقة الشخصية لمتلقي الخدمة\n- جواز السفر التالف\n- دفتر خدمة العلم وقد تم تأجيله أو شهادة إنهاء الخدمة بالنسبة للذكور من المواليد المطلوبة لخدمة العلم.\n- بطاقات الجسور الصفراء والبطاقة الفلسطينية الإسرائيلية لمن يحملها أو مشروحات المتابعة والتفتيش.\n- كتاب الموافقة من القيادة العامة للعسكريين وزوجاتهم (في حال عدم وجود اسم الزوج على الجواز). او كتاب شؤون الأفراد او الضباط لمنتسبي الأمن العام و الدفاع المدني والدرك.\n- حجة الوصاية او ولاية لمن يلزمهم ذلك لغايات اصدار جواز سفر لقاصر.\n- كفالة مالية او تعهد شخصي بالمحافظة على الجواز\n- صور شخصية ملونة عدد 2.",
+   "contexts": [
+    "جواز سفر بدل تالف - شروط تقديم الخدمة: 2. احضار حجة وصاية/ولاية لغايات تجديد جواز سفر لمن يلزمهم ذلك.",
+    "جواز سفر بدل تالف - الوثائق المطلوبة: 1. البطاقة الشخصية لمتلقي الخدمة 2. جواز السفر التالف 3. دفتر خدمة العلم وقد تم تأجيله أو شهادة إنهاء الخدمة بالنسبة للذكور من المواليد المطلوبة لخدمة العلم. 4. بطاقات الجسور الصفراء والبطاقة الفلسطينية الإسرائيلية لمن يحملها أو مشروحات المتابعة والتفتيش. 5. كتاب الموافقة من القيادة العامة للعسكريين وزوجاتهم (في حال عدم وجود اسم الزوج على الجواز). او كتاب شؤون الأفراد او الضباط لمنتسبي الأمن العام و الدفاع المدني والدرك. 6. حجة الوصاية او ولاية لمن يلزمهم ذلك لغايات اصدار جواز سفر لقاصر. 7. كفالة مالية او تعهد شخصي بالمحافظة على الجواز 8. صور شخصية ملونة عدد 2."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - شروط تقديم الخدمة: 2. احضار حجة وصاية/ولاية لغايات تجديد جواز سفر لمن يلزمهم ذلك.",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.949,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الوثائق المطلوبة: 1. البطاقة الشخصية لمتلقي الخدمة 2. جواز السفر التالف 3. دفتر خدمة العلم وقد تم تأ",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.995,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_damaged"
+   ],
+   "must_include": [
+    "الجواز التالف|جواز السفر التالف",
+    "كفالة",
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-26",
+   "message_id": "dev-26-1",
+   "type": "documents_conditions",
+   "question": "تزوجت من وحدة مش أردنية وبدنا نطلع دفتر عائلة لأول مرة، شو الأوراق؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- نموذج فتح قيد مدني جديد\n- شهادة الزواج\n- البطاقات الشخصية للزوجين\n- صورة عن جواز السفر الأجنبي للزوجة (إذا كانت غير أردنية) مثبت عليه الرقم الشخصي\n- بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش (إن لزم الأمر)",
+   "contexts": [
+    "دفتر عائلة لأول مرة - الوثائق المطلوبة: 1. نموذج فتح قيد المدني جديد 2. الشهادات الصادرة عن الدائرة - (شهادة الزواج في حالة الحصول على الدفتر لأول مرة) - (شهادة الطلاق للمطلقة في حالة الحصول على الدفتر فصل عن قيد المطلق) - (شهادة وفاة رب الأسرة في حال الحصول على الدفتر بسبب وفاة رب الأسرة ووجود أكثر من زوجة) 3. كتاب من التنمية الاجتماعية في حالات الأبناء الغير شرعيين. 4. البطاقات الشخصية للزوج والزوجة 5. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك. 6. صورة عن جواز السفر الاجنبي اذا كان احد طرفي عقد الزواج غير اردني مثبت عليه الرقم الشخصي"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة لأول مرة - الوثائق المطلوبة: 1. نموذج فتح قيد المدني جديد 2. الشهادات الصادرة عن الدائرة - (شهادة الزواج في ح",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.995,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "شهادة الزواج",
+    "جواز السفر الاجنبي"
+   ]
+  },
+  {
+   "chat_id": "dev-27",
+   "message_id": "dev-27-1",
+   "type": "documents_conditions",
+   "question": "معي دفتر خدمة العلم ومأجل، وبدي أطلع جواز سفر لأول مرة. شو كمان بدي أجيب غير الدفتر؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:البطاقة الشخصية/صور"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "البطاقة الشخصية",
+    "صور"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "البطاقة الشخصية",
+    "صور"
+   ]
+  },
+  {
+   "chat_id": "dev-28",
+   "message_id": "dev-28-1",
+   "type": "documents_conditions",
+   "question": "معي بطاقة الجسور الصفراء، شو بلزمني عشان أطلع بطاقة ذكية بدل فاقد؟",
+   "failed": [
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- الشروط:\n  - تقديم الطلب من قبل صاحب الوثيقة المفقودة (أنت).\n  - إحضار ما يثبت شخصيتك أو شهادة أحد أفراد الأسرة ممن يحملون وثائق رسمية.\n\n- الوثائق:\n  - نموذج البطاقة الشخصية.\n  - بطاقة الجسور الصفراء (الصورة + الأصل).\n  - التعهد الخطي (إذا كان الفقدان للمرة الأولى أو الثانية).\n  - محضر إفادة بالفقدان من لجنة التحقيق (إذا كان الفقدان للمرة الثالثة).\n  - صورة شخصية حديثة وملونة.\n  - تبليغ المركز الأمني (الكتروني).\n\n- الزمن المستغرق: 20 دقيقة.\n\n- الرسوم: 5 دنانير (إذا لم يكن الفقدان خلال ثلاث سنوات من تاريخ الفقدان السابق، فستدفع أيضاً قيمة التعهد السابق).",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - شروط تقديم الخدمة: 1. تقديم الطلب من قبل الطالب صاحب الوثيقة المفقودة 2. في حال القاصر يقدم الطلب من ولي الأمر ولا يقبل التوكيل ولا التفويض بها. 3. إحضار ما يثبت شخصية الطالب أو شهادة احد أفراد الأسرة ممن يحملون وثائق رسمية",
+    "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. التعهد الخطي اذا كان الفقدان للمرة الاولى او الثانية 4. محضر افادة بالفقدان من لجنة التحقيق اذا كان الفقدان للمرة الثالثة 5. صور شخصية حديثة وملونة عدد (1) 6. تبليغ المركز الأمني (الكتروني) 7. الكفالة مالية اذا كان الفقدان للمرة الثالثة 8. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 9. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش.",
+    "بطاقة ذكية بدل فاقد - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة المفقودة الأولى فلا يقبل الطلب إلا بعد دفع قيمة التعهد الخطي (10) دنانير 3. في حالة فقدان البطاقة للمرة الثالثة يحول المواطن على لجنة التحقيق للتحقيق حول كيفية الفقدان. 4. يتم فرض كفالة مالية بقيمة (50) دينار على كل من فقد بطاقته الشخصية للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق إذا كان الفقدان خلال الثلاث سنوات (3)",
+    "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - شروط تقديم الخدمة: 1. تقديم الطلب من قبل الطالب صاحب الوثيقة المفقودة 2. في حال القاصر يقدم الطلب ",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.962,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. التعهد الخطي اذا كان ال",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.982,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.901,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة الم",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.956,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "تعهد",
+    "المركز الامني",
+    "الجسور"
+   ]
+  },
+  {
+   "chat_id": "dev-29",
+   "message_id": "dev-29-1",
+   "type": "hidden_in_notes",
+   "question": "أبوي وأمي الله يرحمهم توفوا الاثنين، مين فينا بصير رب الأسرة بدفتر العيلة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "أكبر الأبناء سناً يكون رباً للأسرة في حال وفاة الأب والأم.",
+   "contexts": [
+    "دفتر عائلة لأول مرة - ملاحظات: 2. أكبر الأبناء سناً يكون رباً للأسرة في حال وفاة الأب والأم."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة لأول مرة - ملاحظات: 2. أكبر الأبناء سناً يكون رباً للأسرة في حال وفاة الأب والأم.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.928,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": false,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_renewal",
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "اكبر الابناء"
+   ]
+  },
+  {
+   "chat_id": "dev-30",
+   "message_id": "dev-30-1",
+   "type": "hidden_in_notes",
+   "question": "دفتر العيلة خلصت صلاحيته من شهر، في مدة محددة لازم أجدده خلالها؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "نعم، يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+   "contexts": [
+    "تجديد دفتر العائلة - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+    "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده.",
+    "تجديد دفتر العائلة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+    "تجديد دفتر العائلة - الرسوم: دينارين (2) لتجديد دفتر العائلة منتهي المدة.؛ ثلاثة دنانير (3) لدفتر العائلة غير منتهي المدة."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد دفتر العائلة - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.918,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده.",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.947,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.889,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - الرسوم: دينارين (2) لتجديد دفتر العائلة منتهي المدة.؛ ثلاثة دنانير (3) لدفتر العائلة غير منتهي المد",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.831,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_renewal"
+   ],
+   "must_include": [
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-31",
+   "message_id": "dev-31-1",
+   "type": "hidden_in_notes",
+   "question": "ضاعت هويتي وبلغت الشرطة امبارح، إيمتى بقدر أستلم البطاقة الجديدة؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:اسبوعين"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "اسبوعين"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "اسبوعين"
+   ]
+  },
+  {
+   "chat_id": "dev-32",
+   "message_id": "dev-32-1",
+   "type": "hidden_in_notes",
+   "question": "طلعت جواز بدل فاقد ودفعت كفالة، وهلأ ضاع الجواز الجديد كمان. شو بصير؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "إذا فقد الجواز أو الوثيقة الصادرة بعد تقديم الكفالة، فلا يصرف الجواز أو الوثيقة بدلاً من المفقود ما لم تدفع الكفالة وتقديم كفالة جديدة. مدة استحقاق الكفالة هي المدة القانونية للجواز.",
+   "contexts": [
+    "جواز سفر بدل فاقد - ملاحظات: اذا فقد الجواز او الوثيقة الصادرة بعد تقديم الكفالة فلا يصرف الجواز او الوثيقة بدلا من المفقود ما لم تدفع الكفالة وتقديم كفالة جديدة (مدة استحقاق الكفالة هي المدة القانونية للجواز)."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - ملاحظات: اذا فقد الجواز او الوثيقة الصادرة بعد تقديم الكفالة فلا يصرف الجواز او الوثيقة بدلا من المف",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 0.979,
+     "resolved": [
+      "passport_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "كفالة جديدة"
+   ]
+  },
+  {
+   "chat_id": "dev-33",
+   "message_id": "dev-33-1",
+   "type": "hidden_in_notes",
+   "question": "إذا الموظف شك إني متلف الجواز عن قصد، شو بصير بالمعاملة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "إذا ثبت إن التلف متعمد، تحول المعاملة إلى لجنة التحقيق لاتخاذ الإجراءات القانونية والحصول على الموافقات الأمنية اللازمة.",
+   "contexts": [
+    "جواز سفر بدل تالف - ملاحظات: إذا ثبت إن التلف متعمد تحول المعاملة إلى لجنة التحقيق لاتخاذ الإجراءات القانونية والحصول على الموافقات الامنية اللازمة"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - ملاحظات: إذا ثبت إن التلف متعمد تحول المعاملة إلى لجنة التحقيق لاتخاذ الإجراءات القانونية والحصول عل",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.985,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_damaged"
+   ],
+   "must_include": [
+    "لجنة التحقيق"
+   ]
+  },
+  {
+   "chat_id": "dev-34",
+   "message_id": "dev-34-1",
+   "type": "hidden_in_notes",
+   "question": "دفتر العيلة تلف عندي، في مهلة لازم أبلغ فيها الدائرة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "نعم، يجب عليك أن تبلغ المكتب الذي تقيم في دائرة اختصاصه خلال 30 يوماً في حالة تلف أو فقدان دفتر العائلة.",
+   "contexts": [
+    "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+    "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف",
+    "دفتر عائلة بدل تالف - ملاحظات: على صاحب الدفتر في حالة التلف أو الفقدان أن يبلغ المكتب الذي يقيم في دائرة اختصاصه خلال 30 يوم"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.891,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.961,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - ملاحظات: على صاحب الدفتر في حالة التلف أو الفقدان أن يبلغ المكتب الذي يقيم في دائرة اختصاصه خلال 3",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.965,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "30"
+   ]
+  },
+  {
+   "chat_id": "dev-35",
+   "message_id": "dev-35-1",
+   "type": "hidden_in_notes",
+   "question": "معي هوية مقدسية، بدفع رسوم تجديد الجواز زي الأردنيين ولا أكثر؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "نعم، يعامل حملة الهويات المقدسية معاملة الأردنيين من حيث الرسوم.",
+   "contexts": [
+    "تجديد جواز السفر - ملاحظات: 1. يعامل حملة الهويات المقدسية معاملة الاردنيين من حيث الرسوم"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - ملاحظات: 1. يعامل حملة الهويات المقدسية معاملة الاردنيين من حيث الرسوم",
      "ties": [
       "passport_renewal"
      ],
-     "score": 0.995,
+     "score": 0.903,
      "resolved": [
       "passport_renewal"
      ]
     }
    ],
    "attributed_services": [
-    "id_card_first_issue",
     "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "الاردنيين"
    ]
   },
   {
-   "chat_id": "chat-05",
-   "message_id": "chat-05-1",
-   "type": "unlabeled",
-   "question": "كم سعر تذكرة الطيران من عمان إلى دبي؟",
+   "chat_id": "dev-36",
+   "message_id": "dev-36-1",
+   "type": "hidden_in_notes",
+   "question": "هاي تالت مرة بتضيع فيها هويتي، شو الإجراءات وشو المبالغ؟",
+   "failed": [
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- الإجراءات:\n\n1. سيتم تحويلك إلى لجنة التحقيق للتحقيق في كيفية الفقدان.\n2. ستحتاج إلى كفالة مالية بقيمة 50 دينار، بالإضافة إلى قيمة التعهد الخطي السابق (10 دنانير) إذا كان الفقدان خلال ثلاث سنوات من التاريخ السابق.\n3. ستحتاج إلى إحضار:\n    - نموذج البطاقة الشخصية.\n    - إثبات شخصية.\n    - صور شخصية حديثة وملونة.\n    - محضر إفادة بالفقدان من لجنة التحقيق (إذا كان هذا هو الفقدان الثالث).\n    - تبليغ المركز الأمني (الكتروني).\n    - كتاب القيادة العامة للعسكريين بالموافقة على إصدار البطاقة (إن وجد).\n    - بطاقة إحصاءات الجسور (الصورة + الأصل) أو ختم المتابعة والتفتيش (إن وجد).\n\n- الرسوم:\n\n5 دنانير + قيمة التعهد السابق (10 دنانير) إذا كان الفقدان خلال ثلاث سنوات من التاريخ السابق + 50 دينار كفالة مالية.",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. التعهد الخطي اذا كان الفقدان للمرة الاولى او الثانية 4. محضر افادة بالفقدان من لجنة التحقيق اذا كان الفقدان للمرة الثالثة 5. صور شخصية حديثة وملونة عدد (1) 6. تبليغ المركز الأمني (الكتروني) 7. الكفالة مالية اذا كان الفقدان للمرة الثالثة 8. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 9. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش.",
+    "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة المفقودة الأولى فلا يقبل الطلب إلا بعد دفع قيمة التعهد الخطي (10) دنانير 4. يتم فرض كفالة مالية بقيمة (50) دينار على كل من فقد بطاقته الشخصية للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق إذا كان الفقدان خلال الثلاث سنوات (3)",
+    "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. التعهد الخطي اذا كان ال",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.982,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة الم",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.948,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "لجنة التحقيق",
+    "50",
+    "5"
+   ]
+  },
+  {
+   "chat_id": "dev-37",
+   "message_id": "dev-37-1",
+   "type": "hidden_in_notes",
+   "question": "دفتر العيلة ضاع للمرة الثالثة خلال سنتين، شو اللي بيترتب علي؟",
+   "failed": [
+    "facts:5"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلة للمرة الثالثة.\n- يتم تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) إذا كان الفقدان خلال ثلاث سنوات (3).\n- الرسوم الإجمالية: 50 دينار.",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفقدان اكثر من ذلك يتم فرض الكفالة المالية بقيمة (50) دينار",
+    "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها مستقبلاً من الفقدان. 2. يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على كل من فقد دفتر العائلة للمرة الثانية ويتم تحصيل قيمة التعهد اذا تم الفقدان خلال ثلاث سنوات (3) 3. يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلته للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) اذا كان الفقدان خلال الثلاث سنوات (3).",
+    "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفق",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.976,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.938,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.984,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.5,
+   "facts_missing": [
+    "5"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "50",
+    "5"
+   ]
+  },
+  {
+   "chat_id": "dev-38",
+   "message_id": "dev-38-1",
+   "type": "comparison",
+   "question": "شو أغلى: جواز بدل فاقد لأول مرة ولا جواز بدل تالف؟ وقديش الفرق بيناتهم؟",
    "failed": [],
-   "labeled": false,
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "جواز السفر بدل فاقد لأول مرة أغلى من بدل تالف، حيث تبلغ الرسوم:\n\n- 125 دينار لبدل فاقد لأول مرة.\n- 100 دينار لبدل تالف.\n\nالفرق بين الرسوم هو: 25 دينار.",
+   "contexts": [
+    "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى",
+    "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف",
+    "جواز سفر بدل تالف - الرسوم: 100 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost",
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_lost"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.952,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الرسوم: 100 دينار",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged",
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [
+    25
+   ],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost",
+    "passport_damaged"
+   ],
+   "must_include": [
+    "125",
+    "100",
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-39",
+   "message_id": "dev-39-1",
+   "type": "comparison",
+   "question": "الهوية: بدل فاقد ولا بدل تالف، أي وحدة رسومها أقل؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:3/5"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost",
+    "id_card_damaged"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "3",
+    "5"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost",
+    "id_card_damaged"
+   ],
+   "must_include": [
+    "3",
+    "5"
+   ]
+  },
+  {
+   "chat_id": "dev-40",
+   "message_id": "dev-40-1",
+   "type": "comparison",
+   "question": "رسوم دفتر العائلة لأول مرة بتفرق عن رسوم تجديده إذا كان منتهي؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "رسوم تجديد دفتر العائلة إذا كان منتهي الصلاحية هي دينارين (2)، أما إذا كان دفتر العائلة غير منتهي المدة فيكلف ثلاثة دنانير (3).",
+   "contexts": [
+    "دفتر عائلة لأول مرة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+    "دفتر عائلة لأول مرة - الرسوم: رسوم إصدار الدفتر (2) دينار.",
+    "تجديد دفتر العائلة - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+    "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده.",
+    "تجديد دفتر العائلة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+    "تجديد دفتر العائلة - الرسوم: دينارين (2) لتجديد دفتر العائلة منتهي المدة.؛ ثلاثة دنانير (3) لدفتر العائلة غير منتهي المدة."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue",
+    "family_book_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة لأول مرة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.89,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    },
+    {
+     "context": "دفتر عائلة لأول مرة - الرسوم: رسوم إصدار الدفتر (2) دينار.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.918,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - الوثائق المطلوبة: 1. دفتر العائلة المراد تجديده.",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.947,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - ملاحظات: 3. يجب تجديد دفتر العائلة خلال ثلاثة أشهر (3) من تاريخ انتهاء صلاحيته.",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.889,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    },
+    {
+     "context": "تجديد دفتر العائلة - الرسوم: دينارين (2) لتجديد دفتر العائلة منتهي المدة.؛ ثلاثة دنانير (3) لدفتر العائلة غير منتهي المد",
+     "ties": [
+      "family_book_renewal"
+     ],
+     "score": 0.831,
+     "resolved": [
+      "family_book_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue",
+    "family_book_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue",
+    "family_book_renewal"
+   ],
+   "must_include": [
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-41",
+   "message_id": "dev-41-1",
+   "type": "comparison",
+   "question": "قديش الفرق بالوقت بين إصدار هوية لأول مرة وجواز سفر لأول مرة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "يستغرق إصدار البطاقة الذكية لأول مرة 20 دقيقة، بينما يستغرق إصدار جواز السفر لأول مرة 45 دقيقة.\n\nالفرق في الوقت بين الخدمتين هو 25 دقيقة.",
+   "contexts": [
+    "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "جواز سفر لأول مرة - الوثائق المطلوبة: 8. جواز السفر الأجنبي لمن يحمله.",
+    "جواز سفر لأول مرة - الزمن المستغرق لتقديم الخدمة: 45 دقيقة"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue",
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية لأول مرة - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_first_issue"
+     ],
+     "score": 0.895,
+     "resolved": [
+      "id_card_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الوثائق المطلوبة: 8. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.942,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_first_issue",
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [
+    25
+   ],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue",
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "20",
+    "45"
+   ]
+  },
+  {
+   "chat_id": "dev-42",
+   "message_id": "dev-42-1",
+   "type": "comparison",
+   "question": "كم صورة شخصية بحتاج لبطاقة ذكية بدل فاقد، وكم صورة لجواز بدل تالف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- بطاقة ذكية بدل فاقد: صورة شخصية حديثة وملونة عدد (1).\n- جواز سفر بدل تالف: صور شخصية ملونة عدد 2.",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 5. صور شخصية حديثة وملونة عدد (1)",
+    "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف 8. صور شخصية ملونة عدد 2."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost",
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - الوثائق المطلوبة: 5. صور شخصية حديثة وملونة عدد (1)",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.903,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف 8. صور شخصية ملونة عدد 2.",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.906,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_lost",
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost",
+    "passport_damaged"
+   ],
+   "must_include": [
+    "1",
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-43",
+   "message_id": "dev-43-1",
+   "type": "comparison",
+   "question": "بقدر أطلع دفتر عائلة بدل فاقد من السفارة وأنا برا؟ وهل نفس الشي للهوية بدل فاقد؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- نعم، يمكنك تقديم طلب دفتر عائلة بدل فاقد من السفارات الأردنية والقنصليات بالخارج.\n- أما بالنسبة للبطاقة الذكية بدل فاقد، فيمكن تقديم الطلب من مكاتب دائرة الأحوال المدنية والجوازات فقط.\n\nلذلك، الإجابة على سؤالك هي: يمكنك تقديم طلب دفتر عائلة بدل فاقد من السفارة الأردنية في بلدك، ولكن يجب عليك تقديم الطلب من مكاتب دائرة الأحوال المدنية والجوازات للحصول على بطاقة ذكية بدل فاقد.",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
+    "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية",
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة",
+    "بطاقة ذكية بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.971,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.953,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.88,
+     "resolved": [
+      "id_card_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "must_include": [
+    "السفار",
+    "مكاتب"
+   ]
+  },
+  {
+   "chat_id": "dev-44",
+   "message_id": "dev-44-1",
+   "type": "dialect",
+   "question": "الهوية تبعتي انكسرت ونص الشريحة طالعة، شو بلزمني عشان أطلع وحدة بدالها؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- أماكن تقديم الطلب: مكاتب دائرة الأحوال المدنية والجوازات.\r\n- شروط تقديم الطلب:\n  - يقبل الطلب من صاحب العلاقة شخصياً.\n  - في حال القاصر، يقدم الطلب من ولي الأمر (الأب/الأم) دون توكيل أو تفويض.\r\n- الوثائق المطلوبة:\n  - نموذج البطاقة الشخصية.\n  - إثبات شخصية صاحب العلاقة.\n  - البطاقة التالفة.\n  - كتاب القيادة العامة للعسكريين بالموافقة على إصدار البطاقة (إن وجد).\n  - بطاقة إحصاءات الجسور (الصورة + الأصل) أو ختم المتابعة والتفتيش (إن وجد).\r\n- الزمن المستغرق: 20 دقيقة.\r\n- الرسوم: 3 دنانير.",
+   "contexts": [
+    "بطاقة ذكية بدل تالف - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+    "بطاقة ذكية بدل تالف - شروط تقديم الخدمة: 1. يقبل طلب الحصول على البطاقة الذكية التالفة من صاحب العلاقة شخصياً 2. في حال القاصر يقدم الطلب من ولي الأمر (الاب/الام) ولا يقبل التوكيل ولا التفويض بها. 3. إحضار ما يثبت شخصية الطالب أو شهادة احد أفراد الأسرة ممن يحملون وثائق رسمية",
+    "بطاقة ذكية بدل تالف - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. البطاقة التالفة 4. كتاب القيادة العامة للعسكريين بالموافقة على اصدار البطاقة 5. بطاقة إحصاءات الجسور لمن يلزمهم ذلك (الصورة + الأصل) أو ختم المتابعة والتفتيش.",
+    "بطاقة ذكية بدل تالف - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "بطاقة ذكية بدل تالف - الرسوم: 3 دنانير"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل تالف - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.881,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل تالف - شروط تقديم الخدمة: 1. يقبل طلب الحصول على البطاقة الذكية التالفة من صاحب العلاقة شخصياً 2. في حال ",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.964,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل تالف - الوثائق المطلوبة: 1. نموذج البطاقة الشخصية 2. اثبات شخصية لصاحب العلاقة 3. البطاقة التالفة 4. كتاب",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.962,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل تالف - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.901,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل تالف - الرسوم: 3 دنانير",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.87,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_damaged"
+   ],
+   "must_include": [
+    "التالفة",
+    "نموذج"
+   ]
+  },
+  {
+   "chat_id": "dev-45",
+   "message_id": "dev-45-1",
+   "type": "dialect",
+   "question": "دفتر العيلة اهترى ومشقق كله، قديش بدي أدفع لأطلع بدالو؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "للحصول على دفتر عائلة بدل تالف، يجب دفع رسوم قدرها 3 دنانير.\n\nملاحظة: إذا كان التلف قد حدث خلال ثلاث سنوات من تاريخ الإصدار السابق، فيجب أيضاً استيفاء قيمة التعهد الخطي التي تحدد قيمتها من قبل أمين المكتب (10 دنانير).",
+   "contexts": [
+    "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+    "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف 3. البطاقة الشخصية لمقدم الطلب 4. التعهد الخطي للمحافظة على الدفتر تحدد قيمتها من قبل أمين المكتب (10 دنانير). 5. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك.",
+    "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.891,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف 3. البطاقة الشخصية لمقدم الطلب 4. ا",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.96,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار ال",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.963,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-46",
+   "message_id": "dev-46-1",
+   "type": "dialect",
+   "question": "يا جماعة انسرق الباسبور مني بعمان، أول مرة بيصير معي. وين بروح وقديش بدفع؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات.\n- الرسوم: 125 دينار للمرة الأولى.",
+   "contexts": [
+    "جواز سفر بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+    "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 0.958,
+     "resolved": [
+      "passport_lost"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "125",
+    "مكاتب"
+   ]
+  },
+  {
+   "chat_id": "dev-47",
+   "message_id": "dev-47-1",
+   "type": "dialect",
+   "question": "الهوية خلصت، بدي أغيرها. قديش بتكلف وكم بتاخد وقت؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "تكلفة تجديد البطاقة الذكية: 2 دينار.\n\nالوقت المستغرق: 20 دقيقة.",
+   "contexts": [
+    "تجديد البطاقة الذكية - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "تجديد البطاقة الذكية - الرسوم: 2 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد البطاقة الذكية - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.974,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    },
+    {
+     "context": "تجديد البطاقة الذكية - الرسوم: 2 دينار",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.961,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_renewal"
+   ],
+   "must_include": [
+    "2",
+    "20"
+   ]
+  },
+  {
+   "chat_id": "dev-48",
+   "message_id": "dev-48-1",
+   "type": "dialect",
+   "question": "ضيعت دفتر العيلة وأنا بالكويت، بقدر أطلع بدالو من هناك؟ وشو بدي ورق؟",
+   "failed": [
+    "facts:السفار"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- نعم، يمكنك تقديم طلب بدل فاقد دفتر العائلة من خارج الأردن.\n- الشروط:\n  - أن تكون حاصلاً على البطاقة الشخصية الذكية.\n  - أن يقدم الطلب رب الأسرة أو الزوجة فقط.\n- الوثائق المطلوبة:\n  - نموذج دفتر العائلة.\n  - البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة).\n  - بلاغ المركز الأمني بالفقدان (إذا حدث الفقدان داخل البلاد) أو من الجهة الأمنية في الدولة التي حدث فيها الفقدان.\n  - تعهد خطي بالفقدان للمرة الأولى والثانية (قيمته 10 دنانير)، وللمرة الثالثة كفالة عدلية بقيمة 50 ديناراً مع تحصيل التعهدات السابقة إذا كان الفقدان خلال ثلاث سنوات.\n- الزمن المستغرق: 45 دقيقة.\n- الرسوم: 5 دنانير + تعهد خطي بقيمة 10 دنانير + استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3).",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. يقدم الطلب رب الاسرة او الزوجة فقط",
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة) 3. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك. 4. بلاغ المركز الأمني بالفقدان إذا حدث الفقدان داخل البلاد أو من الجهة الأمنية في الدولة التي حدث فيها الفقدان. 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفقدان اكثر من ذلك يتم فرض الكفالة المالية بقيمة (50) دينار",
+    "دفتر عائلة بدل فاقد - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+    "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها مستقبلاً من الفقدان. 2. يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على كل من فقد دفتر العائلة للمرة الثانية ويتم تحصيل قيمة التعهد اذا تم الفقدان خلال ثلاث سنوات (3) 3. يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلته للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) اذا كان الفقدان خلال الثلاث سنوات (3).",
+    "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. يقدم الطلب رب الاسرة او الزوجة ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.957,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة) 3. بط",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.994,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.938,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.984,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.6666666666666666,
+   "facts_missing": [
+    "السفار"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "السفار",
+    "بلاغ",
+    "تعهد"
+   ]
+  },
+  {
+   "chat_id": "dev-49",
+   "message_id": "dev-49-1",
+   "type": "long_story",
+   "question": "مرحبا، أنا وزوجتي وولادنا التلاتة ناويين نسافر على تركيا بالصيف إن شاء الله وحاجزين الفندق من زمان. جوازي أنا منتهي من شهر وعمري 38، وبنتي اللي عمرها 9 سنين جوازها لازم يتجدد كمان، وابني الكبير عمره 17 وعمره ما طلع هوية. بدي أعرف قديش رح أدفع لكل واحد فينا.",
+   "failed": [
+    "source_precise",
+    "facts:2"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- أنت (38 سنة): 50 دينارًا (حالة المستخدم: جواز السفر منتهي الصلاحية).\n\n- ابنتك (9 سنوات): 25 دينارًا (حالة المستخدم: أقل من 16 سنة).\n\n- ابنك (17 سنة): 25 دينارًا (حالة المستخدم: أكبر من 16 سنة وأقل من 18 سنة).\n\n- زوجتك: لا تحتاج لتجديد جواز سفر (حالة المستخدم: زوجة، يحق لها تجديد جواز سفرها دون موافقة زوجها).\n\nالمجموع: 100 دينار.",
+   "contexts": [
+    "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها.",
+    "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+    "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم؛ 100 دينار لجواز السفر غير المنتهي أو متبقي اكثر من 180 يوم على انتهاءه",
+    "بطاقة ذكية لأول مرة - الوثائق المطلوبة: 3. اقل من 16 سنة موافقة ولي الامر.",
+    "بطاقة ذكية لأول مرة - الرسوم: 2 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal",
+    "id_card_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 5. يحق للزوجة تجديد جواز سفر لها دون مو",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.911,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.929,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السف",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.913,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية لأول مرة - الوثائق المطلوبة: 3. اقل من 16 سنة موافقة ولي الامر.",
+     "ties": [
+      "id_card_first_issue"
+     ],
+     "score": 0.888,
+     "resolved": [
+      "id_card_first_issue"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية لأول مرة - الرسوم: 2 دينار",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.902,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue",
+    "id_card_first_issue",
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.6666666666666666,
+   "facts_missing": [
+    "2"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal",
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "50",
+    "25",
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-50",
+   "message_id": "dev-50-1",
+   "type": "long_story",
+   "question": "السلام عليكم، أنا ساكن بالزرقاء وبشتغل بمصنع بلاستيك. امبارح انسرقت محفظتي بالباص وفيها الهوية، وقبل 4 سنين كمان كانت ضاعت مني هوية وطلعت بدالها. وكمان دفتر العيلة وقعت عليه مي وصار تالف. بدي أعرف قديش رسوم الهوية وقديش رسوم الدفتر.",
+   "failed": [
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- رسوم الهوية: 5 دنانير.\n\n- رسوم دفتر العائلة: 3 دنانير.\n\nملاحظة: لم تذكر حالة المستخدم (مثل العمر أو صلاحية الوثائق السابقة) لذا تم افتراض أن الفقدان السابق كان قبل ثلاث سنوات، وبالتالي يتم استيفاء قيمة التعهد السابق بالنسبة لكل من الهوية والدفتر.",
+   "contexts": [
+    "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة المفقودة الأولى فلا يقبل الطلب إلا بعد دفع قيمة التعهد الخطي (10) دنانير 4. يتم فرض كفالة مالية بقيمة (50) دينار على كل من فقد بطاقته الشخصية للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق إذا كان الفقدان خلال الثلاث سنوات (3)",
+    "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق",
+    "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+    "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف",
+    "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost",
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل فاقد - ملاحظات: 1. في حالة فقدان البطاقة للمرة الثانية وخلال مدة أقل من ثلاث سنوات (3) من صرف البطاقة الم",
+     "ties": [
+      "id_card_lost"
+     ],
+     "score": 0.948,
+     "resolved": [
+      "id_card_lost"
+     ]
+    },
+    {
+     "context": "بطاقة ذكية بدل فاقد - الرسوم: 5 دنانير؛ استيفاء قيمة التعهد السابق اذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.931,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 2. دفتر العائلة القديم",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.891,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.961,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار ال",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.963,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged",
+    "family_book_lost",
+    "id_card_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost",
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "5",
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-51",
+   "message_id": "dev-51-1",
+   "type": "long_story",
+   "question": "عنا بالبيت كذا قصة: أخوي مقيم بالإمارات وجوازه بدو تجديد، وأختي عمرها 15 وبدها جواز لأول مرة من هون من عمان، وأنا جوازي اهترى لأنو الولد شخبط عليه وقطع منه صفحات. احكيلي كل واحد قديش بيدفع.",
+   "failed": [
+    "facts:25"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- أخوك: 100 دينار، لأن جواز سفره منتهي أو متبقي عليه أقل من 180 يوم.\n\n- أختك: 100 دينار، لأنها خارج البلاد.\n\n- أنت: 50 دينار، لأنك داخل البلاد.\n\nملاحظة: إذا كان جواز سفرك بهتر، يمكنك تجديده في مكاتب دائرة الأحوال المدنية والجوازات أو السفارات الأردنية والقنصليات في الخارج.",
+   "contexts": [
+    "جواز سفر بدل تالف - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+    "جواز سفر بدل تالف - الرسوم: 100 دينار",
+    "تجديد جواز السفر - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+    "تجديد جواز السفر - الوثائق المطلوبة: 3. الجواز المراد تجديده.",
+    "تجديد جواز السفر - الرسوم: 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم؛ 100 دينار لجواز السفر غير المنتهي أو متبقي اكثر من 180 يوم على انتهاءه؛ 100 دينار لمن هم خارج البلاد او ما يعادلها بعملة السفارة او القنصلية",
+    "جواز سفر لأول مرة - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+    "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged",
+    "passport_renewal",
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.971,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الرسوم: 100 دينار",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+     "ties": [
+      "passport_damaged",
+      "passport_renewal"
+     ],
+     "score": 0.968,
+     "resolved": [
+      "passport_damaged",
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 3. الجواز المراد تجديده.",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.945,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم؛ ",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.942,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات في الخارج.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged",
+    "passport_first_issue",
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.5,
+   "facts_missing": [
+    "25"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal",
+    "passport_first_issue",
+    "passport_damaged"
+   ],
+   "must_include": [
+    "100",
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-52",
+   "message_id": "dev-52-1",
+   "type": "long_story",
+   "question": "قصتي طويلة شوي: تزوجت قبل سنة، وما طلعنا دفتر عائلة لليوم لأنا كنا مشغولين بالشقة والعفش والشغل. هلأ زوجتي حامل وبدنا نرتب أمورنا. شو الرسوم اللي علينا عشان نطلع الدفتر؟ وكمان زوجتي جوازها منتهي وعمرها 26 وبدها تجدده، بس أهلي بقولوا لازم تاخد موافقتي، صح هالحكي؟",
+   "failed": [
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- رسوم دفتر العائلة:\n  - 2 دينار لإصدار دفتر العائلة.\n  - 10 دنانير غرامة إذا مرّ 90 يوماً على زواجك.\n\n- تجديد جواز سفر زوجتك:\n  - 25 ديناراً إذا قدمت الطلب في مكتب الخدمة المستعجلة.\n  - 20 ديناراً لأنها من أفراد القوات المسلحة الأردنية أو الأجهزة الأمنية أو الدفاع المدني أو المشاركين في قوات حفظ السلام.\n  - 20 ديناراً لأن جواز سفرها ممتلئ الصفحات وساري المفعول.\n  - 50 ديناراً لأنها فوق سن السادسة عشر بيوم وجواز السفر متبقي عليه أقل من 180 يوماً.\n\n- حول الموافقة:\n  - يحق للزوجة تجديد جواز سفرها دون موافقة زوجها. أهلك مخطئون في هذا الشأن.",
+   "contexts": [
+    "دفتر عائلة لأول مرة - شروط تقديم الخدمة: 5. أن يتم فتح السجل المدني قبل مرور (90) يوم من تاريخ عقد الزواج.",
+    "دفتر عائلة لأول مرة - الرسوم: رسوم إصدار الدفتر (2) دينار.؛ غرامة (10) دنانير في حال مرور (90) يوم من تاريخ عقد الزواج.",
+    "تجديد جواز السفر - شروط تقديم الخدمة: 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها.",
+    "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+    "تجديد جواز السفر - ملاحظات: 2. يضاف 25 دينار في حال قدم في مكتب الخدمة المستعجلة",
+    "تجديد جواز السفر - الرسوم: 20 دينار لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني والمشاركين بقوات حفظ السلام وفي حالة تغيير الحالة الإجتماعية وتغيير الصفة العسكرية الى المدنية وبالعكس؛ 25 دينار لمن هم دون السادسة عشر (16)؛ 20 دينار لجواز السفر الممتلئ الصفحات وساري المفعول؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم؛ 100 دينار لجواز السفر غير المنتهي أو متبقي اكثر من 180 يوم على انتهاءه"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue",
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة لأول مرة - شروط تقديم الخدمة: 5. أن يتم فتح السجل المدني قبل مرور (90) يوم من تاريخ عقد الزواج.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    },
+    {
+     "context": "دفتر عائلة لأول مرة - الرسوم: رسوم إصدار الدفتر (2) دينار.؛ غرامة (10) دنانير في حال مرور (90) يوم من تاريخ عقد الزواج.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - شروط تقديم الخدمة: 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها.",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.917,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.929,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - ملاحظات: 2. يضاف 25 دينار في حال قدم في مكتب الخدمة المستعجلة",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.874,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الرسوم: 20 دينار لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني والمشاركين بقوات حفظ ",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.964,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue",
+    "passport_damaged",
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue",
+    "passport_renewal"
+   ],
+   "must_include": [
+    "2",
+    "10",
+    "دون موافقة|بدون موافقة|لا تحتاج|لا يشترط",
+    "50"
+   ]
+  },
+  {
+   "chat_id": "dev-53",
+   "message_id": "dev-53-1",
+   "type": "long_story",
+   "question": "جدي عمره 70 سنة وتعبان وما بقدر يمشي كتير، هويته خلصت وبدو يجددها. ابن عمي عرض يروح يقدم عنه بدل ما ينزل هو. وكمان جدي بسأل إذا لازم يجيب صور معه، وكم بتكلف.",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "لتجديد بطاقة جدي:\n\n- لا يمكن تقديم الطلب نيابة عن الشخص، يجب أن يكون صاحب العلاقة هو من يقدم الطلب شخصياً.\n- لا حاجة لإحضار صور شخصية، ولكن في حال كانت الصورة على الوثيقة الحالية غير واضحة، يُطلب إحضار جواز سفر.\n- الرسوم: 2 دينار.\n\nملاحظات:\n- إذا كان جدي تعبان ولا يستطيع التحرك، يمكن لابن عمك تقديم الطلب نيابة عنه، ولكن يجب أن يكون مرافقاً له.\n- الزمن المستغرق لتقديم الخدمة: 20 دقيقة.",
+   "contexts": [
+    "تجديد البطاقة الذكية - شروط تقديم الخدمة: 2. إثبات شخصية (جواز سفر) في حال كانت الصورة الموجودة على الوثيقة غير واضحة أو إحضار معرف من الدرجة الاولى.",
+    "تجديد البطاقة الذكية - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+    "تجديد البطاقة الذكية - الرسوم: 2 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد البطاقة الذكية - شروط تقديم الخدمة: 2. إثبات شخصية (جواز سفر) في حال كانت الصورة الموجودة على الوثيقة غير واضحة أو",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.968,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    },
+    {
+     "context": "تجديد البطاقة الذكية - الزمن المستغرق لتقديم الخدمة: 20 دقيقة",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.974,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    },
+    {
+     "context": "تجديد البطاقة الذكية - الرسوم: 2 دينار",
+     "ties": [
+      "id_card_renewal"
+     ],
+     "score": 0.961,
+     "resolved": [
+      "id_card_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_renewal"
+   ],
+   "must_include": [
+    "شخصيا",
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-54",
+   "message_id": "dev-54-1",
+   "type": "wrong_assumption",
+   "question": "سمعت إنو الزوجة لازم تجيب موافقة جوزها عشان تطلع جواز بدل فاقد، صح؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "لا، ليس صحيحاً. يحق للزوجة أن تحصل على جواز سفر لها دون موافقة زوجها.",
+   "contexts": [
+    "جواز سفر بدل فاقد - شروط تقديم الخدمة: 5. يحق للزوجة ان تحصل على جواز سفر لها دون موافقة زوجها.",
+    "جواز سفر بدل فاقد - الوثائق المطلوبة: 9. الموافقة الامنية"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - شروط تقديم الخدمة: 5. يحق للزوجة ان تحصل على جواز سفر لها دون موافقة زوجها.",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 0.923,
+     "resolved": [
+      "passport_lost"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل فاقد - الوثائق المطلوبة: 9. الموافقة الامنية",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 0.952,
+     "resolved": [
+      "passport_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "دون موافقة|بدون موافقة|لا تحتاج|لا يشترط"
+   ]
+  },
+  {
+   "chat_id": "dev-55",
+   "message_id": "dev-55-1",
+   "type": "wrong_assumption",
+   "question": "صاحبي حكالي إنو الهوية بدل فاقد بتستلمها بنفس اليوم بعد 20 دقيقة، صح؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:اسبوعين"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "اسبوعين"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "اسبوعين"
+   ]
+  },
+  {
+   "chat_id": "dev-56",
+   "message_id": "dev-56-1",
+   "type": "wrong_assumption",
+   "question": "أكيد بقدر أبعت أخوي يقدم عني على بطاقة ذكية بدل تالف بوكالة، مش هيك؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "لا، لا يمكن تقديم الطلب بالوكالة. يشترط تقديم الطلب من صاحب العلاقة شخصياً أو من ولي الأمر في حال القاصر، ولا يقبل التوكيل أو التفويض.",
+   "contexts": [
+    "بطاقة ذكية بدل تالف - شروط تقديم الخدمة: 1. يقبل طلب الحصول على البطاقة الذكية التالفة من صاحب العلاقة شخصياً 2. في حال القاصر يقدم الطلب من ولي الأمر (الاب/الام) ولا يقبل التوكيل ولا التفويض بها. 3. إحضار ما يثبت شخصية الطالب أو شهادة احد أفراد الأسرة ممن يحملون وثائق رسمية"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية بدل تالف - شروط تقديم الخدمة: 1. يقبل طلب الحصول على البطاقة الذكية التالفة من صاحب العلاقة شخصياً 2. في حال ",
+     "ties": [
+      "id_card_damaged"
+     ],
+     "score": 0.964,
+     "resolved": [
+      "id_card_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "id_card_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_damaged"
+   ],
+   "must_include": [
+    "شخصيا"
+   ]
+  },
+  {
+   "chat_id": "dev-57",
+   "message_id": "dev-57-1",
+   "type": "wrong_assumption",
+   "question": "دفتر العائلة لأول مرة بنطلعه وقت ما بدنا وما في أي غرامة، صح؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة. \n\nوفقاً للمصادر، يجب فتح السجل المدني قبل مرور 90 يوم من تاريخ عقد الزواج، وهناك غرامة قدرها 10 دنانير في حال تأخر الفتح عن هذا الموعد.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [
+    10,
+    90
+   ],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "90",
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-58",
+   "message_id": "dev-58-1",
+   "type": "wrong_assumption",
+   "question": "الجواز لأول مرة لازم صاحبه يكون عمره 18 ويقدم بنفسه، يعني ابني اللي عمره 12 ما بقدر يطلعله جواز؟",
+   "failed": [
+    "facts:ولي الامر|الاب|الام"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "لا، ليس شرطاً أن يكون عمر صاحب الجواز الأول مرة 18 سنة، بل يجب أن يكون قد أكمل سن الثامنة عشر (18) أو أن يكون أحد أفراد أسرته البالغين حاضرين لتقديم الطلب نيابة عنه. كما أن هناك استثناءات أخرى مثل أن يكون حاصل على بطاقة شخصية لمن اتم سن السادسة عشر (16) أو أن يكون الزوج أو الزوجة قادرين على الحصول على جواز سفر دون موافقة الزوج.",
+   "contexts": [
+    "جواز سفر لأول مرة - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصيا لمن اتم سن الثامنة عشر (18) او أحد افراد الأسرة البالغين. 2. ان يكون حاصل على بطاقة شخصية لمن اتم سن السادسة عشر (16). 3. لولي الامر الاب/الام الحق في تقديم طلب الحصول على جواز سفر لأول مرة لأبنائه القاصرين. 4. للزوجة ان تحصل على جواز سفر لها دون موافقة زوجها. 5. حجة الولاية/الوصاية لغايات اصدار جواز السفر لمن يلزمهم ذلك.",
+    "جواز سفر لأول مرة - الوثائق المطلوبة: 8. جواز السفر الأجنبي لمن يحمله.",
+    "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصيا لمن اتم سن الثامنة عشر (18) او أحد افراد الأسرة البالغ",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.928,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الوثائق المطلوبة: 8. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.942,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "ولي الامر|الاب|الام"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "ولي الامر|الاب|الام"
+   ]
+  },
+  {
+   "chat_id": "dev-59",
+   "message_id": "dev-59-1",
+   "type": "unclear",
+   "question": "قديش الرسوم؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "هل تقصد استفسار عن رسوم إصدار جواز سفر أو تجديد جواز سفر أو بدل فاقد جواز سفر أو بدل تالف جواز سفر؟ يرجى تحديد نوع الوثيقة والخدمة المطلوبة من الخيارات أعلاه.",
+   "contexts": [],
+   "debug_status": "unclear",
+   "debug_services": [],
+   "text_status": "ok",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "unclear",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-60",
+   "message_id": "dev-60-1",
+   "type": "unclear",
+   "question": "ضاع مني، شو بعمل؟",
+   "failed": [
+    "grounded"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "ما الخدمة التي تحتاجها من الخيارات التالية؟ \n1. جواز سفر بدل فاقد\n2. دفتر عائلة بدل فاقد\n3. بطاقة ذكية بدل فاقد",
+   "contexts": [],
+   "debug_status": "unclear",
+   "debug_services": [],
+   "text_status": "ok",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [
+    1,
+    2,
+    3
+   ],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": true,
+   "expect_status": "unclear",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-61",
+   "message_id": "dev-61-1",
+   "type": "unclear",
+   "question": "اهترى وبدي بدالو، قديش بكلف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "ما الخدمة التي تحتاجها من الخيارات التالية؟\n\n- جواز سفر بدل تالف\n- دفتر عائلة بدل تالف\n- بطاقة ذكية بدل تالف",
+   "contexts": [],
+   "debug_status": "unclear",
+   "debug_services": [],
+   "text_status": "ok",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "unclear",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-62",
+   "message_id": "dev-62-1",
+   "type": "unclear",
+   "question": "بدي أطلع لأول مرة، وين بروح؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "ما الخدمة التي تحتاجها من الخيارات التالية؟ \nالخيارات: \n- جواز سفر لأول مرة\n- دفتر عائلة لأول مرة\n- بطاقة ذكية لأول مرة",
+   "contexts": [],
+   "debug_status": "unclear",
+   "debug_services": [],
+   "text_status": "ok",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "unclear",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-63",
+   "message_id": "dev-63-1",
+   "type": "not_in_data",
+   "question": "كم رسوم تصديق شهادة البكالوريوس من وزارة التعليم العالي؟",
+   "failed": [],
+   "labeled": true,
    "format_issues": [],
    "missing": false,
    "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
    "contexts": [],
-   "debug_status": null,
+   "debug_status": "out_of_scope",
    "debug_services": [],
    "text_status": "out_of_scope",
    "attribution": [],
-   "attributed_services": []
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-64",
+   "message_id": "dev-64-1",
+   "type": "not_in_data",
+   "question": "بدي أطلع شهادة ميلاد لابني الصغير، شو الأوراق المطلوبة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-65",
+   "message_id": "dev-65-1",
+   "type": "not_in_data",
+   "question": "قديش رسوم الجواز الدبلوماسي؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-66",
+   "message_id": "dev-66-1",
+   "type": "not_in_data",
+   "question": "كم سعر فيزا شنغن من السفارة الألمانية بعمان؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-67",
+   "message_id": "dev-67-1",
+   "type": "not_in_data",
+   "question": "قديش بتكلف شهادة عدم المحكومية؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-68",
+   "message_id": "dev-68-1",
+   "type": "not_in_data",
+   "question": "كم رسوم تجديد تصريح العمل للعامل الوافد؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-69",
+   "message_id": "dev-69-1",
+   "type": "unclear",
+   "question": "بدي أعمل تجديد، شو الأوراق اللي بدي إياها؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "ما الخدمة التي ترغب في معرفة الأوراق المطلوبة لها؟ \n\n- تجديد جواز السفر\n- تجديد دفتر العائلة\n- تجديد البطاقة الذكية",
+   "contexts": [],
+   "debug_status": "unclear",
+   "debug_services": [],
+   "text_status": "ok",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "unclear",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-69",
+   "message_id": "dev-69-2",
+   "type": "conversation",
+   "question": "الهوية",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:نموذج/تجديدها|القديمة|الحالية"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_renewal"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "نموذج",
+    "تجديدها|القديمة|الحالية"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_renewal"
+   ],
+   "must_include": [
+    "نموذج",
+    "تجديدها|القديمة|الحالية"
+   ]
+  },
+  {
+   "chat_id": "dev-70",
+   "message_id": "dev-70-1",
+   "type": "documents_conditions",
+   "question": "شو بحتاج عشان أطلع جواز سفر لأول مرة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- حضور صاحب العلاقة شخصيا (من أتم سن الثامنة عشر أو أحد أفراد الأسرة البالغين).\n- أن يكون حاصلًا على بطاقة شخصية (من أتم سن السادسة عشر).\n- موافقة المدير العام (لمن هم خارج المملكة).\n- البطاقة الشخصية لمتلقي الخدمة.\n- دفتر خدمة العلم (لمن يلزمهم ذلك).\n- بطاقات الجسور الصفراء (الهوية الفلسطينية/الإسرائيلية).\n- كتاب الموافقة من القيادة العامة (للعسكريين وزوجاتهم).\n- إثباتات الجنسية والإقامة (في حال عدم وجود ملف عائلي).\n- جواز السفر الأجنبي (لمن يحمله).\n- صور شخصية ملونة عدد 2.\n- حجة الوصاية/الولاية (لمن يلزمهم ذلك).",
+   "contexts": [
+    "جواز سفر لأول مرة - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصيا لمن اتم سن الثامنة عشر (18) او أحد افراد الأسرة البالغين. 2. ان يكون حاصل على بطاقة شخصية لمن اتم سن السادسة عشر (16). 3. لولي الامر الاب/الام الحق في تقديم طلب الحصول على جواز سفر لأول مرة لأبنائه القاصرين. 4. للزوجة ان تحصل على جواز سفر لها دون موافقة زوجها. 5. حجة الولاية/الوصاية لغايات اصدار جواز السفر لمن يلزمهم ذلك.",
+    "جواز سفر لأول مرة - الوثائق المطلوبة: 1. البطاقة الشخصية لمتلقي الخدمة 2. موافقة المدير العام لمن هم خارج المملكة 3. الجواز المضاف عليه الشخص لالغاء صفحة الاضافة. 4. دفتر خدمة العلم وقد تم تأجيله أو شهادة إنهاء الخدمة بالنسبة للذكور من المواليد المطلوبة لخدمة العلم. 5. بطاقات الجسور الصفراء الهوية الفلسطينية/الإسرائيلية لوتصريح الاحتلال لمن يحملها أو مشروحات المتابعة والتفتيش. 6. كتاب الموافقة من القيادة العامة للعسكريين وزوجاتهم. او كتاب شؤون الأفراد او الضباط لمنتسبي الأمن العام و الدفاع المدني والدرك و المخابرات العامة. 7. إثباتات الجنسية والإقامة الواردة في قانون الجنسية الأردني رقم 6 لسنة 1954 وتعديلاته في حال عدم وجود ملف عائلي لجواز السفر. 8. جواز السفر الأجنبي لمن يحمله. 9. صور شخصية ملونة عدد 2 10. حجة الوصاية/الولاية لغايات اصدار جواز السفر لمن يلزمهم ذلك."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصيا لمن اتم سن الثامنة عشر (18) او أحد افراد الأسرة البالغ",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.928,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الوثائق المطلوبة: 1. البطاقة الشخصية لمتلقي الخدمة 2. موافقة المدير العام لمن هم خارج المملكة 3. الج",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 0.997,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "البطاقة الشخصية",
+    "صور",
+    "خدمة العلم"
+   ]
+  },
+  {
+   "chat_id": "dev-70",
+   "message_id": "dev-70-2",
+   "type": "conversation",
+   "question": "وكم بتكلف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- (20 دينار) لأفراد القوات المسلحة الأردنية والأجهزة الأمنية والدفاع المدني المشاركين بقوات حفظ السلام.\n- (25 دينار) لمن هم دون سن 16.\n- 50 دينار داخل البلاد.\n- 100 دينار لمن هم خارج البلاد.",
+   "contexts": [
+    "جواز سفر لأول مرة - أماكن تقديم الخدمة: السفارات الأردنية والقنصليات في الخارج.",
+    "جواز سفر لأول مرة - الرسوم: (20 دينار) لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني المشاركين بقوات حفظ السلام؛ (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - أماكن تقديم الخدمة: السفارات الأردنية والقنصليات في الخارج.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    },
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (20 دينار) لأفراد القوات المسلحة الاردنية والاجهزة الامنية والدفاع المدني المشاركين بقوات حف",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "50",
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-70",
+   "message_id": "dev-70-3",
+   "type": "conversation",
+   "question": "وإذا كنت برا البلد؟",
+   "failed": [
+    "facts:100"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "50 دينار داخل البلاد.",
+   "contexts": [
+    "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر لأول مرة - الرسوم: (25 دينار) لمن هم دون سن 16؛ 50 دينار داخل البلاد؛ 100 دينار لمن هم خارج البلاد.",
+     "ties": [
+      "passport_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "100"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_first_issue"
+   ],
+   "must_include": [
+    "100"
+   ]
+  },
+  {
+   "chat_id": "dev-71",
+   "message_id": "dev-71-1",
+   "type": "simple_fact",
+   "question": "كم رسوم جواز سفر بدل فاقد إذا أول مرة بضيع؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "125 دينار.",
+   "contexts": [
+    "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل فاقد - الرسوم: 125 دينار للمرة الاولى",
+     "ties": [
+      "passport_lost"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_lost"
+   ],
+   "must_include": [
+    "125"
+   ]
+  },
+  {
+   "chat_id": "dev-71",
+   "message_id": "dev-71-2",
+   "type": "conversation",
+   "question": "وللهوية؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:5"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "5"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "5"
+   ]
+  },
+  {
+   "chat_id": "dev-71",
+   "message_id": "dev-71-3",
+   "type": "conversation",
+   "question": "وبقدر أطلعها من السفارة؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:مكاتب"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_lost"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "مكاتب"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_lost"
+   ],
+   "must_include": [
+    "مكاتب"
+   ]
+  },
+  {
+   "chat_id": "dev-72",
+   "message_id": "dev-72-1",
+   "type": "documents_conditions",
+   "question": "شو الأوراق المطلوبة لدفتر عائلة بدل تالف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- نموذج دفتر العائلة\n- دفتر العائلة التالف\n- البطاقة الشخصية لمقدم الطلب\n- التعهد الخطي للمحافظة على الدفتر تحدد قيمتها من قبل أمين المكتب (10 دنانير).\n- بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك.",
+   "contexts": [
+    "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. دفتر العائلة القديم 3. يجب ألا يكون قد تعرض لإتلاف متعمد",
+    "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف 3. البطاقة الشخصية لمقدم الطلب 4. التعهد الخطي للمحافظة على الدفتر تحدد قيمتها من قبل أمين المكتب (10 دنانير). 5. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك.",
+    "دفتر عائلة بدل تالف - الرسوم: 3 دنانير"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل تالف - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. دفتر العائلة القديم 3. يجب ألا ",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.967,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. دفتر العائلة التالف 3. البطاقة الشخصية لمقدم الطلب 4. ا",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.96,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل تالف - الرسوم: 3 دنانير",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "التالف",
+    "تعهد"
+   ]
+  },
+  {
+   "chat_id": "dev-72",
+   "message_id": "dev-72-2",
+   "type": "conversation",
+   "question": "وكم الرسوم؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "الرسوم:\n- 3 دنانير\n- استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار السابق.",
+   "contexts": [
+    "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل تالف - الرسوم: 3 دنانير؛ استيفاء قيمة التعهد السابق إذا حدث التلف خلال ثلاث سنوات (3) من تاريخ الإصدار ال",
+     "ties": [
+      "family_book_damaged"
+     ],
+     "score": 0.963,
+     "resolved": [
+      "family_book_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_damaged"
+   ],
+   "must_include": [
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-73",
+   "message_id": "dev-73-1",
+   "type": "simple_fact",
+   "question": "كم رسوم البطاقة الذكية لأول مرة؟",
+   "failed": [
+    "source_covers",
+    "source_precise"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "2 دينار.",
+   "contexts": [
+    "بطاقة ذكية لأول مرة - الرسوم: 2 دينار"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "بطاقة ذكية لأول مرة - الرسوم: 2 دينار",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.902,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "2"
+   ]
+  },
+  {
+   "chat_id": "dev-73",
+   "message_id": "dev-73-2",
+   "type": "conversation",
+   "question": "وإذا عمري 19 وما طلعتها لهلأ؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:10"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_first_issue"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "10"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_first_issue"
+   ],
+   "must_include": [
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-74",
+   "message_id": "dev-74-1",
+   "type": "documents_conditions",
+   "question": "ابني عمره 14 بدنا نجدد جوازه، بقدر أنا أمه أقدم عنه؟",
+   "failed": [
+    "facts:حق"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "نعم، يمكنك تقديم طلب تجديد جواز سفر ابنك القاصر (أقل من 18 سنة) دون الحاجة لحضوره شخصياً.",
+   "contexts": [
+    "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 5. يحق للزوجة تجديد جواز سفر لها دون موافقة زوجها.",
+    "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - شروط تقديم الخدمة: 1. حضور صاحب العلاقة شخصياً لمن أتم 18 سنة 5. يحق للزوجة تجديد جواز سفر لها دون مو",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.911,
+     "resolved": [
+      "passport_renewal"
+     ]
+    },
+    {
+     "context": "تجديد جواز السفر - الوثائق المطلوبة: 7. جواز السفر الأجنبي لمن يحمله.",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.929,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "حق"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "حق"
+   ]
+  },
+  {
+   "chat_id": "dev-74",
+   "message_id": "dev-74-2",
+   "type": "conversation",
+   "question": "وقديش الرسوم؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "حسب عمر ابنك، الرسوم هي: 25 دينار.\n\nملاحظة: هذا المبلغ ينطبق لأن عمر ابنك أقل من 16 سنة.",
+   "contexts": [
+    "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السفر منتهي او متبقي به اقل من (180) يوم"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_renewal"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "تجديد جواز السفر - الرسوم: 25 دينار لمن هم دون السادسة عشر (16)؛ 50 دينار لمن هم فوق سن السادسة عشر (16) بيوم وجواز السف",
+     "ties": [
+      "passport_renewal"
+     ],
+     "score": 0.886,
+     "resolved": [
+      "passport_renewal"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_renewal"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_renewal"
+   ],
+   "must_include": [
+    "25"
+   ]
+  },
+  {
+   "chat_id": "dev-75",
+   "message_id": "dev-75-1",
+   "type": "documents_conditions",
+   "question": "ضاع دفتر العيلة، شو المطلوب؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- تقديم طلب بدل فاقد دفتر العائلة.\n- أماكن التقديم: مكاتب دائرة الأحوال المدنية والجوازات أو السفارات والقنصليات الأردنية.\n- الشروط: أن يكون حامل البطاقة الشخصية الذكية.\n- الوثائق: نموذج دفتر العائلة، البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة)، بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش (إن لزم الأمر)، بلاغ المركز الأمني بالفقدان (إذا كان الفقدان داخل الأردن)، تعهد خطي بالفقدان للمرة الأولى والثانية (10 دنانير)، كفالة عدلية بقيمة 50 دينار للمرة الثالثة (مع تحصيل التعهدات السابقة إذا كان الفقدان خلال ثلاث سنوات).\n- الزمن المستغرق: 45 دقيقة.\n- الرسوم: 5 دنانير، تعهد خطي بقيمة 10 دنانير، استيفاء قيمة التعهد السابق إذا كان الفقدان خلال ثلاث سنوات (3).",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
+    "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. يقدم الطلب رب الاسرة او الزوجة فقط",
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة) 3. بطاقة إحصاءات الجسور الصفراء أو مشروحات المتابعة والتفتيش لمن يلزم ذلك. 4. بلاغ المركز الأمني بالفقدان إذا حدث الفقدان داخل البلاد أو من الجهة الأمنية في الدولة التي حدث فيها الفقدان. 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفقدان اكثر من ذلك يتم فرض الكفالة المالية بقيمة (50) دينار",
+    "دفتر عائلة بدل فاقد - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+    "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها مستقبلاً من الفقدان. 2. يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على كل من فقد دفتر العائلة للمرة الثانية ويتم تحصيل قيمة التعهد اذا تم الفقدان خلال ثلاث سنوات (3) 3. يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلته للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) اذا كان الفقدان خلال الثلاث سنوات (3).",
+    "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - أماكن تقديم الخدمة: مكاتب دائرة الأحوال المدنية والجوازات؛ السفارات الأردنية والقنصليات بالخارج",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.971,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - شروط تقديم الخدمة: 1. ان يكون حاصلاً على البطاقة الشخصية الذكية 2. يقدم الطلب رب الاسرة او الزوجة ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.957,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 2. البطاقة الشخصية لمقدم الطلب (رب الأسرة أو الزوجة) 3. بط",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.994,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.938,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.984,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "بلاغ",
+    "تعهد"
+   ]
+  },
+  {
+   "chat_id": "dev-75",
+   "message_id": "dev-75-2",
+   "type": "conversation",
+   "question": "وإذا ضاع مرة تانية بعد سنة من إصدار البدل؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- إذا فُقد دفتر العائلة للمرة الثانية، يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على حامل الوثيقة.\n- يتم تحصيل قيمة التعهد إذا تم الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق.",
+   "contexts": [
+    "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفقدان اكثر من ذلك يتم فرض الكفالة المالية بقيمة (50) دينار",
+    "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها مستقبلاً من الفقدان. 2. يتم فرض تعهد خطي بقيمة عشرة دنانير (10) على كل من فقد دفتر العائلة للمرة الثانية ويتم تحصيل قيمة التعهد اذا تم الفقدان خلال ثلاث سنوات (3) 3. يتم فرض كفالة عدلية بقيمة (50) دينار على كل من فقد دفتر عائلته للمرة الثالثة مع تحصيل قيمة التعهد المفروض في المرة الثانية وقيمة التعهد السابق عشرة دنانير (10) اذا كان الفقدان خلال الثلاث سنوات (3).",
+    "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث سنوات (3) من تاريخ الفقدان السابق."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_lost"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة بدل فاقد - الوثائق المطلوبة: 1. نموذج دفتر العائلة 5. تعهد خطي بالفقدان للمرة الاولى والثانية واذا تكرار الفق",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.976,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - ملاحظات: 1. يتم فرض تعهد بقيمة عشرة دنانير (10) على كل من فقد دفتر عائلته لأول مرة للمحافظة عليها ",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.938,
+     "resolved": [
+      "family_book_lost"
+     ]
+    },
+    {
+     "context": "دفتر عائلة بدل فاقد - الرسوم: 5 دنانير؛ تعهد خطي بقيمة (10) دنانير؛ استيفاء قيمة التعهد السابق إذا حدث الفقدان خلال ثلاث",
+     "ties": [
+      "family_book_lost"
+     ],
+     "score": 0.984,
+     "resolved": [
+      "family_book_lost"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_lost"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_lost"
+   ],
+   "must_include": [
+    "10"
+   ]
+  },
+  {
+   "chat_id": "dev-76",
+   "message_id": "dev-76-1",
+   "type": "not_in_data",
+   "question": "كم رسوم تجديد رخصة السواقة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي معلومات عن هذا الموضوع. أستطيع المساعدة فقط في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية (الإصدار لأول مرة، التجديد، بدل فاقد، بدل تالف).",
+   "contexts": [],
+   "debug_status": "out_of_scope",
+   "debug_services": [],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": null,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "out_of_scope",
+   "expect_services": [],
+   "must_include": []
+  },
+  {
+   "chat_id": "dev-76",
+   "message_id": "dev-76-2",
+   "type": "conversation",
+   "question": "طيب والبطاقة الذكية بدل تالف قديش؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:3"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "id_card_damaged"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "3"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "id_card_damaged"
+   ],
+   "must_include": [
+    "3"
+   ]
+  },
+  {
+   "chat_id": "dev-77",
+   "message_id": "dev-77-1",
+   "type": "simple_fact",
+   "question": "كم بتاخد وقت معاملة جواز بدل تالف؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "45 دقيقة.",
+   "contexts": [
+    "جواز سفر بدل تالف - الزمن المستغرق لتقديم الخدمة: 45 دقيقة"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - الزمن المستغرق لتقديم الخدمة: 45 دقيقة",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_damaged"
+   ],
+   "must_include": [
+    "45"
+   ]
+  },
+  {
+   "chat_id": "dev-77",
+   "message_id": "dev-77-2",
+   "type": "conversation",
+   "question": "وبقدر أقدم عليه من القنصلية إذا كنت مسافر؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "أماكن تقديم خدمة جواز سفر بدل تالف من خارج الأردن:\n- السفارات الأردنية والقنصليات في الخارج.",
+   "contexts": [
+    "جواز سفر بدل تالف - أماكن تقديم الخدمة: السفارات الأردنية والقنصليات في الخارج.",
+    "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف"
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "passport_damaged"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "جواز سفر بدل تالف - أماكن تقديم الخدمة: السفارات الأردنية والقنصليات في الخارج.",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.962,
+     "resolved": [
+      "passport_damaged"
+     ]
+    },
+    {
+     "context": "جواز سفر بدل تالف - الوثائق المطلوبة: 2. جواز السفر التالف",
+     "ties": [
+      "passport_damaged"
+     ],
+     "score": 0.952,
+     "resolved": [
+      "passport_damaged"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "passport_damaged"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "passport_damaged"
+   ],
+   "must_include": [
+    "السفار|القنصلي"
+   ]
+  },
+  {
+   "chat_id": "dev-78",
+   "message_id": "dev-78-1",
+   "type": "documents_conditions",
+   "question": "شو شروط إصدار دفتر عائلة لأول مرة؟",
+   "failed": [],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "- ان تكون واقعة الزواج/الطلاق (للمطلقة التي ترغب بفتح سجل منفصل عن دفتر عائلة والدها) مدخله حاسوبيا.\n- ان يكون الزوجين حاصلين على بطاقة ذكية (للأردنيين).\n- ان يقدم الطلب من قبل أحد الزوجين.\n- إذا كانت إقامة صاحب العلاقة خلافا للإقامة المثبتة على البطاقة الشخصية يقدم إثباتات الإقامة الجديدة حسب شروط تغيير مكان الإقامة.\n- أن يتم فتح السجل المدني قبل مرور (90) يوم من تاريخ عقد الزواج.",
+   "contexts": [
+    "دفتر عائلة لأول مرة - شروط تقديم الخدمة: 1. ان تكون واقعة الزواج/الطلاق (للمطلقة التي ترغب بفتح سجل منفصل عن دفتر عائلة والدها) مدخله حاسوبيا. 2. ان يكون الزوجين حاصلين على بطاقة ذكية (للأردنيين). 3. ان يقدم الطلب من قبل أحد الزوجين. 4. إذا كانت إقامة صاحب العلاقة خلافا للإقامة المثبتة على البطاقة الشخصية يقدم إثباتات الإقامة الجديدة حسب شروط تغيير مكان الإقامة. 5. أن يتم فتح السجل المدني قبل مرور (90) يوم من تاريخ عقد الزواج.",
+    "دفتر عائلة لأول مرة - الرسوم: غرامة (10) دنانير في حال مرور (90) يوم من تاريخ عقد الزواج."
+   ],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "ok",
+   "attribution": [
+    {
+     "context": "دفتر عائلة لأول مرة - شروط تقديم الخدمة: 1. ان تكون واقعة الزواج/الطلاق (للمطلقة التي ترغب بفتح سجل منفصل عن دفتر عائلة ",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 1.0,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    },
+    {
+     "context": "دفتر عائلة لأول مرة - الرسوم: غرامة (10) دنانير في حال مرور (90) يوم من تاريخ عقد الزواج.",
+     "ties": [
+      "family_book_first_issue"
+     ],
+     "score": 0.954,
+     "resolved": [
+      "family_book_first_issue"
+     ]
+    }
+   ],
+   "attributed_services": [
+    "family_book_first_issue"
+   ],
+   "status_ok": true,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 1.0,
+   "facts_missing": [],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": true,
+   "source_precise": true,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": true,
+   "pass": true,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "90",
+    "بطاقة ذكية|البطاقة الذكية",
+    "حاسوبيا"
+   ]
+  },
+  {
+   "chat_id": "dev-78",
+   "message_id": "dev-78-2",
+   "type": "conversation",
+   "question": "وإذا تأخرنا عن هالمدة؟",
+   "failed": [
+    "status",
+    "source_covers",
+    "source_precise",
+    "grounded",
+    "facts:10"
+   ],
+   "labeled": true,
+   "format_issues": [],
+   "missing": false,
+   "answer": "عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.",
+   "contexts": [],
+   "debug_status": "ok",
+   "debug_services": [
+    "family_book_first_issue"
+   ],
+   "text_status": "out_of_scope",
+   "attribution": [],
+   "attributed_services": [],
+   "status_ok": false,
+   "debug_status_ok": true,
+   "debug_services_ok": true,
+   "facts": 0.0,
+   "facts_missing": [
+    "10"
+   ],
+   "wrong_values": [],
+   "wrong": false,
+   "source_covers": false,
+   "source_precise": false,
+   "ungrounded_numbers": [],
+   "derived_numbers": [],
+   "grounded": false,
+   "pass": false,
+   "expect_status": "ok",
+   "expect_services": [
+    "family_book_first_issue"
+   ],
+   "must_include": [
+    "10"
+   ]
   }
  ]
 }
