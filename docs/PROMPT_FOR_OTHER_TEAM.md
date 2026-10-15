@@ -17,6 +17,7 @@ Work on branch `feature/gov-chatbot` (GitHub: ahmadsh2007/AI-Future-26).
 - The model has no thinking mode (`ollama show` lists only completion and tools). Improve prompt and code, not reasoning mode.
 
 ## What to fix, in priority order
+0. **Out-of-scope declines are never model-written (7 of 7 in the dev run).** The model's decline (e.g. `أنا آسف، لا يمكنني الإجابة على هذا السؤال…`) is rejected by `_is_decline` / `DECLINE_WORDS` in `bot/answer.py`, so the fixed template is always used. Add the wording the model really uses and check that valid declines are accepted. This keeps declines model-generated, as the organizers require.
 1. **False declines (14 questions).** Routing is correct, yet the model copies the refusal sentence from rule 2 of `SYSTEM_ANSWER` ("عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.") even when the answer is in the sources, mostly on short follow-ups and some fee questions. Ideas: retry once with a prompt that has no ready-made refusal sentence when routing is ok; accept the decline only if the retry also declines; rewrite follow-ups into standalone questions in code.
 2. **Wrong fee line / missing list items (15 questions).** Extend `bot/facts.py` so it produces one explicit "applicable fee line" hint (exact source sentence plus computed total, e.g. 50 + 25 = 75) and make the prompt copy it. For documents or conditions questions make sure the full list is returned.
 3. **Conversation follow-ups** (bonus category, can only add points): inherited service and situation must reach the prompt and the fee hints.
