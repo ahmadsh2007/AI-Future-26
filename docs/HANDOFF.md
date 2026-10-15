@@ -15,6 +15,8 @@ For the team taking over the code. When you are done, commit on `feature/gov-cha
 - Question types in the hidden set: simple fact, fee depending on the person (age / expired / abroad / times lost), documents & conditions, facts hidden in notes, comparison, Jordanian dialect, conversation follow-ups (bonus), long stories, wrong assumptions to correct, unclear (ask), not in data (decline).
 - Format rules: keep `chats / chat_id / messages / message_id / question` untouched; answer EVERY message (missing = 0); UTF-8; catch errors per message.
 
+- **Required refusal wording: none is mandated.** The brief only says that for questions not in the data the bot "says it doesn't know; invents nothing" (and "says it doesn't have that information instead of inventing an answer"), and that unclear questions get a question asking which document is meant. The only concrete text from the organizers is the reference answer in `answers_example.json` for the flight-ticket question, with `contexts = []`: `عذراً، لا تتوفر لدي معلومات عن أسعار تذاكر الطيران. أستطيع المساعدة في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية فقط.` Answers are compared with a reference answer, so any clear Arabic statement that the bot does not have the information (and what it can help with) is fine. The project owner's original instruction (before the official pack) was the short phrase `لا أعرف`; including both `لا أعرف` and `لا تتوفر لدي معلومات` in a decline covers both.
+
 ## 2. Repository state
 
 | Branch | Content |

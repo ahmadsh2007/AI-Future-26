@@ -16,6 +16,8 @@ Work on branch `feature/gov-chatbot` (GitHub: ahmadsh2007/AI-Future-26).
 - Judging: (1) correct answer for the user's situation, nothing wrong added; out-of-scope declined; unclear questions get a clarifying question; (2) `contexts` come from the right service(s); (3) the answer is supported by `contexts`.
 - The model has no thinking mode (`ollama show` lists only completion and tools). Improve prompt and code, not reasoning mode.
 
+- Refusal wording: the organizers did NOT mandate a fixed string. Their only example (flight-ticket question, `contexts = []`) is: `عذراً، لا تتوفر لدي معلومات عن أسعار تذاكر الطيران. أستطيع المساعدة في خدمات جواز السفر ودفتر العائلة والبطاقة الذكية فقط.` Unclear questions must ask which document is meant.
+
 ## What to fix, in priority order
 0. **Out-of-scope declines are never model-written (7 of 7 in the dev run).** The model's decline (e.g. `أنا آسف، لا يمكنني الإجابة على هذا السؤال…`) is rejected by `_is_decline` / `DECLINE_WORDS` in `bot/answer.py`, so the fixed template is always used. Add the wording the model really uses and check that valid declines are accepted. This keeps declines model-generated, as the organizers require.
 1. **False declines (14 questions).** Routing is correct, yet the model copies the refusal sentence from rule 2 of `SYSTEM_ANSWER` ("عذراً، لا تتوفر لدي هذه المعلومة في وثائق الخدمة.") even when the answer is in the sources, mostly on short follow-ups and some fee questions. Ideas: retry once with a prompt that has no ready-made refusal sentence when routing is ok; accept the decline only if the retry also declines; rewrite follow-ups into standalone questions in code.
