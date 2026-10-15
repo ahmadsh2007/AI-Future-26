@@ -49,12 +49,13 @@ CONTEXT_MIN_SIM = float(os.getenv("CONTEXT_MIN_SIM", _default_thr[1]))
 # ---------------------------------------------------------------- LLM
 # LLM_BACKEND: "ollama" | "openai" (vLLM / LM Studio / llama.cpp server) | "hf" (transformers)
 LLM_BACKEND = os.getenv("LLM_BACKEND", "ollama")
-LLM_MODEL = os.getenv("LLM_MODEL", "qwen3:8b")  # ollama tag, OpenAI model name, or HF repo/local path
+LLM_MODEL = os.getenv("LLM_MODEL", "command-r7b-arabic:7b")  # ollama tag, OpenAI model name, or HF repo/local path
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:8000/v1")  # openai backend only
 LLM_API_KEY = os.getenv("LLM_API_KEY", "EMPTY")
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.0"))
 LLM_MAX_NEW_TOKENS = int(os.getenv("LLM_MAX_NEW_TOKENS", "300"))
 LLM_NUM_CTX = int(os.getenv("LLM_NUM_CTX", "8192"))  # ollama context window
+LLM_THINK_TOKENS = int(os.getenv("LLM_THINK_TOKENS", "1500"))  # budget when thinking mode is used (gov_bot fee questions)
 
 # Prompt language: "ar" (Arabic system prompt) or "en" (English system prompt, Arabic answer).
 # Try both on the day with the real model - whichever refuses more reliably wins.

@@ -63,13 +63,20 @@ def _rerank(question: str, chunks: list[dict]) -> list[dict]:
 _hf = {}
 
 
-def generate(messages: list[dict]) -> str:
+def generate(messages: list[dict], think: bool = False) -> str:
     b = config.LLM_BACKEND
     if b == "ollama":
         import ollama
-        r = ollama.chat(model=config.LLM_MODEL, messages=messages, think=False,
-                        options={"temperature": config.LLM_TEMPERATURE, "num_ctx": config.LLM_NUM_CTX,
-                                 "num_predict": config.LLM_MAX_NEW_TOKENS})
+        def call(th):
+            return ollama.chat(model=config.LLM_MODEL, messages=messages, think=th,
+                               options={"temperature": config.LLM_TEMPERATURE, "num_ctx": config.LLM_NUM_CTX,
+                                        "num_predict": config.LLM_THINK_TOKENS if th else config.LLM_MAX_NEW_TOKENS})
+        try:
+            r = call(think)
+        except ollama.ResponseError:   # model without thinking support (e.g. qwen2.5)
+            if not think:
+                raise
+            r = call(False)
         return r["message"]["content"]
     if b == "openai":
         from openai import OpenAI  # pip install openai (only for this backend)
